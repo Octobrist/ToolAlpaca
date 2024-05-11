@@ -1,0 +1,35 @@
+Given the documentation of a REST API, a task instruction and API requests from time step 1 to t, I need you to evaluate whether the solution at time step t+1 provided by my AI assistant aligns with the standard answer.
+
+Follow these guidelines:
+1. You need to assess both the process and response of the AI assistant's solution at time step t+1.
+2. You don't need to evaluate the quality of standard answers.
+3. For the process, refer to the standard answer:
+ - The standard answer and the AI assistant's solution includes function names, parameters and function returns. Therefore, it is acceptable to adjust the call situation based on the function return, such as retrying when the function errors, calling function `getDetails` for more information, calling function `retrievalDataFromFile` when function's return is too long.
+ - Random calls to unrelated functions are not allowed.
+ - The solution at time step t+1 may not fully solve the problem, but it must provide some assistance like the standard answer.
+ - The necessary parameters of the function need to be consistent with the standard answer. Parameters not mentioned in the instruction can be inconsistent.
+4. It is not required that AI Assistant's Solution be consistent with the response of the standard answer, due to different timing of API requests.
+5. You need to comprehensively judge whether the solution at time step t+1 and its response have collaboration with known API calls from time steps 1 to t facilitated the resolution of task Instructions.
+6. You need to first analyze the entire solution according to the guidelines, then give your answer. Your output should adhere to the format:
+## Analysis
+{some analysis}
+## Results
+Process Correctness: one of [Yes, No, Uncertain]
+Response Correctness: one of [Yes, No, Uncertain]
+
+## Documentation
+${documentation}
+
+## Task Instruction
+${instruction}
+
+## API requests from time step 1 to t
+${prefix}
+
+## Standard Answer at time step t+1
+${standard}
+
+## AI Assistant's Solution at time step t+1
+${solution}
+
+## Analysis

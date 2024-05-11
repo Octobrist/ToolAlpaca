@@ -35,8 +35,6 @@ def get_instance_intermediate_steps(input_data, step):
 parser = argparse.ArgumentParser()
 parser.add_argument("-api", "--api_data_path", type=str, required=True)
 parser.add_argument("-inp", "--input_data_path", type=str, default=None)
-parser.add_argument("-out", "--output_dir", type=str, required=True)
-parser.add_argument("-llm", type=str, default=None)
 parser.add_argument("--server_url", type=str, default="http://127.0.0.1:5678")
 parser.add_argument("--agent_prompt", type=str, default="train_v2")
 parser.add_argument("--device", type=int, default=0)
@@ -81,15 +79,13 @@ api_data = json.load(open(args.api_data_path, "r"))
 golden_data = json.load(open('/home/huan/projects/ToolAlpaca/golden-eval_real.json'))
 golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct.json'))
 
-final_output_path = os.path.join(args.output_dir, f"single-api/{args.llm.split('/')[-1]}_real.json")
-
 if args.use_cache:
     res = requests.get(f"{args.server_url}/__simulator_cache__/open")
 
 count = 0
 total_api = 0
 for api_idx, api in tqdm(enumerate(api_data)):
-    api["Instances"] = []
+    assert len(api["Instances"]) == len(api['Golden_Answers'])
     if "Instructions" not in api or len(api["Instructions"]) == 0:
         continue
     openapi_spec = load_openapi_spec(api["Documentation"])
@@ -112,36 +108,40 @@ for api_idx, api in tqdm(enumerate(api_data)):
             if len(api.get("Authentication", [])) > 0:
                 inst += "\nAuthentication information: " + \
                       " ".join([f"{k}={v}" for k, v in api["Authentication"].items()])
-            outputs = {}
             for cur_step in range(len(api['Golden_Answers'][idx])):
                 total_api += 1
                 pre_steps = get_instance_intermediate_steps(golden_data[api_idx]['Instances'][idx]['intermediate_steps'], cur_step)
-                try:
-                    output = agent(
-                        {
-                            'input': inst,
-                            'intermediate_steps':pre_steps,
-                        }
-                    )
-                    json.dumps(output, ensure_ascii=4)
-                except json.JSONDecodeError:
-                    output = str(output)
-                except Exception as e:
-                    logger.error(e)
-                    output = {"error": str(e)}
+                if isinstance(api["Instances"][idx][str(cur_step)], dict) \
+                        and 'error' in api["Instances"][idx][str(cur_step)].keys() \
+                        and 'Did not get output keys that were expected.' in api["Instances"][idx][str(cur_step)]['error']:
+                    try:
+                        if args.feedback_type == 'static':
+                            output = agent(
+                                {
+                                    'input': inst,
+                                    'intermediate_steps': pre_steps,
+                                    'golden': golden_data[api_idx]['Instances'][idx]['intermediate_steps'][cur_step]
+                                }
+                            )
+                        else:
+                            output = agent(
+                                {
+                                    'input': inst,
+                                    'intermediate_steps': pre_steps,
+                                }
+                            )
+                        json.dumps(output, ensure_ascii=4)
+                    except json.JSONDecodeError:
+                        output = str(output)
+                    except Exception as e:
+                        logger.error(e)
+                        output = {"error": str(e)}
 
-                if args.use_cache:
-                    res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
-                    print(res.text)
-                outputs[cur_step] = output
-            Answers.append(outputs)
-
-        api["Instances"] = Answers
-        json.dump(
-            api_data,
-            open(final_output_path, "w", encoding="utf-8"),
-            indent=4,
-            ensure_ascii=False
-        )
+                    if args.use_cache:
+                        res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
+                        print(res.text)
+                    api_data[api_idx]['Instances'][idx][str(cur_step)] = output
 print(count)
 print(total_api)
+with open(args.api_data_path.replace('_real', '_real_fix'), 'w') as file:
+    json.dump(api_data, file, indent=4)

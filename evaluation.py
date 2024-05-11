@@ -47,8 +47,9 @@ if __name__ == "__main__":
         exist_ids = {i: [j["id"] for j in original_data[i]] for i in original_data if i != "statistics"}
 
     retry_cases = None
-
+    index = 0
     for api_info in api_data:
+
         api_name = api_info.get("Name", api_info.get("API"))
         if retry_cases is not None and api_name not in retry_cases:
             continue
@@ -74,11 +75,11 @@ if __name__ == "__main__":
             standard_answer = ""
             for ans_id, ans in enumerate(golden_answer):
                 standard_answer += f"{ans_id + 1}. Function: {ans['Action']}\nParameters: {ans['Action_Input']}\n"
-            
+
             solution = ""
             for sol_id, sol in enumerate(api_info["Instances"][ques_id]["intermediate_steps"]):
                 solution += f"{sol_id + 1}. Function: {sol[0][0]}\nParameters: {sol[0][1]}\nRetruns: {sol[1]}\n"
-            solution += f"{sol_id + 2}. Final Response: {api_info['Instances'][ques_id]['output']}"
+            # solution += f"{sol_id + 2}. Final Response: {api_info['Instances'][ques_id]['output']}"
 
             prompt = template.substitute(
                 documentation=api_info["NLDocumentation"],
@@ -86,17 +87,21 @@ if __name__ == "__main__":
                 standard=standard_answer,
                 solution=solution
             )
-            
+
             prompt = [{"role": "user", "content": prompt}]
             output = openai_chat_completions(prompt, model="gpt-4-0613", temperature=0.2)
+            print(index)
+            index = index + 1
             text = output["choices"][0]["message"]["content"]
-            
+
             results_text = text.split('## Results', 1)[-1]
 
             process_correctness_match = re.search('Process Correctness: (\w+)', results_text)
+
             process_correctness_word = process_correctness_match.group(1) if process_correctness_match else ""
 
             final_response_correctness_match = re.search('Final Response Correctness: (\w+)', results_text)
+
             final_response_correctness_word = final_response_correctness_match.group(1) if final_response_correctness_match else ""
 
             tmp = {
@@ -113,7 +118,7 @@ if __name__ == "__main__":
                 original_data["statistics"]["both"] += 1
 
             original_data[api_name].append(tmp)
-            
+
             json.dump(
                 original_data,
                 open(os.path.join(args.output_path), "w"),

@@ -9,6 +9,8 @@ from fastapi import FastAPI, Path, Request
 from fastapi.responses import JSONResponse
 
 from utils import async_openai_chat_completions, parse_json_string
+os.environ["http_proxy"] = "http://localhost:7890"
+os.environ["https_proxy"] = "http://localhost:7890"
 
 
 parser = argparse.ArgumentParser()
@@ -31,6 +33,7 @@ USE_CACHE = True
 
 
 def generate_request(method, api_name, request_url, headers, data):
+    print(method, api_name, request_url)
     api_url = json.loads(apis[api_name]["Documentation"])["servers"][0]["url"]
     api_url = api_url[:-1] if api_url[-1] == "/" else api_url
     function_url = str(request_url).replace(f"{local_url}/{api_name}", api_url)
@@ -59,7 +62,7 @@ def get_input(api_name, request):
 
 
 async def _get_response(prompt):
-    output = await async_openai_chat_completions(prompt, temperature=0.5)
+    output = await async_openai_chat_completions(prompt, model='gpt-3.5-turbo', temperature=0.5)
     usage = output["usage"]["total_tokens"]
     output = output["choices"][0]["message"]["content"]
     print(output)

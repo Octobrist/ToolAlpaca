@@ -43,7 +43,7 @@ train_prompt_v2 = {
 
 prefix_test = """A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions with the help of some tools.
 You have access to the following tools:"""
-
+# You don't need to generate ASSISTANT Observation.
 suffix_test = """Begin!
 
 USER: {input}

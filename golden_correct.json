@@ -1,0 +1,457 @@
+[
+    {
+        "api": "Nager.Date",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 1,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 4,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 5,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 6,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 7,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 8,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 9,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 10,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 11,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 12,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 13,
+        "steps": 1
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 14,
+        "steps": 2
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 15,
+        "steps": 2
+    },
+    {
+        "api": "Nager.Date",
+        "idx": 16,
+        "steps": 1
+    },
+    {
+        "api": "airportsapi",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "airportsapi",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "airportsapi",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "airportsapi",
+        "idx": 5,
+        "steps": 2
+    },
+    {
+        "api": "airportsapi",
+        "idx": 6,
+        "steps": 1
+    },
+    {
+        "api": "AviationAPI",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "AviationAPI",
+        "idx": 1,
+        "steps": 1
+    },
+    {
+        "api": "AviationAPI",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "AviationAPI",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "AviationAPI",
+        "idx": 4,
+        "steps": 1
+    },
+    {
+        "api": "AviationAPI",
+        "idx": 11,
+        "steps": 2
+    },
+    {
+        "api": "AviationAPI",
+        "idx": 12,
+        "steps": 2
+    },
+    {
+        "api": "chucknorris.io",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "chucknorris.io",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "chucknorris.io",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "chucknorris.io",
+        "idx": 4,
+        "steps": 1
+    },
+    {
+        "api": "chucknorris.io",
+        "idx": 5,
+        "steps": 3
+    },
+    {
+        "api": "Random Useless Facts",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "Random Useless Facts",
+        "idx": 1,
+        "steps": 1
+    },
+    {
+        "api": "Random Useless Facts",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "Random Useless Facts",
+        "idx": 5,
+        "steps": 5
+    },
+    {
+        "api": "apilayer weatherstack",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "apilayer weatherstack",
+        "idx": 1,
+        "steps": 3
+    },
+    {
+        "api": "apilayer weatherstack",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "apilayer weatherstack",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "apilayer weatherstack",
+        "idx": 4,
+        "steps": 3
+    },
+    {
+        "api": "apilayer weatherstack",
+        "idx": 5,
+        "steps": 1
+    },
+    {
+        "api": "apilayer weatherstack",
+        "idx": 6,
+        "steps": 1
+    },
+    {
+        "api": "apilayer weatherstack",
+        "idx": 7,
+        "steps": 1
+    },
+    {
+        "api": "apilayer weatherstack",
+        "idx": 8,
+        "steps": 3
+    },
+    {
+        "api": "apilayer weatherstack",
+        "idx": 9,
+        "steps": 1
+    },
+    {
+        "api": "Free Dictionary",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "Free Dictionary",
+        "idx": 1,
+        "steps": 1
+    },
+    {
+        "api": "Free Dictionary",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "Free Dictionary",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "Free Dictionary",
+        "idx": 4,
+        "steps": 2
+    },
+    {
+        "api": "Free Dictionary",
+        "idx": 5,
+        "steps": 1
+    },
+    {
+        "api": "Free Dictionary",
+        "idx": 6,
+        "steps": 1
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 1,
+        "steps": 1
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 4,
+        "steps": 1
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 5,
+        "steps": 1
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 6,
+        "steps": 1
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 7,
+        "steps": 1
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 8,
+        "steps": 1
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 9,
+        "steps": 1
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 10,
+        "steps": 2
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 11,
+        "steps": 2
+    },
+    {
+        "api": "WolframAlpha",
+        "idx": 12,
+        "steps": 2
+    },
+    {
+        "api": "Fruityvice",
+        "idx": 1,
+        "steps": 1
+    },
+    {
+        "api": "Fruityvice",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "Fruityvice",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "Fruityvice",
+        "idx": 4,
+        "steps": 1
+    },
+    {
+        "api": "Fruityvice",
+        "idx": 6,
+        "steps": 1
+    },
+    {
+        "api": "Cataas",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "Cataas",
+        "idx": 1,
+        "steps": 1
+    },
+    {
+        "api": "Cataas",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "Cataas",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "Cataas",
+        "idx": 4,
+        "steps": 1
+    },
+    {
+        "api": "Cataas",
+        "idx": 5,
+        "steps": 3
+    },
+    {
+        "api": "Cataas",
+        "idx": 6,
+        "steps": 1
+    },
+    {
+        "api": "Cataas",
+        "idx": 8,
+        "steps": 1
+    },
+    {
+        "api": "Cataas",
+        "idx": 10,
+        "steps": 1
+    },
+    {
+        "api": "Cataas",
+        "idx": 11,
+        "steps": 1
+    },
+    {
+        "api": "CurrencyBeacon",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "CurrencyBeacon",
+        "idx": 1,
+        "steps": 1
+    },
+    {
+        "api": "CurrencyBeacon",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "CurrencyBeacon",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "CurrencyBeacon",
+        "idx": 6,
+        "steps": 1
+    },
+    {
+        "api": "CurrencyBeacon",
+        "idx": 7,
+        "steps": 1
+    },
+    {
+        "api": "CurrencyBeacon",
+        "idx": 9,
+        "steps": 2
+    },
+    {
+        "api": "CurrencyBeacon",
+        "idx": 10,
+        "steps": 2
+    }
+]

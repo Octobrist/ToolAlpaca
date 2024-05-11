@@ -21,8 +21,8 @@ from tenacity import (
     retry_base,
 )
 
-openai.api_base = os.getenv("OPENAI_API_BASE")
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_base = "https://api.huiyan-ai.cn/v1"
+openai.api_key = "sk-UTsTKP7fGYJI2HT22e4899C0A92a4b01Bd182a9021F7C5B3"
 
 def create_retry_decorator(
     max_retries: int = 5
@@ -64,7 +64,8 @@ def openai_chat_completions(
 ):
     if model is None:
         model = os.getenv("OPENAI_DEFAULT_MODEL", "gpt-3.5-turbo")
-
+    if model == 'gpt-4-0613':
+        openai.api_key = 'sk-wWuauIF02aZbs8tnFaF448D518Ac43149d09287147534e6a'
     retry_decorator = create_retry_decorator(max_retries)
 
     @retry_decorator
@@ -213,6 +214,10 @@ def parse_json_string(json_string, load=True):
 
     valid_json_string = json_string[json_start:json_end]
     if load:
-        return json.loads(valid_json_string)
+        try:
+            json_s = json.loads(valid_json_string)
+        except:
+            json_s = eval(valid_json_string)
+        return json_s
     else:
         return valid_json_string

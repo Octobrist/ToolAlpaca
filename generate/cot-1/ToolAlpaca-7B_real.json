@@ -184,6 +184,246 @@
                     "Action_Input": "{\"year\": 2023, \"countryCode\": \"DE\"}"
                 }
             ]
+        ],
+        "Instances": [
+            {
+                "input": "Can you check if today is a public holiday in China?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "PublicHolidayIsTodayPublicHoliday",
+                            "{\"countryCode\": \"CN\", \"offset\": 0}",
+                            " I need to use the PublicHolidayIsTodayPublicHoliday tool to check if today is a public holiday in China.\nASSISTANT Action: PublicHolidayIsTodayPublicHoliday\nASSISTANT Action Input: {\"countryCode\": \"CN\", \"offset\": 0}"
+                        ],
+                        "Status Code: 204. Response: "
+                    ]
+                ]
+            },
+            {
+                "input": "Get the country info for China.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "CountryCountryInfo",
+                            "{\"countryCode\": \"cn\"}",
+                            " I need to use the CountryCountryInfo tool to get the country info for China.\nASSISTANT Action: CountryCountryInfo\nASSISTANT Action Input: {\"countryCode\": \"cn\"}"
+                        ],
+                        "Status Code: 200. Response: {\"commonName\":\"China\",\"officialName\":\"People's Republic of China\",\"countryCode\":\"CN\",\"region\":\"Asia\",\"borders\":[\"AFG\",\"BTN\",\"MMR\",\"HKG\",\"IND\",\"KAZ\",\"PRK\",\"KGZ\",\"LAO\",\"MAC\",\"MNG\",\"PAK\",\"RUS\",\"TJK\",\"VNM\"]}"
+                    ]
+                ]
+            },
+            {
+                "input": "Get the list of all available countries for public holiday information.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "CountryAvailableCountries",
+                            "{}",
+                            " I need to use the CountryAvailableCountries tool to get the list of all available countries.\nASSISTANT Action: CountryAvailableCountries\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 200. Response: {\"countries\":[{\"countryCode\":\"AT\",\"name\":\"Austria\"},{\"countryCode\":\"BE\",\"name\":\"Belgium\"},{\"countryCode\":\"BG\",\"name\":\"Bulgaria\"}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I want to know the version of the Nager.Date library being used. Can you fetch that for me?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "VersionGetVersion",
+                            "{}",
+                            " I need to use the VersionGetVersion tool to get the version of the Nager.Date library.\nASSISTANT Action: VersionGetVersion\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 200. Response: {\"name\":\"Nager.Date\",\"version\":\"v3\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I need to find out if there are any long weekends in the United States in 2024. Can you help me with that?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "LongWeekendLongWeekend",
+                            "{\"year\": 2024, \"countryCode\": \"US\"}",
+                            " I need to use the LongWeekendLongWeekend tool to get the long weekends for the US in 2024.\nASSISTANT Action: LongWeekendLongWeekend\nASSISTANT Action Input: {\"year\": 2024, \"countryCode\": \"US\"}"
+                        ],
+                        "Status Code: 200. Response: {\"longWeekends\":[{\"startDate\":\"2024-01-13T00:00:00Z\",\"endDate\":\"2024-01-15T00:00:00Z\",\"dayCount\":3,\"needBridgeDay\":false},{\"startDate\":\"2024-02-17T00:00:00Z\",\"endDate\":\"2024-02-19T00:00:00Z\",\"dayCount\":3,\"needBridgeDay\":false},{\"startDate\":\"2024-05-25T00:00:00Z\",\"endDate\":\"2024-05-27T00:00:00Z\",\"dayCount\":3,\"needBridgeDay\":false}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "Find out the next public holidays for the Great Britain.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "PublicHolidayNextPublicHolidays",
+                            "{\"countryCode\": \"GB\"}",
+                            " I need to use the PublicHolidayNextPublicHolidays tool to get the upcoming public holidays for the next 365 days for the Great Britain.\nASSISTANT Action: PublicHolidayNextPublicHolidays\nASSISTANT Action Input: {\"countryCode\": \"GB\"}"
+                        ],
+                        "Status Code: 200. Response: {\"response\":\"{\\n  \\\"date\\\": \\\"2022-01-01\\\",\\n  \\\"localName\\\": \\\"New Year's Day\\\",\\n  \\\"name\\\": \\\"New Year's Day\\\",\\n  \\\"countryCode\\\": \\\"GB\\\",\\n  \\\"fixed\\\": true,\\n  \\\"global\\\": true,\\n  \\\"counties\\\": null,\\n  \\\"launchYear\\\": null,\\n  \\\"types\\\": [\\\"Public\\\"]\\n}\\n{\\n  \\\"date\\\": \\\"2022-04-15\\\",\\n  \\\"localName\\\": \\\"Good Friday\\\",\\n  \\\"name\\\": \\\"Good Friday\\\",\\n  \\\"countryCode\\\": \\\"GB\\\",\\n  \\\"fixed\\\": false,\\n  \\\"global\\\": true,\\n  \\\"counties\\\": null,\\n  \\\"launchYear\\\": null,\\n  \\\"types\\\": [\\\"Public\\\"]\\n}\\n{\\n  \\\"date\\\": \\\"2022-04-18\\\",\\n  \\\"localName\\\": \\\"Easter Monday\\\",\\n  \\\"name\\\": \\\"Easter Monday\\\",\\n  \\\"countryCode\\\": \\\"GB\\\",\\n  \\\"fixed\\\": false,\\n  \\\"global\\\": true,\\n  \\\"counties\\\": null,\\n  \\\"launchYear\\\": null,\\n  \\\"types\\\": [\\\"Public\\\"]\\n}\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm curious about the public holidays in Australia in 2023. Can you fetch the list for me?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "PublicHolidayPublicHolidaysV3",
+                            "{\"year\": 2023, \"countryCode\": \"AU\"}",
+                            " I need to use the PublicHolidayPublicHolidaysV3 tool to get the list of public holidays in Australia in 2023.\nASSISTANT Action: PublicHolidayPublicHolidaysV3\nASSISTANT Action Input: {\"year\": 2023, \"countryCode\": \"AU\"}"
+                        ],
+                        "Status Code: 200. Response: [{\"date\":\"2023-01-01\",\"localName\":\"New Year's Day\",\"name\":\"New Year's Day\",\"countryCode\":\"AU\",\"fixed\":true,\"global\":true,\"launchYear\":null,\"types\":[\"Public\"]},{\"date\":\"2023-01-26\",\"localName\":\"Australia Day\",\"name\":\"Australia Day\",\"countryCode\":\"AU\",\"fixed\":true,\"global\":true,\"launchYear\":null,\"types\":[\"Public\"]},{\"date\":\"2023-04-14\",\"localName\":\"Good Friday\",\"name\":\"Good Friday\",\"countryCode\":\"AU\",\"fixed\":true,\"global\":true,\"launchYear\":null,\"types\":[\"Public\"]}]"
+                    ]
+                ]
+            },
+            {
+                "input": "Get the upcoming public holidays worldwide for the next 7 days.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "PublicHolidayNextPublicHolidaysWorldwide",
+                            "{}",
+                            " I need to use the PublicHolidayNextPublicHolidaysWorldwide tool to get the upcoming public holidays worldwide for the next 7 days.\nASSISTANT Action: PublicHolidayNextPublicHolidaysWorldwide\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 200. Response: {\"publicHolidays\":[{\"date\":\"2022-01-01\",\"localName\":\"New Year's Day\",\"name\":\"New Year's Day\",\"countryCode\":\"US\",\"fixed\":true,\"global\":true,\"counties\":[],\"launchYear\":0,\"types\":[\"Public\"]},{\"date\":\"2022-01-17\",\"localName\":\"Martin Luther King Jr. Day\",\"name\":\"Martin Luther King Jr. Day\",\"countryCode\":\"US\",\"fixed\":true,\"global\":true,\"counties\":[],\"launchYear\":0,\"types\":[\"Public\"]},{\"date\":\"2022-02-21\",\"localName\":\"Presidents' Day\",\"name\":\"Washington's Birthday\",\"countryCode\":\"US\",\"fixed\":true,\"global\":true,\"counties\":[],\"launchYear\":0,\"types\":[\"Public\"]}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm planning a trip to Japan next year. Can you find out if there are any long weekends in Japan in 2023? It would be great to align my trip with a long weekend.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "LongWeekendLongWeekend",
+                            "{\"year\": 2023, \"countryCode\": \"JP\"}",
+                            " I need to find out if there are any long weekends in Japan in 2023.\nASSISTANT Action: LongWeekendLongWeekend\nASSISTANT Action Input: {\"year\": 2023, \"countryCode\": \"JP\"}"
+                        ],
+                        "Status Code: 200. Response: [{\"startDate\":\"2023-03-18T00:00:00Z\",\"endDate\":\"2023-03-20T00:00:00Z\",\"dayCount\":3,\"needBridgeDay\":false},{\"startDate\":\"2023-04-29T00:00:00Z\",\"endDate\":\"2023-05-07T00:00:00Z\",\"dayCount\":9,\"needBridgeDay\":true},{\"startDate\":\"2023-07-15T00:00:00Z\",\"endDate\":\"2023-07-17T00:00:00Z\",\"dayCount\":3,\"needBridgeDay\":false}]"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm curious about the public holidays in different countries. Could you show me the public holidays for the next week worldwide?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "PublicHolidayNextPublicHolidaysWorldwide",
+                            "{}",
+                            " I need to find the public holidays for the next week worldwide.\nASSISTANT Action: PublicHolidayNextPublicHolidaysWorldwide\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 200. Response: {\"publicHolidays\":[{\"date\":\"2023-01-01\",\"localName\":\"New Year's Day\",\"name\":\"New Year's Day\",\"countryCode\":\"US\",\"fixed\":true,\"global\":true,\"counties\":null,\"launchYear\":null,\"types\":[\"Public\"]},{\"date\":\"2023-02-14\",\"localName\":\"Valentine's Day\",\"name\":\"Valentine's Day\",\"countryCode\":\"US\",\"fixed\":true,\"global\":true,\"counties\":null,\"launchYear\":null,\"types\":[\"Observance\"]},{\"date\":\"2023-04-01\",\"localName\":\"April Fools' Day\",\"name\":\"April Fools' Day\",\"countryCode\":\"US\",\"fixed\":true,\"global\":true,\"counties\":null,\"launchYear\":null,\"types\":[\"Observance\"]}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm working on a project about different countries. Can you provide me with information about France, such as its official name, region, and neighboring countries?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "CountryCountryInfo",
+                            "{\"countryCode\": \"FR\"}",
+                            " I need to use the CountryCountryInfo tool to get the information about France.\nASSISTANT Action: CountryCountryInfo\nASSISTANT Action Input: {\"countryCode\": \"FR\"}"
+                        ],
+                        "Status Code: 200. Response: {\"commonName\":\"France\",\"officialName\":\"French Republic\",\"countryCode\":\"FR\",\"region\":\"Europe\",\"borders\":[{\"commonName\":\"Andorra\",\"officialName\":\"Principality of Andorra\",\"countryCode\":\"AD\",\"region\":\"Europe\"},{\"commonName\":\"Belgium\",\"officialName\":\"Kingdom of Belgium\",\"countryCode\":\"BE\",\"region\":\"Europe\"},{\"commonName\":\"Germany\",\"officialName\":\"Federal Republic of Germany\",\"countryCode\":\"DE\",\"region\":\"Europe\"},{\"commonName\":\"Italy\",\"officialName\":\"Italian Republic\",\"countryCode\":\"IT\",\"region\":\"Europe\"},{\"commonName\":\"Luxembourg\",\"officialName\":\"Grand Duchy of Luxembourg\",\"countryCode\":\"LU\",\"region\":\"Europe\"},{\"commonName\":\"Monaco\",\"officialName\":\"Principality of Monaco\",\"countryCode\":\"MC\",\"region\":\"Europe\"},{\"commonName\":\"Spain\",\"officialName\":\"Kingdom of Spain\",\"countryCode\":\"ES\",\"region\":\"Europe\"},{\"commonName\":\"Switzerland\",\"officialName\":\"Swiss Confederation\",\"countryCode\":\"CH\",\"region\":\"Europe\"}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm interested in knowing the upcoming public holidays in Germany for the next year. Could you fetch that information for me?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "PublicHolidayNextPublicHolidays",
+                            "{\"countryCode\": \"DE\"}",
+                            " I need to use the PublicHolidayNextPublicHolidays tool to get the upcoming public holidays in Germany for the next year.\nASSISTANT Action: PublicHolidayNextPublicHolidays\nASSISTANT Action Input: {\"countryCode\": \"DE\"}"
+                        ],
+                        "Status Code: 200. Response: {\"date\":\"2023-01-01\",\"localName\":\"Neujahr\",\"name\":\"New Year's Day\",\"countryCode\":\"DE\",\"fixed\":true,\"global\":true,\"counties\":null,\"launchYear\":null,\"types\":[\"Public\"]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm creating a calendar for my international team. Can you help me find the public holidays in the USA for 2023?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "PublicHolidayPublicHolidaysV3",
+                            "{\"year\": 2023, \"countryCode\": \"US\"}",
+                            " I need to find the public holidays in the USA for 2023.\nASSISTANT Action: PublicHolidayPublicHolidaysV3\nASSISTANT Action Input: {\"year\": 2023, \"countryCode\": \"US\"}"
+                        ],
+                        "Status Code: 200. Response: {\"date\":\"2023-01-01\",\"localName\":\"New Year's Day\",\"name\":\"New Year's Day\",\"countryCode\":\"US\",\"fixed\":true,\"global\":true,\"counties\":null,\"launchYear\":null,\"types\":[\"Public\"]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm planning a road trip across Europe. Can you provide me with information about Italy, including its common name, official name, and the countries it shares borders with?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "CountryCountryInfo",
+                            "{\"countryCode\": \"IT\"}",
+                            " I need to get information about Italy, including its common name, official name, and the countries it shares borders with.\nASSISTANT Action: CountryCountryInfo\nASSISTANT Action Input: {\"countryCode\": \"IT\"}"
+                        ],
+                        "Status Code: 200. Response: {\"commonName\":\"Italy\",\"officialName\":\"Italian Republic\",\"countryCode\":\"IT\",\"region\":\"Europe\",\"borders\":[\"AUT\",\"FRA\",\"SMR\",\"SLO\",\"CHE\",\"VAT\"]}"
+                    ]
+                ]
+            },
+            {
+                "input": "Can you help me plan my next vacation by checking the public holidays in Japan and Germany for the next year? I want to make sure I don't miss any important dates.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "PublicHolidayPublicHolidaysV3",
+                            "{\"year\": 2020, \"countryCode\": \"JP\"}",
+                            " I need to check the public holidays in Japan and Germany for the next year.\nASSISTANT Action: PublicHolidayPublicHolidaysV3\nASSISTANT Action Input: {\"year\": 2020, \"countryCode\": \"JP\"}"
+                        ],
+                        "Status Code: 200. Response: {\"date\":\"2020-01-01\",\"localName\":\"元日\",\"name\":\"New Year's Day\",\"countryCode\":\"JP\",\"fixed\":true,\"global\":true,\"counties\":null,\"launchYear\":null,\"types\":[\"Public\"]}"
+                    ]
+                ]
+            },
+            {
+                "input": "Hey, I'm curious about the holidays in different countries. Can you compare the number of public holidays in Canada, and Mexico for 2023?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "PublicHolidayPublicHolidaysV3",
+                            "{\"year\": 2023, \"countryCode\": \"CA\", \"offset\": 0}",
+                            " I need to get the public holidays for both countries in 2023.\nASSISTANT Action: PublicHolidayPublicHolidaysV3\nASSISTANT Action Input: {\"year\": 2023, \"countryCode\": \"CA\", \"offset\": 0}"
+                        ],
+                        "Status Code: 200. Response: {\"date\":\"2023-01-01\",\"localName\":\"New Year's Day\",\"name\":\"New Year's Day\",\"countryCode\":\"CA\",\"fixed\":true,\"global\":true,\"counties\":null,\"launchYear\":null,\"types\":[\"Public\"]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm planning a surprise visit to my friend in Germany. I need to know when the next long weekend of the year 2023 is coming up, so I can plan my trip.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "PublicHolidayPublicHolidaysV3",
+                            "{\"year\": 2023, \"countryCode\": \"DE\"}",
+                            " I need to get the public holidays for Germany in 2023.\nASSISTANT Action: PublicHolidayPublicHolidaysV3\nASSISTANT Action Input: {\"year\": 2023, \"countryCode\": \"DE\"}"
+                        ],
+                        "Status Code: 200. Response: {\"date\":\"2023-01-01\",\"localName\":\"Neujahr\",\"name\":\"New Year's Day\",\"countryCode\":\"DE\",\"fixed\":true,\"global\":true,\"counties\":null,\"launchYear\":1967,\"types\":[\"Public\"]}"
+                    ]
+                ]
+            }
         ]
     },
     {
@@ -269,6 +509,68 @@
                     "Action_Input": "{\"icao_code\": \"EDDM\"}"
                 }
             ]
+        ],
+        "Instances": [
+            {
+                "input": "Can you find the website URL for the airport with the ICAO code \"EDDF\" in Germany?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "AirportApi_getAirport",
+                            "{\"icao_code\": \"EDDF\"}",
+                            " I need to use the AirportApi_getAirport tool to get the website URL for the airport with the ICAO code \"EDDF\" in Germany.\nASSISTANT Action: AirportApi_getAirport\nASSISTANT Action Input: {\"icao_code\": \"EDDF\"}"
+                        ],
+                        "Status Code: 200. Response: {\"ICAO\":\"EDDF\",\"last_update\":\"2022-05-01T08:00:00Z\",\"name\":\"Frankfurt Airport\",\"url\":\"https://www.frankfurt-airport.com/\"}"
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            {
+                "input": "Get the ICAO code and website URL for the airport named \"Frankfurt Airport\" in Germany.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "AirportApi_getAirport",
+                            "{\"icao_code\": \"FRA\"}",
+                            " I need to use the AirportApi_getAirport tool to get the ICAO code and website URL for the airport.\nASSISTANT Action: AirportApi_getAirport\nASSISTANT Action Input: {\"icao_code\": \"FRA\"}"
+                        ],
+                        "Status Code: 404. Response: {\"error\":\"Not Found\",\"message\":\"Airport with ICAO code FRA not found in the database.\"}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            "This instance is not used.",
+            {
+                "input": "Retrieve the name and website URL for the airport with the ICAO code \"EDDH\" and \"EDDF\" in Germany.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "AirportApi_getAirport",
+                            "{\"icao_code\": \"EDDH, EDDF\"}",
+                            " I need to use the AirportApi_getAirport tool to get the name and website URL for the airport with the ICAO code \"EDDH\" and \"EDDF\" in Germany.\nASSISTANT Action: AirportApi_getAirport\nASSISTANT Action Input: {\"icao_code\": \"EDDH, EDDF\"}"
+                        ],
+                        "Status Code: 400. Response: {\"error\":\"Bad Request\",\"message\":\"Multiple ICAO codes not supported. Please provide only one ICAO code.\"}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            {
+                "input": "I'm planning a trip to Germany and I want to know more about the airport I'll be landing at. Can you find the name and website of the airport with the ICAO code 'EDDF'?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "AirportApi_getAirport",
+                            "{\"icao_code\": \"EDDF\"}",
+                            " I need to use the AirportApi_getAirport tool to get the name and website of the airport with the ICAO code 'EDDF'.\nASSISTANT Action: AirportApi_getAirport\nASSISTANT Action Input: {\"icao_code\": \"EDDF\"}"
+                        ],
+                        "Status Code: 200. Response: {\"ICAO\":\"EDDF\",\"last_update\":\"2022-05-01T08:00:00Z\",\"name\":\"Frankfurt Airport\",\"url\":\"https://www.frankfurt-airport.com/\"}"
+                    ]
+                ]
+            },
+            "This instance is not used."
         ]
     },
     {
@@ -417,6 +719,112 @@
                     "Action_Input": "{\"apt\": \"KLGA\"}"
                 }
             ]
+        ],
+        "Instances": [
+            {
+                "input": "I'm planning a trip to Asheville, North Carolina and I'd like to know more about the Asheville Regional Airport. Can you find the details for me using its FAA identifier, AVL?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "airports_get",
+                            "{\"apt\": \"AVL\"}",
+                            " I need to use the airports_get tool to get the details for the airport.\nASSISTANT Action: airports_get\nASSISTANT Action Input: {\"apt\": \"AVL\"}"
+                        ],
+                        "Status Code: 200. Response: {\"site_number\":\"00123\",\"type\":\"AIRPORT\",\"facility_name\":\"Asheville Regional Airport\",\"faa_ident\":\"AVL\",\"icao_ident\":\"KAVL\",\"district_office\":\"ASO\",\"state\":\"NC\",\"state_full\":\"North Carolina\",\"county\":\"Buncombe\",\"city\":\"Asheville\",\"ownership\":\"PU\",\"use\":\"PU\",\"manager\":\"Terry McConnell\",\"manager_phone\":\"828-684-2226\",\"latitude\":\"35-25-38.4000N\",\"latitude_sec\":\"35-25-38.4000N\",\"longitude\":\"082-32-41.6000W\",\"longitude_sec\":\"082-32-41.6000W\",\"elevation\":\"2165.1 ft\",\"magnetic_variation\":\"06W\",\"tpa\":\"\",\"vfr_sectional\":\"CINCINNATI\",\"boundary_artcc\":\"ZTL\",\"boundary_artcc_name\":\"ATLANTA\",\"responsible_artcc\":\"ZTL\",\"responsible_artcc_name\":\"ATLANTA\",\"fss_phone_number\":\"1-800-WX-BRIEF\",\"fss_phone_numer_tollfree\":\"1-800-WX-BRIEF\",\"notam_facility_ident\":\"AVL\",\"status\":\"O\",\"certification_typedate\":\"IV A U 05/1973\",\"customs_airport_of_entry\":\"N\",\"military_joint_use\":\"N\",\"military_landing\":\"N\",\"lighting_schedule\":\"DUSK-DAWN\",\"beacon_schedule\":\"DUSK-DAWN\",\"control_tower\":\"Y\",\"unicom\":\"122.950\",\"ctaf\":\"118.700\",\"effective_date\":\"01/27/2022\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm preparing for a flight to Asheville Regional Airport (ICAO: AVL). Can you get me the aeronautical charts for this airport? I would like to see the general, departures, arrivals, and approaches charts specifically.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "charts_get",
+                            "{\"apt\": \"AVL\", \"group\": 7}",
+                            " I need to get the charts for Asheville Regional Airport (ICAO: AVL).\nASSISTANT Action: charts_get\nASSISTANT Action Input: {\"apt\": \"AVL\", \"group\": 7}"
+                        ],
+                        "Status Code: 200. Response: {\"state\":\"NC\",\"state_full\":\"North Carolina\",\"city\":\"Asheville\",\"airport_name\":\"Asheville Regional Airport\",\"military\":\"N\",\"faa_ident\":\"AVL\",\"icao_ident\":\"KAVL\",\"chart_seq\":\"001\",\"chart_code\":\"APD\",\"chart_name\":\"Airport Diagram\",\"pdf_name\":\"AVL_APD\",\"pdf_path\":\"https://aviationapi.com/charts/AVL_APD.pdf\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I've heard that there have been some changes to the charts for Asheville Regional Airport (ICAO: AVL). Can you check if there are any updates to the 'Arrivals' chart?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "charts_changes_get",
+                            "{\"apt\": \"KAVL\", \"chart_name\": \"Arrivals\"}",
+                            " I need to check if there are any updates to the 'Arrivals' chart for Asheville Regional Airport.\nASSISTANT Action: charts_changes_get\nASSISTANT Action Input: {\"apt\": \"KAVL\", \"chart_name\": \"Arrivals\"}"
+                        ],
+                        "Status Code: 200. Response: {\"state\":\"NC\",\"state_full\":\"North Carolina\",\"city\":\"Asheville\",\"airport_name\":\"Asheville Regional Airport\",\"military\":\"N\",\"faa_ident\":\"AVL\",\"icao_ident\":\"KAVL\",\"chart_seq\":\"12345\",\"chart_code\":\"ARR\",\"chart_name\":\"Arrivals Chart\",\"pdf_name\":\"AVL_Arrivals.pdf\",\"pdf_path\":\"https://aviationapi.com/charts/AVL_Arrivals.pdf\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm a bit nervous about my upcoming flight. Can you find the Airport Facility Directory (AFD) for Asheville Regional Airport (ICAO: AVL) to help me familiarize myself with the airport layout?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "airports_get",
+                            "{\"apt\": \"AVL\"}",
+                            " I need to find the AFD for Asheville Regional Airport (ICAO: AVL).\nASSISTANT Action: airports_get\nASSISTANT Action Input: {\"apt\": \"AVL\"}"
+                        ],
+                        "Status Code: 200. Response: {\"site_number\":\"00123\",\"type\":\"AIRPORT\",\"facility_name\":\"Asheville Regional Airport\",\"faa_ident\":\"AVL\",\"icao_ident\":\"KAVL\",\"district_office\":\"ASO\",\"state\":\"NC\",\"state_full\":\"North Carolina\",\"county\":\"Buncombe\",\"city\":\"Asheville\",\"ownership\":\"PU\",\"use\":\"PU\",\"manager\":\"Terry McConnell\",\"manager_phone\":\"(828) 684-2226\",\"latitude\":\"35-26-10.3000N\",\"latitude_sec\":\"35-26-10.3000N\",\"longitude\":\"082-32-08.3000W\",\"longitude_sec\":\"082-32-08.3000W\",\"elevation\":\"2165.0 ft\",\"magnetic_variation\":\"06W\",\"tpa\":\"\",\"vfr_sectional\":\"CINCINNATI\",\"boundary_artcc\":\"ZTL\",\"boundary_artcc_name\":\"ATLANTA\",\"responsible_artcc\":\"\",\"responsible_artcc_name\":\"\",\"fss_phone_number\":\"1-800-WX-BRIEF\",\"fss_phone_numer_tollfree\":\"1-800-WX-BRIEF\",\"notam_facility_ident\":\"AVL\",\"status\":\"O\",\"certification_typedate\":\"IV A U 05/1973\",\"customs_airport_of_entry\":\"N\",\"military_joint_use\":\"N\",\"military_landing\":\"Y\",\"lighting_schedule\":\"WHEN ATCT CLSD ACTVT MALSR RWY 17; REIL RWY 35; PAPI RWY 17 & 35; HIRL RWY 17/35 - CTAF.\",\"beacon_schedule\":\"WHEN ATCT CLSD ACTVT MALSR RWY 17; REIL RWY 35; PAPI RWY 17 & 35; HIRL RWY 17/35 - CTAF.\",\"control_tower\":\"Y\",\"unicom\":\"122.950\",\"ctaf\":\"118.700\",\"effective_date\":\"12/07/2006\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm curious about the preferred routes for flights. Can you find all of the preferred routes for me?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "preferred-routes_get",
+                            "{}",
+                            " I need to use the preferred-routes_get tool to get all of the preferred routes.\nASSISTANT Action: preferred-routes_get\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 500. Response: Internal Server Error. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            "This instance is not used.",
+            "This instance is not used.",
+            "This instance is not used.",
+            "This instance is not used.",
+            "This instance is not used.",
+            {
+                "input": "I'm studying for my pilot's license and need some help. Could you fetch me the aeronautical chart for Los Angeles International Airport (ICAO: KLAX)? Also, please provide me with the airport's elevation and the type of fuel available there.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "charts_get",
+                            "{\"apt\": \"KLAX\", \"group\": \"1\"}",
+                            " I need to use the charts_get tool to get the chart for KLAX.\nASSISTANT Action: charts_get\nASSISTANT Action Input: {\"apt\": \"KLAX\", \"group\": \"1\"}"
+                        ],
+                        "Status Code: 200. Response: {\"state\":\"CA\",\"state_full\":\"California\",\"city\":\"Los Angeles\",\"airport_name\":\"Los Angeles International Airport\",\"military\":\"N\",\"faa_ident\":\"LAX\",\"icao_ident\":\"KLAX\",\"chart_seq\":\"12345\",\"chart_code\":\"AD\",\"chart_name\":\"Airport Diagram\",\"pdf_name\":\"LAX Airport Diagram\",\"pdf_path\":\"https://aviationapi.com/charts/LAXAirportDiagram.pdf\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm a travel blogger and I'm writing about the airports in New York. Can you provide me with the airport information for John F. Kennedy International Airport (ICAO: KJFK) and LaGuardia Airport (ICAO: KLGA)?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "airports_get",
+                            "{\"apt\": \"KJFK, KLGA\"}",
+                            " I need to get the airport information for JFK and LGA.\nASSISTANT Action: airports_get\nASSISTANT Action Input: {\"apt\": \"KJFK, KLGA\"}"
+                        ],
+                        "Status Code: 200. Response: {\"site_number\":\"JFK\",\"type\":\"AIRPORT\",\"facility_name\":\"John F. Kennedy International Airport\",\"faa_ident\":\"JFK\",\"icao_ident\":\"KJFK\",\"district_office\":\"AEA\",\"state\":\"NY\",\"state_full\":\"New York\",\"county\":\"Queens\",\"city\":\"New York\",\"ownership\":\"PU\",\"use\":\"PU\",\"manager\":\"Port Authority of New York and New Jersey\",\"manager_phone\":\"718-244-3503\",\"latitude\":\"40-38-23.3570N\",\"latitude_sec\":\"40-38-23.3570N\",\"longitude\":\"073-46-44.1480W\",\"longitude_sec\":\"073-46-44.1480W\",\"elevation\":\"13.0 ft\",\"magnetic_variation\":\"13W\",\"tpa\":\"\",\"vfr_sectional\":\"NEW YORK\",\"boundary_artcc\":\"ZNY\",\"boundary_artcc_name\":\"NEW YORK\",\"responsible_artcc\":\"ZNY\",\"responsible_artcc_name\":\"NEW YORK\",\"fss_phone_number\":\"1-800-WX-BRIEF\",\"fss_phone_numer_tollfree\":\"1-800-WX-BRIEF\",\"notam_facility_ident\":\"JFK\",\"status\":\"O\",\"certification_typedate\":\"IV A U 05/1973\",\"customs_airport_of_entry\":\"Y\",\"military_joint_use\":\"N\",\"military_landing\":\"N\",\"lighting_schedule\":\"WHEN ATCT CLSD ACTVT MALSR RWY 04L; REIL RWY 13R; HIRL RWY 04L/22R; MIRL RWY 13R/31L; MALS RWY 22R - CTAF.\",\"beacon_schedule\":\"WHEN ATCT CLSD ACTVT MALSR RWY 04L; REIL RWY 13R; HIRL RWY 04L/22R; MIRL RWY 13R/31L; MALS RWY 22R - CTAF.\",\"control_tower\":\"Y\",\"unicom\":\"122.950\",\"ctaf\":\"118.700\",\"effective_date\":\"09/09/2021\"}"
+                    ]
+                ]
+            }
         ]
     },
     {
@@ -507,6 +915,79 @@
                     "Action_Input": "{}"
                 }
             ]
+        ],
+        "Instances": [
+            {
+                "input": "I'm having a party tonight and want to entertain my guests with some Chuck Norris jokes. Can you find a random joke for me to tell them?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "jokes_random_get",
+                            "{}",
+                            " I can use the jokes_random_get tool to retrieve a random Chuck Norris joke.\nASSISTANT Action: jokes_random_get\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 200. Response: {\"icon_url\":\"https://api.chucknorris.io/icons/chuck-norris.png\",\"id\":\"abc123\",\"url\":\"https://api.chucknorris.io/jokes/abc123\",\"value\":\"Chuck Norris can divide by zero.\"}"
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            {
+                "input": "I'm doing a presentation on Chuck Norris for my film class. Can you help me find a joke from the 'movie' category to lighten the mood?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "jokes_random_category_get",
+                            "{\"category\": \"movie\"}",
+                            " I need to find a joke from the'movie' category.\nASSISTANT Action: jokes_random_category_get\nASSISTANT Action Input: {\"category\": \"movie\"}"
+                        ],
+                        "Status Code: 404. Response: {\"error\":\"Not Found\",\"message\":\"The requested category 'movie' does not exist. Available categories can be retrieved using the /jokes/categories endpoint.\"}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            {
+                "input": "I'm planning a trivia night and need some Chuck Norris jokes to include. Can you search for jokes that mention 'Texas'?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "jokes_search_get",
+                            "{\"query\": \"Texas\"}",
+                            " I can use the jokes_search_get tool to search for jokes that mention 'Texas'.\nASSISTANT Action: jokes_search_get\nASSISTANT Action Input: {\"query\": \"Texas\"}"
+                        ],
+                        "Status Code: 200. Response: {\"total\":2,\"result\":[{\"icon_url\":\"https://api.chucknorris.io/icons/chuck-norris.png\",\"id\":\"xyz123\",\"url\":\"https://api.chucknorris.io/jokes/xyz123\",\"value\":\"Chuck Norris doesn't sleep. He waits.\"},{\"icon_url\":\"https://api.chucknorris.io/icons/chuck-norris.png\",\"id\":\"uvw456\",\"url\":\"https://api.chucknorris.io/jokes/uvw456\",\"value\":\"When Chuck Norris enters a room, he doesn't turn the lights on. He turns the dark off.\"}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm working on a Chuck Norris-themed board game and need some jokes for the cards. Can you find jokes that involve 'sports'?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "jokes_search_get",
+                            "{\"query\": \"sports\"}",
+                            " I need to find jokes that involve sports.\nASSISTANT Action: jokes_search_get\nASSISTANT Action Input: {\"query\": \"sports\"}"
+                        ],
+                        "Status Code: 200. Response: {\"total\":3,\"result\":[{\"icon_url\":\"https://api.chucknorris.io/icons/chuck-norris.png\",\"id\":\"abc123\",\"url\":\"https://api.chucknorris.io/jokes/abc123\",\"value\":\"Chuck Norris doesn't play sports. Sports play Chuck Norris.\"},{\"icon_url\":\"https://api.chucknorris.io/icons/chuck-norris.png\",\"id\":\"def456\",\"url\":\"https://api.chucknorris.io/jokes/def456\",\"value\":\"Chuck Norris once bowled a perfect game with a marble.\"},{\"icon_url\":\"https://api.chucknorris.io/icons/chuck-norris.png\",\"id\":\"ghi789\",\"url\":\"https://api.chucknorris.io/jokes/ghi789\",\"value\":\"Chuck Norris can score a touchdown with a field goal.\"}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm having a party tonight and I want to entertain my guests with some Chuck Norris jokes. Can you find me 3 random jokes?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "jokes_random_category_get",
+                            "{\"category\": \"Chuck Norris\"}",
+                            " I need to find 3 random jokes from the Chuck Norris category.\nASSISTANT Action: jokes_random_category_get\nASSISTANT Action Input: {\"category\": \"Chuck Norris\"}"
+                        ],
+                        "Status Code: 404. Response: {\"error\":\"Not Found\",\"message\":\"The requested category 'Chuck Norris' does not exist. Available categories can be retrieved using the /jokes/categories endpoint.\"}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            }
         ]
     },
     {
@@ -518,9 +999,9 @@
             "retrieval"
         ],
         "Documentation": "{ \"openapi\": \"3.0.0\", \"info\": { \"version\": \"1.0.0\", \"title\": \"Random Useless Facts API\", \"description\": \"An API to retrieve random and daily useless facts in different languages and formats.\", \"contact\": { \"name\": \"Your Name\", \"email\": \"your.email@example.com\" } }, \"servers\": [{\"url\": \"https://uselessfacts.jsph.pl\"}],  \"paths\": { \"/api/v2/facts/random\": { \"get\": { \"summary\": \"Get random useless fact\", \"responses\": { \"200\": { \"description\": \"OK\", \"content\": { \"application/json\": { \"schema\": { \"type\": \"object\", \"properties\": { \"fact\": { \"type\": \"string\" } } } }, \"text/plain\": { \"schema\": { \"type\": \"string\" } } } } } } }, \"/api/v2/facts/today\": { \"get\": { \"summary\": \"Get today's useless fact\", \"responses\": { \"200\": { \"description\": \"OK\", \"content\": { \"application/json\": { \"schema\": { \"type\": \"object\", \"properties\": { \"fact\": { \"type\": \"string\" } } } }, \"text/plain\": { \"schema\": { \"type\": \"string\" } } } } } } } }, \"parameters\": { \"LanguageQueryParam\": { \"name\": \"language\", \"in\": \"query\", \"description\": \"The language code to specify the language of the fact.\", \"required\": false, \"schema\": { \"type\": \"string\", \"enum\": [\"en\", \"de\"] } } }, \"components\": { \"headers\": { \"AcceptHeader\": { \"description\": \"The Accept header to specify the response format.\", \"schema\": { \"type\": \"string\", \"enum\": [\"application/json\", \"text/plain\"] } } } } }",
-        "NLDocumentation": "api_v2_facts_random_get: Get random useless fact\nParameters: {\"language\": \"Required. string. It is required to specify the language of the fact. Valid values are 'en' for English and 'de' for German.\"}\nOutput: OK.\n - Format: application/json\n - Structure: Object{fact}\napi_v2_facts_today_get: Get today's useless fact\nParameters: {}\nOutput: OK.\n - Format: application/json\n - Structure: Object{fact}\n",
+        "NLDocumentation": "api_v2_facts_random_get: Get random useless fact\nParameters: {}\nOutput: OK.\n - Format: application/json\n - Structure: Object{fact}\napi_v2_facts_today_get: Get today's useless fact\nParameters: {}\nOutput: OK.\n - Format: application/json\n - Structure: Object{fact}\n",
         "Function_Description": {
-            "api_v2_facts_random_get": "Get random useless fact\nParameters: {\"language\": \"Required. string. It is required to specify the language of the fact. Valid values are 'en' for English and 'de' for German.\"}\nOutput: OK.\n - Format: application/json\n - Structure: Object{fact}",
+            "api_v2_facts_random_get": "Get random useless fact\nParameters: {}\nOutput: OK.\n - Format: application/json\n - Structure: Object{fact}",
             "api_v2_facts_today_get": "Get today's useless fact\nParameters: {}\nOutput: OK.\n - Format: application/json\n - Structure: Object{fact}",
             "components": ""
         },
@@ -546,24 +1027,18 @@
             [
                 {
                     "Action": "api_v2_facts_random_get",
-                    "Action_Input": "{\"language\": \"en\"}"
+                    "Action_Input": "{}"
                 }
             ],
             [
                 {
                     "Action": "api_v2_facts_random_get",
-                    "Action_Input": "{\"language\": \"en\"}"
+                    "Action_Input": "{}"
                 }
             ],
             [
                 {
                     "Action": "api_v2_facts_random_get",
-                    "Action_Input": "{\"language\": \"en\"}"
-                }
-            ],
-            [
-                {
-                    "Action": "api_v2_facts_today_get",
                     "Action_Input": "{}"
                 }
             ],
@@ -575,26 +1050,105 @@
             ],
             [
                 {
+                    "Action": "api_v2_facts_today_get",
+                    "Action_Input": "{}"
+                }
+            ],
+            [
+                {
                     "Action": "api_v2_facts_random_get",
-                    "Action_Input": "{\"language\": \"en\"}"
+                    "Action_Input": "{}"
                 },
                 {
                     "Action": "api_v2_facts_random_get",
-                    "Action_Input": "{\"language\": \"en\"}"
+                    "Action_Input": "{}"
                 },
                 {
                     "Action": "api_v2_facts_random_get",
-                    "Action_Input": "{\"language\": \"en\"}"
+                    "Action_Input": "{}"
                 },
                 {
                     "Action": "api_v2_facts_random_get",
-                    "Action_Input": "{\"language\": \"en\"}"
+                    "Action_Input": "{}"
                 },
                 {
                     "Action": "api_v2_facts_random_get",
-                    "Action_Input": "{\"language\": \"en\"}"
+                    "Action_Input": "{}"
                 }
             ]
+        ],
+        "Instances": [
+            {
+                "input": "I'm hosting a trivia night at my place this evening. Could you fetch me a random useless fact that I can use to stump my friends? I want something they'll never guess.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api_v2_facts_random_get",
+                            "{}",
+                            " I should use the api_v2_facts_random_get tool to get a random useless fact.\nASSISTANT Action: api_v2_facts_random_get\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 200. Response: {\"fact\":\"A sneeze travels out your mouth at over 100 m.p.h.\"}"
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            {
+                "input": "I'm writing a blog post about interesting trivia. Can you provide me with a random fact that I can include? It should be something that most people wouldn't know.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api_v2_facts_random_get",
+                            "{}",
+                            " I should use the api_v2_facts_random_get tool to get a random fact.\nASSISTANT Action: api_v2_facts_random_get\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 400. Response: {\"error\":\"Bad Request\",\"message\":\"Missing required parameter: language\"}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            {
+                "input": "I'm starting a new daily ritual of learning something new every day. Can you tell me today's useless fact?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api_v2_facts_today_get",
+                            "{}",
+                            " I should use the api_v2_facts_today_get tool to get today's useless fact.\nASSISTANT Action: api_v2_facts_today_get\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 200. Response: {\"fact\":\"Today's useless fact: Koalas sleep around 18 hours a day.\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm writing a daily newsletter and I want to include a fun fact in each issue. Can you give me today's useless fact that I can share with my subscribers?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api_v2_facts_today_get",
+                            "{}",
+                            " I need to find a fun fact to share with the user.\nASSISTANT Action: api_v2_facts_today_get\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 404. Response: {\"error\":\"Not Found\",\"message\":\"Endpoint not found: /api/v2/facts/today\"}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            {
+                "input": "I'm preparing a presentation for my class about random trivia. Could you help me find some fun, useless facts to include? I need about five facts.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api_v2_facts_random_get",
+                            "{}",
+                            " I can use the api_v2_facts_random_get tool to get random useless facts.\nASSISTANT Action: api_v2_facts_random_get\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 200. Response: {\"fact\":\"The unicorn is the national animal of Scotland.\"}"
+                    ]
+                ]
+            }
         ]
     },
     {
@@ -602,15 +1156,15 @@
         "Description": "Real-Time & Historical World Weather Data API",
         "Category": "Weather",
         "Authentication": {
-            "access_key": "75619bf6f850d32727357000f37257d6"
+            "access_key": "***"
         },
         "external_tools": [
             "retrieval"
         ],
         "Documentation": "{ \"openapi\": \"3.0.0\", \"info\": { \"title\": \"WeatherStack API\", \"description\": \"An API to get real-time weather data for locations around the world.\", \"version\": \"1.0.0\" }, \"servers\": [ { \"url\": \"http://api.weatherstack.com\", \"description\": \"Production server\" } ], \"paths\": { \"/current\": { \"get\": { \"summary\": \"Get current weather\", \"description\": \"Retrieve real-time weather data for a location.\", \"parameters\": [ { \"name\": \"access_key\", \"in\": \"query\", \"required\": true, \"schema\": { \"type\": \"string\" }, \"description\": \"Your API access key, obtained from your account dashboard.\" }, { \"name\": \"query\", \"in\": \"query\", \"required\": true, \"schema\": { \"type\": \"string\" }, \"description\": \"The location(s) you want to get weather data for. It can be a single location or multiple semicolon-separated location identifiers.\" }, { \"name\": \"units\", \"in\": \"query\", \"schema\": { \"type\": \"string\", \"enum\": [\"m\", \"s\", \"f\"] }, \"description\": \"[Optional] Specify the unit identifier for temperature and other measurements. (m: Metric, s: Scientific, f: Fahrenheit)\" }, { \"name\": \"callback\", \"in\": \"query\", \"schema\": { \"type\": \"string\" }, \"description\": \"[Optional] Use this parameter for JSONP callback function name wrapping.\" } ], \"responses\": { \"200\": { \"description\": \"Successful response containing real-time weather data.\", \"content\": { \"application/json\": { \"schema\": { \"$ref\": \"#/components/schemas/WeatherResponse\" } } } } } } } }, \"components\": { \"schemas\": { \"WeatherResponse\": { \"type\": \"object\", \"properties\": { \"request\": { \"type\": \"object\", \"properties\": { \"type\": { \"type\": \"string\", \"enum\": [\"City\", \"LatLon\", \"IP\", \"Zipcode\"] }, \"query\": { \"type\": \"string\" }, \"language\": { \"type\": \"string\" }, \"unit\": { \"type\": \"string\", \"enum\": [\"m\", \"s\", \"f\"] } } }, \"location\": { \"type\": \"object\", \"properties\": { \"name\": { \"type\": \"string\" }, \"country\": { \"type\": \"string\" }, \"region\": { \"type\": \"string\" }, \"lat\": { \"type\": \"string\" }, \"lon\": { \"type\": \"string\" }, \"timezone_id\": { \"type\": \"string\" }, \"localtime\": { \"type\": \"string\" }, \"localtime_epoch\": { \"type\": \"integer\" }, \"utc_offset\": { \"type\": \"string\" } } }, \"current\": { \"type\": \"object\", \"properties\": { \"observation_time\": { \"type\": \"string\" }, \"temperature\": { \"type\": \"integer\" }, \"weather_code\": { \"type\": \"integer\" }, \"weather_icons\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } }, \"weather_descriptions\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } }, \"wind_speed\": { \"type\": \"integer\" }, \"wind_degree\": { \"type\": \"integer\" }, \"wind_dir\": { \"type\": \"string\" }, \"pressure\": { \"type\": \"integer\" }, \"precip\": { \"type\": \"integer\" }, \"humidity\": { \"type\": \"integer\" }, \"cloudcover\": { \"type\": \"integer\" }, \"feelslike\": { \"type\": \"integer\" }, \"uv_index\": { \"type\": \"integer\" }, \"visibility\": { \"type\": \"integer\" } } } } } } } }",
-        "NLDocumentation": "current_get: Get current weather\nParameters: {\"access_key\": \"Required. string. Your API access key, obtained from your account dashboard.\", \"query\": \"Required. string. The location(s) you want to get weather data for. It can be a single location or multiple semicolon-separated location identifiers.\", \"units\": \"string. One of: [m, s, f]. Specify the unit identifier for temperature and other measurements. (m: Metric, s: Scientific, f: Fahrenheit).\", \"callback\": \"string. [Optional] Use this parameter for JSONP callback function name wrapping.\"}\nOutput: Successful response containing real-time weather data.\n - Format: application/json\n - Structure: #WeatherResponse\n\nThe detailed output format for the tools is outlined below:\n#WeatherResponse: Object{request: Object{type, query, language, unit}, location: Object{name, country, region, lat, lon, timezone_id, localtime, localtime_epoch, utc_offset}, current: Object{observation_time, temperature, weather_code, weather_icons: Array[string], weather_descriptions: Array[string], wind_speed, wind_degree, wind_dir, pressure, precip, humidity, cloudcover, feelslike, uv_index, visibility}}\n",
+        "NLDocumentation": "current_get: Get current weather\nParameters: {\"access_key\": \"Required. string. Your API access key, obtained from your account dashboard.\", \"query\": \"Required. string. The location(s) you want to get weather data for. It can be a single location or multiple semicolon-separated location identifiers.\", \"units\": \"string. One of: [m, s, f]. [Optional] Specify the unit identifier for temperature and other measurements. (m: Metric, s: Scientific, f: Fahrenheit).\", \"callback\": \"string. [Optional] Use this parameter for JSONP callback function name wrapping.\"}\nOutput: Successful response containing real-time weather data.\n - Format: application/json\n - Structure: #WeatherResponse\n\nThe detailed output format for the tools is outlined below:\n#WeatherResponse: Object{request: Object{type, query, language, unit}, location: Object{name, country, region, lat, lon, timezone_id, localtime, localtime_epoch, utc_offset}, current: Object{observation_time, temperature, weather_code, weather_icons: Array[string], weather_descriptions: Array[string], wind_speed, wind_degree, wind_dir, pressure, precip, humidity, cloudcover, feelslike, uv_index, visibility}}\n",
         "Function_Description": {
-            "current_get": "Get current weather\nParameters: {\"access_key\": \"Required. string. Your API access key, obtained from your account dashboard.\", \"query\": \"Required. string. The location(s) you want to get weather data for. It can be a single location or multiple semicolon-separated location identifiers.\", \"units\": \"string. One of: [m, s, f]. Specify the unit identifier for temperature and other measurements. (m: Metric, s: Scientific, f: Fahrenheit).\", \"callback\": \"string. [Optional] Use this parameter for JSONP callback function name wrapping.\"}\nOutput: Successful response containing real-time weather data.\n - Format: application/json\n - Structure: #WeatherResponse",
+            "current_get": "Get current weather\nParameters: {\"access_key\": \"Required. string. Your API access key, obtained from your account dashboard.\", \"query\": \"Required. string. The location(s) you want to get weather data for. It can be a single location or multiple semicolon-separated location identifiers.\", \"units\": \"string. One of: [m, s, f]. [Optional] Specify the unit identifier for temperature and other measurements. (m: Metric, s: Scientific, f: Fahrenheit).\", \"callback\": \"string. [Optional] Use this parameter for JSONP callback function name wrapping.\"}\nOutput: Successful response containing real-time weather data.\n - Format: application/json\n - Structure: #WeatherResponse",
             "components": "The detailed output format for the tools is outlined below:\n#WeatherResponse: Object{request: Object{type, query, language, unit}, location: Object{name, country, region, lat, lon, timezone_id, localtime, localtime_epoch, utc_offset}, current: Object{observation_time, temperature, weather_code, weather_icons: Array[string], weather_descriptions: Array[string], wind_speed, wind_degree, wind_dir, pressure, precip, humidity, cloudcover, feelslike, uv_index, visibility}}"
         },
         "Function_Projection": {
@@ -622,14 +1176,14 @@
         "Instructions": [
             "I'm planning a trip to Paris next week. Could you find out what the current weather is there? And please, make sure the temperature is in Fahrenheit, I'm more familiar with that.",
             "I'm curious about the weather in multiple cities for a project. Can you get me the current weather for New York, Tokyo, and Sydney? I'd prefer the data in metric units.",
-            "I'm heading out for a run in San Francisco. Can you tell me what the current temperature is and how it feels outside? Also, I'd like to know the humidity and visibility. I'd prefer the data in metric units.",
-            "I'm planning a picnic this weekend in London. Could you check the current weather for me? I'm particularly interested in the wind speed and direction. I'd prefer the data in metric units.",
-            "I'm writing a blog post about the weather in different parts of the world. Can you fetch the current weather for Beijing, Moscow, and Rio de Janeiro? Please include the local time in each city. I'd prefer the data in metric units.",
+            "I'm heading out for a run in San Francisco. Can you tell me what the current temperature is and how it feels outside? Also, I'd like to know the humidity and visibility.",
+            "I'm planning a picnic this weekend in London. Could you check the current weather for me? I'm particularly interested in the wind speed and direction.",
+            "I'm writing a blog post about the weather in different parts of the world. Can you fetch the current weather for Beijing, Moscow, and Rio de Janeiro? Please include the local time in each city.",
             "I'm a science teacher preparing a lesson on weather patterns. Can you get me the current weather for Denver? I need the data in scientific units.",
             "It's getting colder here. Can you find the current temperature in Fahrenheit for Toronto? I want to see if I need to bring a jacket.",
-            "I'm organizing an outdoor event next weekend. Is it possible to get the UV index and visibility in Los Angeles during that time? I'd prefer the data in metric units.",
-            "I'm planning a road trip from New York to Los Angeles next week. Can you help me check the weather conditions for the major cities along the route, like Chicago, Denver, and Las Vegas? I'd like to know if there will be any severe weather conditions that might affect my trip. I'd prefer the data in metric units.",
-            "I'm planning a beach day in Miami this weekend. Could you check the weather for me? I'd like to know if it's going to be sunny and what the UV index will be. Also, could you tell me what the sea temperature will be? I'd prefer the data in metric units."
+            "I'm organizing an outdoor event next weekend. Is it possible to get the UV index and visibility in Los Angeles during that time?",
+            "I'm planning a road trip from New York to Los Angeles next week. Can you help me check the weather conditions for the major cities along the route, like Chicago, Denver, and Las Vegas? I'd like to know if there will be any severe weather conditions that might affect my trip.",
+            "I'm planning a beach day in Miami this weekend. Could you check the weather for me? I'd like to know if it's going to be sunny and what the UV index will be. Also, could you tell me what the sea temperature will be?"
         ],
         "Golden_Answers": [
             [
@@ -655,27 +1209,27 @@
             [
                 {
                     "Action": "current_get",
-                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"San Francisco\", \"units\": \"m\"}"
+                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"San Francisco\"}"
                 }
             ],
             [
                 {
                     "Action": "current_get",
-                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"London\", \"units\": \"m\"}"
+                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"London\"}"
                 }
             ],
             [
                 {
                     "Action": "current_get",
-                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Beijing\", \"units\": \"m\"}"
+                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Beijing\"}"
                 },
                 {
                     "Action": "current_get",
-                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Moscow\", \"units\": \"m\"}"
+                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Moscow\"}"
                 },
                 {
                     "Action": "current_get",
-                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Rio de Janeiro\", \"units\": \"m\"}"
+                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Rio de Janeiro\"}"
                 }
             ],
             [
@@ -693,29 +1247,132 @@
             [
                 {
                     "Action": "current_get",
-                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Los Angeles\", \"units\": \"m\"}"
+                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Los Angeles\"}"
                 }
             ],
             [
                 {
                     "Action": "current_get",
-                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Chicago\", \"units\": \"m\"}"
+                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Chicago\"}"
                 },
                 {
                     "Action": "current_get",
-                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Denver\", \"units\": \"m\"}"
+                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Denver\"}"
                 },
                 {
                     "Action": "current_get",
-                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Las vegas\", \"units\": \"m\"}"
+                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Las vegas\"}"
                 }
             ],
             [
                 {
                     "Action": "current_get",
-                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Miami\", \"units\": \"m\"}"
+                    "Action_Input": "{\"access_key\": \"75619bf6f850d32727357000f37257d6\", \"query\": \"Miami\"}"
                 }
             ]
+        ],
+        "Instances": [
+            {
+                "input": "I'm planning a trip to Paris next week. Could you find out what the current weather is there? And please, make sure the temperature is in Fahrenheit, I'm more familiar with that.\nAuthentication information: access_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "current_get",
+                            "{\"access_key\": \"***\", \"query\": \"Paris\", \"units\": \"f\"}",
+                            " I need to use the current_get tool to get the current weather in Paris.\nASSISTANT Action: current_get\nASSISTANT Action Input: {\"access_key\": \"***\", \"query\": \"Paris\", \"units\": \"f\"}"
+                        ],
+                        "Status Code: 200. Response: {\"request\":{\"type\":\"City\",\"query\":\"Paris\",\"unit\":\"f\"},\"location\":{\"name\":\"Paris\",\"country\":\"France\",\"region\":\"Île-de-France\",\"lat\":\"48.8566\",\"lon\":\"2.3522\",\"timezone_id\":\"Europe/Paris\",\"localtime\":\"2024-05-06 12:45\",\"localtime_epoch\":1672721100,\"utc_offset\":\"+2.0\"},\"current\":{\"observation_time\":\"06:45 PM\",\"temperature\":60,\"weather_code\":113,\"weather_icons\":[\"https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png\"],\"weather_descriptions\":[\"Clear\"],\"wind_speed\":5,\"wind_degree\":220,\"wind_dir\":\"SW\",\"pressure\":1015,\"precip\":0,\"humidity\":60,\"cloudcover\":0,\"feelslike\":60,\"uv_index\":1,\"visibility\":10}}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm curious about the weather in multiple cities for a project. Can you get me the current weather for New York, Tokyo, and Sydney? I'd prefer the data in metric units.\nAuthentication information: access_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "current_get",
+                            "{\"access_key\": \"***\", \"query\": \"New York, Tokyo, Sydney\", \"units\": \"m\", \"callback\": \"callback\"}",
+                            " I need to use the current_get tool to get the current weather for the three cities.\nASSISTANT Action: current_get\nASSISTANT Action Input: {\"access_key\": \"***\", \"query\": \"New York, Tokyo, Sydney\", \"units\": \"m\", \"callback\": \"callback\"}"
+                        ],
+                        "Status Code: 400. Response: {\"error\":{\"code\":400,\"type\":\"Bad Request\",\"info\":\"Invalid query parameter\",\"message\":\"Multiple locations not supported in a single query. Please provide weather data for one location at a time.\"}}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            "This instance is not used.",
+            {
+                "input": "I'm writing a blog post about the weather in different parts of the world. Can you fetch the current weather for Beijing, Moscow, and Rio de Janeiro? Please include the local time in each city.\nAuthentication information: access_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "current_get",
+                            "{\"access_key\": \"***\", \"query\": \"Beijing, Moscow, Rio de Janeiro\", \"units\": \"m\", \"callback\": \"current_get_callback\"}",
+                            " I need to use the current_get tool to get the current weather for each city.\nASSISTANT Action: current_get\nASSISTANT Action Input: {\"access_key\": \"***\", \"query\": \"Beijing, Moscow, Rio de Janeiro\", \"units\": \"m\", \"callback\": \"current_get_callback\"}"
+                        ],
+                        "Status Code: 400. Response: {\"error\":{\"code\":400,\"type\":\"Bad Request\",\"info\":\"Invalid query parameter\",\"message\":\"Multiple locations not supported in a single query. Please provide weather data for one location at a time.\"}}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            {
+                "input": "I'm a science teacher preparing a lesson on weather patterns. Can you get me the current weather for Denver? I need the data in scientific units.\nAuthentication information: access_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "current_get",
+                            "{\"access_key\": \"***\", \"query\": \"Denver\", \"units\": \"s\", \"callback\": \"weather_callback\"}",
+                            " I need to use the current_get tool to get the current weather for Denver.\nASSISTANT Action: current_get\nASSISTANT Action Input: {\"access_key\": \"***\", \"query\": \"Denver\", \"units\": \"s\", \"callback\": \"weather_callback\"}"
+                        ],
+                        "Status Code: 200. Response: {\"request\":{\"type\":\"City\",\"query\":\"Denver\",\"unit\":\"s\"},\"location\":{\"name\":\"Denver\",\"country\":\"United States\",\"region\":\"Colorado\",\"lat\":\"39.7392\",\"lon\":\"-104.9903\",\"timezone_id\":\"America/Denver\",\"localtime\":\"2024-05-06 08:45\",\"localtime_epoch\":1672706700,\"utc_offset\":\"-6.0\"},\"current\":{\"observation_time\":\"08:45 AM\",\"temperature\":15,\"weather_code\":116,\"weather_icons\":[\"https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png\"],\"weather_descriptions\":[\"Partly cloudy\"],\"wind_speed\":10,\"wind_degree\":180,\"wind_dir\":\"S\",\"pressure\":1018,\"precip\":0,\"humidity\":50,\"cloudcover\":25,\"feelslike\":15,\"uv_index\":3,\"visibility\":8}}"
+                    ]
+                ]
+            },
+            {
+                "input": "It's getting colder here. Can you find the current temperature in Fahrenheit for Toronto? I want to see if I need to bring a jacket.\nAuthentication information: access_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "current_get",
+                            "{\"access_key\": \"***\", \"query\": \"Toronto\", \"units\": \"f\"}",
+                            " I need to use the current_get tool to get the current temperature in Fahrenheit for Toronto.\nASSISTANT Action: current_get\nASSISTANT Action Input: {\"access_key\": \"***\", \"query\": \"Toronto\", \"units\": \"f\"}"
+                        ],
+                        "Status Code: 200. Response: {\"request\":{\"type\":\"City\",\"query\":\"Toronto\",\"unit\":\"f\"},\"location\":{\"name\":\"Toronto\",\"country\":\"Canada\",\"region\":\"Ontario\",\"lat\":\"43.65107\",\"lon\":\"-79.347015\",\"timezone_id\":\"America/Toronto\",\"localtime\":\"2024-05-06 09:45\",\"localtime_epoch\":1672710300,\"utc_offset\":\"-4.0\"},\"current\":{\"observation_time\":\"09:45 AM\",\"temperature\":50,\"weather_code\":143,\"weather_icons\":[\"https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0006_mist.png\"],\"weather_descriptions\":[\"Mist\"],\"wind_speed\":8,\"wind_degree\":270,\"wind_dir\":\"W\",\"pressure\":1016,\"precip\":0,\"humidity\":70,\"cloudcover\":75,\"feelslike\":48,\"uv_index\":2,\"visibility\":5}}"
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            {
+                "input": "I'm planning a road trip from New York to Los Angeles next week. Can you help me check the weather conditions for the major cities along the route, like Chicago, Denver, and Las Vegas? I'd like to know if there will be any severe weather conditions that might affect my trip.\nAuthentication information: access_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "current_get",
+                            "{\"access_key\": \"***\", \"query\": \"Chicago, Denver, Las Vegas\", \"units\": \"m\", \"callback\": \"callback\"}",
+                            " I need to use the current_get tool to get the current weather for each of the cities.\nASSISTANT Action: current_get\nASSISTANT Action Input: {\"access_key\": \"***\", \"query\": \"Chicago, Denver, Las Vegas\", \"units\": \"m\", \"callback\": \"callback\"}"
+                        ],
+                        "Status Code: 200. Response: {\"request\":{\"type\":\"City\",\"query\":\"Chicago, Denver, Las Vegas\",\"unit\":\"m\"},\"location\":{\"name\":\"Chicago\",\"country\":\"United States\",\"region\":\"Illinois\",\"lat\":\"41.8781\",\"lon\":\"-87.6298\",\"timezone_id\":\"America/Chicago\",\"localtime\":\"2024-05-06 09:45\",\"localtime_epoch\":1672710300,\"utc_offset\":\"-5.0\"},\"current\":{\"observation_time\":\"09:45 AM\",\"temperature\":10,\"weather_code\":122,\"weather_icons\":[\"https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png\"],\"weather_descriptions\":[\"Overcast\"],\"wind_speed\":5,\"wind_degree\":180,\"wind_dir\":\"S\",\"pressure\":1018,\"precip\":0,\"humidity\":65,\"cloudcover\":100,\"feelslike\":10,\"uv_index\":2,\"visibility\":10}}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm planning a beach day in Miami this weekend. Could you check the weather for me? I'd like to know if it's going to be sunny and what the UV index will be. Also, could you tell me what the sea temperature will be?\nAuthentication information: access_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "current_get",
+                            "{\"access_key\": \"***\", \"query\": \"Miami, FL\", \"units\": \"m\", \"callback\": \"weather_callback\"}",
+                            " I need to use the current_get tool to get the current weather data for Miami.\nASSISTANT Action: current_get\nASSISTANT Action Input: {\"access_key\": \"***\", \"query\": \"Miami, FL\", \"units\": \"m\", \"callback\": \"weather_callback\"}"
+                        ],
+                        "Status Code: 200. Response: {\"request\":{\"type\":\"City\",\"query\":\"Miami, FL\",\"unit\":\"m\"},\"location\":{\"name\":\"Miami\",\"country\":\"United States\",\"region\":\"Florida\",\"lat\":\"25.7617\",\"lon\":\"-80.1918\",\"timezone_id\":\"America/New_York\",\"localtime\":\"2024-05-06 10:45\",\"localtime_epoch\":1672713900,\"utc_offset\":\"-4.0\"},\"current\":{\"observation_time\":\"10:45 AM\",\"temperature\":27,\"weather_code\":356,\"weather_icons\":[\"https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0022-light_snow_showers.png\"],\"weather_descriptions\":[\"Light snow showers\"],\"wind_speed\":15,\"wind_degree\":120,\"wind_dir\":\"ESE\",\"pressure\":1014,\"precip\":0,\"humidity\":85,\"cloudcover\":50,\"feelslike\":25,\"uv_index\":5,\"visibility\":6}}"
+                    ]
+                ]
+            }
         ]
     },
     {
@@ -794,6 +1451,106 @@
                     "Action_Input": "{\"word\": \"ephemeral\"}"
                 }
             ]
+        ],
+        "Instances": [
+            {
+                "input": "I'm preparing for a spelling bee and need to practice my pronunciation. Could you find the phonetics and audio pronunciation for the word 'quixotic' for me?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api_v2_entries_en_word_get",
+                            "{\"word\": \"quixotic\"}",
+                            " I need to use the api_v2_entries_en_word_get tool to get the phonetics and audio pronunciation for the word 'quixotic'.\nASSISTANT Action: api_v2_entries_en_word_get\nASSISTANT Action Input: {\"word\": \"quixotic\"}"
+                        ],
+                        "Status Code: 200. Response: {\"word\":\"quixotic\",\"phonetic\":\"kwik-sot-ik\",\"phonetics\":[{\"text\":\"kwik-sot-ik\",\"audio\":\"https://api.dictionaryapi.dev/audio/word/en/quixotic.mp3\"}],\"origin\":\"early 18th century: from Don Quixote, the hero of the novel by Cervantes.\",\"meanings\":[{\"partOfSpeech\":\"adjective\",\"definitions\":[{\"definition\":\"exceedingly idealistic; unrealistic and impractical.\",\"example\":\"a vast and perhaps quixotic project\",\"synonyms\":[\"idealistic\",\"impractical\",\"unrealistic\"],\"antonyms\":[\"practical\",\"realistic\"]}]}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm writing a report on the etymology of words. Can you find the origin of the word 'serendipity'?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api_v2_entries_en_word_get",
+                            "{\"word\": \"serendipity\"}",
+                            " I need to use the api_v2_entries_en_word_get tool to get the origin of the word'serendipity'.\nASSISTANT Action: api_v2_entries_en_word_get\nASSISTANT Action Input: {\"word\": \"serendipity\"}"
+                        ],
+                        "Status Code: 200. Response: {\"word\":\"serendipity\",\"phonetic\":\"ser-uhn-dip-i-tee\",\"phonetics\":[{\"text\":\"ser-uhn-dip-i-tee\",\"audio\":\"https://api.dictionaryapi.dev/audio/word/en/serendipity.mp3\"}],\"origin\":\"1754: coined by Horace Walpole, suggested by The Three Princes of Serendip, the title of a fairy tale in which the heroes possess this gift.\",\"meanings\":[{\"partOfSpeech\":\"noun\",\"definitions\":[{\"definition\":\"the occurrence and development of events by chance in a happy or beneficial way.\",\"example\":\"a fortunate stroke of serendipity\",\"synonyms\":[\"chance\",\"fortuity\",\"luck\"],\"antonyms\":[\"misfortune\",\"bad luck\"]}]}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm trying to expand my vocabulary. Can you find synonyms for the word 'beautiful'?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api_v2_entries_en_word_get",
+                            "{\"word\": \"beautiful\"}",
+                            " I should use the api_v2_entries_en_word_get tool to get the definition of the word 'beautiful' and then use the synonyms from the definition.\nASSISTANT Action: api_v2_entries_en_word_get\nASSISTANT Action Input: {\"word\": \"beautiful\"}"
+                        ],
+                        "Status Code: 200. Response: {\"word\":\"beautiful\",\"phonetic\":\"byoo-tuh-fuhl\",\"phonetics\":[{\"text\":\"byoo-tuh-fuhl\",\"audio\":\"https://api.dictionaryapi.dev/audio/word/en/beautiful.mp3\"}],\"origin\":\"late Middle English: from beauty + -ful.\",\"meanings\":[{\"partOfSpeech\":\"adjective\",\"definitions\":[{\"definition\":\"pleasing the senses or mind aesthetically.\",\"example\":\"beautiful poetry\",\"synonyms\":[\"attractive\",\"lovely\",\"stunning\"],\"antonyms\":[\"ugly\",\"unattractive\"]}]}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm a bit confused about the usage of the word 'ephemeral'. Could you provide me with its definition and an example sentence?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api_v2_entries_en_word_get",
+                            "{\"word\": \"ephemeral\"}",
+                            " I need to use the api_v2_entries_en_word_get tool to get the definition and example sentence of the word 'ephemeral'.\nASSISTANT Action: api_v2_entries_en_word_get\nASSISTANT Action Input: {\"word\": \"ephemeral\"}"
+                        ],
+                        "Status Code: 200. Response: {\"word\":\"ephemeral\",\"phonetic\":\"ih-fem-er-uhl\",\"phonetics\":[{\"text\":\"ih-fem-er-uhl\",\"audio\":\"https://api.dictionaryapi.dev/audio/word/en/ephemeral.mp3\"}],\"origin\":\"early 19th century: from Greek ephēmeros, from epi 'on' + hēmera 'day.'\",\"meanings\":[{\"partOfSpeech\":\"adjective\",\"definitions\":[{\"definition\":\"lasting for a very short time.\",\"example\":\"fashions are ephemeral\",\"synonyms\":[\"transient\",\"short-lived\",\"temporary\"],\"antonyms\":[\"permanent\",\"lasting\"]}]}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm trying to understand the difference between 'affect' and 'effect'. Could you fetch the definitions and examples of both words?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api_v2_entries_en_word_get",
+                            "{\"word\": \"affect\"}",
+                            " I need to use the api_v2_entries_en_word_get tool to get the definitions and examples of both words.\nASSISTANT Action: api_v2_entries_en_word_get\nASSISTANT Action Input: {\"word\": \"affect\"}"
+                        ],
+                        "Status Code: 200. Response: {\"word\":\"affect\",\"phonetic\":\"uh-fekt\",\"phonetics\":[{\"text\":\"uh-fekt\",\"audio\":\"https://api.dictionaryapi.dev/audio/word/en/affect.mp3\"}],\"origin\":\"late Middle English: from Latin affect- 'influenced, acted upon,' from the verb afficere.\",\"meanings\":[{\"partOfSpeech\":\"verb\",\"definitions\":[{\"definition\":\"have an effect on; make a difference to.\",\"example\":\"the dampness began to affect my health\",\"synonyms\":[\"influence\",\"impact\",\"alter\"],\"antonyms\":[\"maintain\",\"preserve\"]}]}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm working on my English vocabulary. Can you help me understand the word \"serendipity\"? I need its definition, pronunciation, part of speech, and some examples of its usage. Also, provide me with some synonyms to expand my vocabulary.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api_v2_entries_en_word_get",
+                            "{\"word\": \"serendipity\"}",
+                            " I need to use the api_v2_entries_en_word_get tool to get the definition, pronunciation, part of speech, and examples of usage for the word \"serendipity\".\nASSISTANT Action: api_v2_entries_en_word_get\nASSISTANT Action Input: {\"word\": \"serendipity\"}"
+                        ],
+                        "Status Code: 200. Response: {\"word\":\"serendipity\",\"phonetic\":\"ser-uhn-dip-i-tee\",\"phonetics\":[{\"text\":\"ser-uhn-dip-i-tee\",\"audio\":\"https://api.dictionaryapi.dev/audio/word/en/serendipity.mp3\"}],\"origin\":\"1754: coined by Horace Walpole, suggested by The Three Princes of Serendip, the title of a fairy tale in which the heroes possess this gift.\",\"meanings\":[{\"partOfSpeech\":\"noun\",\"definitions\":[{\"definition\":\"the occurrence and development of events by chance in a happy or beneficial way.\",\"example\":\"a fortunate stroke of serendipity\",\"synonyms\":[\"chance\",\"fortuity\",\"luck\"],\"antonyms\":[\"misfortune\",\"bad luck\"]}]}]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm writing a poem and I need some inspiration. Could you find the definition, pronunciation, and examples of the word \"ephemeral\"? Also, I'd love to know its synonyms to enrich my poem.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api_v2_entries_en_word_get",
+                            "{\"word\": \"ephemeral\"}",
+                            " I can use the api_v2_entries_en_word_get tool to get the definition, pronunciation, and examples of the word \"ephemeral\". I can also use the tool to get the synonyms of the word.\nASSISTANT Action: api_v2_entries_en_word_get\nASSISTANT Action Input: {\"word\": \"ephemeral\"}"
+                        ],
+                        "Status Code: 200. Response: {\"word\":\"ephemeral\",\"phonetic\":\"ih-fem-er-uhl\",\"phonetics\":[{\"text\":\"ih-fem-er-uhl\",\"audio\":\"https://api.dictionaryapi.dev/audio/word/en/ephemeral.mp3\"}],\"origin\":\"early 19th century: from Greek ephēmeros, from epi 'on' + hēmera 'day.'\",\"meanings\":[{\"partOfSpeech\":\"adjective\",\"definitions\":[{\"definition\":\"lasting for a very short time.\",\"example\":\"fashions are ephemeral\",\"synonyms\":[\"transient\",\"short-lived\",\"temporary\"],\"antonyms\":[\"permanent\",\"lasting\"]}]}]}"
+                    ]
+                ]
+            }
         ]
     },
     {
@@ -801,7 +1558,7 @@
         "Description": "Provides specific answers to questions using data and algorithms",
         "Category": "Machine Learning",
         "Authentication": {
-            "appid": "LQGE4R-VPE825U26W"
+            "appid": "***"
         },
         "external_tools": [
             "retrieval"
@@ -924,6 +1681,190 @@
                     "Action_Input": "{\"appid\": \"LQGE4R-VPE825U26W\", \"i\": \"how long it would take to drive from Los Angeles to New York by car\"}"
                 }
             ]
+        ],
+        "Instances": [
+            {
+                "input": "Can you find the current temperature in New York City in Fahrenheit using the weather API?\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"Current temperature in Fahrenheit\", \"units\": \"imperial\"}",
+                            " I need to use the result_get tool to get the current temperature in Fahrenheit.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"Current temperature in Fahrenheit\", \"units\": \"imperial\"}"
+                        ],
+                        "Status Code: 200. Response: {\"short_answer\":\"The current temperature in Fahrenheit is 72 degrees.\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "Please help me calculate the square root of 625 using the math API.\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"625\", \"units\": \"metric\", \"timeout\": \"5\"}",
+                            " I need to use the result_get tool to get the answer from the math API.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"625\", \"units\": \"metric\", \"timeout\": \"5\"}"
+                        ],
+                        "Status Code: 200. Response: {\"short_answer\":\"625 is a square number, meaning it is the product of an integer multiplied by itself. In this case, 625 = 25 * 25.\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I need to convert 5 miles to kilometers. Can you use the unit conversion API to help me with that?\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"5*60*2\", \"units\": \"metric\", \"timeout\": \"5\"}",
+                            " I need to use the result_get tool to get the answer from the unit conversion API.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"5*60*2\", \"units\": \"metric\", \"timeout\": \"5\"}"
+                        ],
+                        "Status Code: 200. Response: {\"short_answer\":\"The result of the expression 5*60*2 is 600.\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "Could you check the population of Tokyo for me using the demographics API?\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"Tokyo population\", \"units\": \"metric\", \"timeout\": 5}",
+                            " I need to use the result_get tool to get the population of Tokyo.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"Tokyo population\", \"units\": \"metric\", \"timeout\": 5}"
+                        ],
+                        "Status Code: 200. Response: {\"short_answer\":\"The population of Tokyo is approximately 9.73 million.\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I want to know the capital city of Australia. Can you use the geography API to find that out?\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"What is the capital city of Australia?\", \"units\": \"metric\", \"timeout\": 5}",
+                            " I need to use the result_get tool to get the answer from the geography API.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"What is the capital city of Australia?\", \"units\": \"metric\", \"timeout\": 5}"
+                        ],
+                        "Status Code: 200. Response: {\"short_answer\":\"The capital city of Australia is Canberra.\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "Hey, I'm trying to help my daughter with her homework and we're stuck on this math problem. Can you find out what the square root of 256 is?\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"Square root of 256\", \"units\": \"metric\", \"timeout\": \"5\"}",
+                            " I need to use the result_get tool to get the answer from Wolfram Alpha.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"Square root of 256\", \"units\": \"metric\", \"timeout\": \"5\"}"
+                        ],
+                        "Status Code: 200. Response: {\"short_answer\":\"The square root of 256 is 16.\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm working on a science project and I need to know how many moons Jupiter has. Can you look that up for me?\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"Jupiter has 67 moons.\", \"units\": \"metric\", \"timeout\": 5}",
+                            " I need to use the result_get tool to get the answer from Wolfram Alpha.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"Jupiter has 67 moons.\", \"units\": \"metric\", \"timeout\": 5}"
+                        ],
+                        "Status Code: 200. Response: {\"short_answer\":\"Jupiter has 67 known moons.\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm planning a trip to Paris and I'm curious about the weather. Can you find out what the average temperature is in Paris in July?\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"https://www.wolframalpha.com/input/?i=average+temperature+in+Paris+in+July\", \"units\": \"imperial\", \"timeout\": \"10\"}",
+                            " I need to use the result_get tool to get the temperature information from Wolfram Alpha.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"https://www.wolframalpha.com/input/?i=average+temperature+in+Paris+in+July\", \"units\": \"imperial\", \"timeout\": \"10\"}"
+                        ],
+                        "Status Code: 501. Response: {\"error\":\"Not Implemented - The given input value cannot be interpreted by the API\"}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            {
+                "input": "I'm doing a presentation on famous scientists. Can you find out when Albert Einstein was born?\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"Albert Einstein's birthday\", \"units\": \"metric\", \"timeout\": 5}",
+                            " I need to use the result_get tool to get the answer from Wolfram Alpha.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"Albert Einstein's birthday\", \"units\": \"metric\", \"timeout\": 5}"
+                        ],
+                        "Status Code: 200. Response: {\"short_answer\":\"Albert Einstein's birthday was on March 14, 1879.\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm trying to lose weight and I'm counting calories. Can you tell me how many calories are in a medium-sized apple?\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"The number of calories in a medium-sized apple\", \"units\": \"metric\", \"timeout\": \"5\"}",
+                            " I need to use the result_get tool to get the answer from Wolfram Alpha.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"The number of calories in a medium-sized apple\", \"units\": \"metric\", \"timeout\": \"5\"}"
+                        ],
+                        "Status Code: 200. Response: {\"short_answer\":\"A medium-sized apple typically contains about 95 calories.\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm writing a report on the solar system and I need some information. Can you tell me the diameter of Mars and the distance between Mars and Earth?\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"The diameter of Mars and the distance between Mars and Earth\", \"units\": \"metric\", \"timeout\": \"5\"}",
+                            " I need to use the result_get tool to get the information I need.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"The diameter of Mars and the distance between Mars and Earth\", \"units\": \"metric\", \"timeout\": \"5\"}"
+                        ],
+                        "Status Code: 200. Response: {\"short_answer\":\"The diameter of Mars is approximately 6,779 kilometers, and the average distance between Mars and Earth is about 225 million kilometers.\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm trying to eat healthier and I need to know the nutritional value of some foods. Can you tell me how many calories are in an apple and a banana?\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"The nutritional value of an apple and a banana\", \"units\": \"metric\", \"timeout\": \"5\"}",
+                            " I need to use the result_get tool to get the nutritional value of an apple and a banana.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"The nutritional value of an apple and a banana\", \"units\": \"metric\", \"timeout\": \"5\"}"
+                        ],
+                        "Status Code: 200. Response: {\"short_answer\":\"An apple typically contains approximately 52 calories, 14 grams of carbohydrates, 0.2 grams of fat, and 0.3 grams of protein. A banana typically contains approximately 96 calories, 23 grams of carbohydrates, 0.2 grams of fat, and 1.1 grams of protein.\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm planning a road trip and I need to calculate the distance. Can you tell me the distance from Los Angeles to New York by car? Also, can you tell me how long it would take to drive that distance?\nAuthentication information: appid=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "result_get",
+                            "{\"appid\": \"***\", \"i\": \"The distance from Los Angeles to New York is approximately 3,488 kilometers (2,165 miles).\", \"units\": \"metric\", \"timeout\": \"5\"}",
+                            " I need to use the result_get tool to get the distance and time from Wolfram Alpha.\nASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"***\", \"i\": \"The distance from Los Angeles to New York is approximately 3,488 kilometers (2,165 miles).\", \"units\": \"metric\", \"timeout\": \"5\"}"
+                        ],
+                        "Status Code: 200. Response: {\"short_answer\":\"The distance from Los Angeles to New York is approximately 3,488 kilometers (2,165 miles).\"}"
+                    ]
+                ]
+            }
         ]
     },
     {
@@ -1058,6 +1999,84 @@
                     "Action_Input": "{\"name\": \"banana\"}"
                 }
             ]
+        ],
+        "Instances": [
+            "This instance is not used.",
+            {
+                "input": "Please fetch all the fruits available in the API. I want to explore the variety and learn about different fruit options.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "getAllFruits",
+                            "{}",
+                            " I need to use the getAllFruits tool to retrieve all the fruits.\nASSISTANT Action: getAllFruits\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 200. Response: [{\"name\":\"Apple\",\"id\":1,\"family\":\"Rosaceae\",\"genus\":\"Malus\",\"order\":\"Rosales\",\"nutritions\":{\"carbohydrates\":25,\"protein\":0,\"fat\":0,\"calories\":95,\"sugar\":19}},{\"name\":\"Banana\",\"id\":2,\"family\":\"Musaceae\",\"genus\":\"Musa\",\"order\":\"Zingiberales\",\"nutritions\":{\"carbohydrates\":23,\"protein\":1,\"fat\":0,\"calories\":89,\"sugar\":12}},{\"name\":\"Orange\",\"id\":3,\"family\":\"Rutaceae\",\"genus\":\"Citrus\",\"order\":\"Sapindales\",\"nutritions\":{\"carbohydrates\":21,\"protein\":1,\"fat\":0,\"calories\":62,\"sugar\":12}}]"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm curious about fruits belonging to the \"Rosaceae\" family. Can you retrieve information about a fruit from this family using the API? I'd like to know its name, genus, order, and nutritional values.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "getFruitsByFamily",
+                            "{\"family\": \"Rosaceae\"}",
+                            " I need to use the getFruitsByFamily tool to retrieve information about a fruit from the Rosaceae family.\nASSISTANT Action: getFruitsByFamily\nASSISTANT Action Input: {\"family\": \"Rosaceae\"}"
+                        ],
+                        "`getFruitsByFamily` is not a valid action. The action must be one of ['retrievalDataFromFile', 'getFruitByName', 'getAllFruits', 'getFruitByFamily', 'getFruitsByGenus', 'getFruitsByOrder']."
+                    ]
+                ]
+            },
+            {
+                "input": "I'm trying to find fruits that belong to the \"Citrus\" genus. Could you help me retrieve a list of all such fruits using the API? I'm interested in their names, families, and nutritional values.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "getFruitsByGenus",
+                            "{\"genus\": \"Citrus\"}",
+                            " I need to use the getFruitsByGenus tool to retrieve a list of fruits belonging to the \"Citrus\" genus.\nASSISTANT Action: getFruitsByGenus\nASSISTANT Action Input: {\"genus\": \"Citrus\"}"
+                        ],
+                        "Status Code: 200. Response: [{\"name\":\"Orange\",\"id\":3,\"family\":\"Rutaceae\",\"genus\":\"Citrus\",\"order\":\"Sapindales\",\"nutritions\":{\"carbohydrates\":21,\"protein\":1,\"fat\":0,\"calories\":62,\"sugar\":12}},{\"name\":\"Lemon\",\"id\":4,\"family\":\"Rutaceae\",\"genus\":\"Citrus\",\"order\":\"Sapindales\",\"nutritions\":{\"carbohydrates\":9,\"protein\":1,\"fat\":0,\"calories\":29,\"sugar\":2}}]"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm planning to make a fruit salad, and I want to include fruits from the \"Sapindales\" order. Can you fetch a list of fruits belonging to this order using the API? I need their names, families, and nutritional values.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "getFruitsByOrder",
+                            "{\"order\": \"Sapindales\"}",
+                            " I need to use the getFruitsByOrder tool to get a list of fruits from the Sapindales order.\nASSISTANT Action: getFruitsByOrder\nASSISTANT Action Input: {\"order\": \"Sapindales\"}"
+                        ],
+                        "Status Code: 200. Response: [{\"name\":\"Orange\",\"id\":3,\"family\":\"Rutaceae\",\"genus\":\"Citrus\",\"order\":\"Sapindales\",\"nutritions\":{\"carbohydrates\":21,\"protein\":1,\"fat\":0,\"calories\":62,\"sugar\":12}},{\"name\":\"Lemon\",\"id\":4,\"family\":\"Rutaceae\",\"genus\":\"Citrus\",\"order\":\"Sapindales\",\"nutritions\":{\"carbohydrates\":9,\"protein\":1,\"fat\":0,\"calories\":29,\"sugar\":2}}]"
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            {
+                "input": "I'm interested in learning more about the 'Citrus' genus. Can you provide me with a list of fruits that belong to this genus?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "getFruitsByGenus",
+                            "{\"genus\": \"Citrus\"}",
+                            " I need to use the getFruitsByGenus tool to get a list of fruits that belong to the Citrus genus.\nASSISTANT Action: getFruitsByGenus\nASSISTANT Action Input: {\"genus\": \"Citrus\"}"
+                        ],
+                        "Status Code: 404. Response: {\"error\":\"Fruits of genus Citrus not found.\"}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            "This instance is not used.",
+            "This instance is not used.",
+            "This instance is not used."
         ]
     },
     {
@@ -1205,6 +2224,150 @@
                     "Action_Input": "{\"text\": \"Happy Birthday!\", \"type\": \"cute\"}"
                 }
             ]
+        ],
+        "Instances": [
+            {
+                "input": "Hey, can you help me find a random cat picture? I need one with a width of 500 pixels and a height of 300 pixels. It would be great if you could return it in JSON format.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "getRandomCat",
+                            "{\"type\": \"random\", \"width\": \"500\", \"height\": \"300\", \"html\": \"\", \"json\": \"\"}",
+                            " I can use the getRandomCat tool to find a random cat picture.\nASSISTANT Action: getRandomCat\nASSISTANT Action Input: {\"type\": \"random\", \"width\": \"500\", \"height\": \"300\", \"html\": \"\", \"json\": \"\"}"
+                        ],
+                        "Status Code: 400. Response: {\"message\":\"Bad Request\",\"code\":400}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            {
+                "input": "I'm looking for a cat picture with the tag 'cute'. Could you find me a random one? Make sure it has a width of 800 pixels and a height of 600 pixels.",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "findCatByTag",
+                            "{\"tag\": \"cute\", \"type\": \"random\", \"width\": \"800\", \"height\": \"600\"}",
+                            " I can use the findCatByTag tool to find a cat with the tag 'cute'.\nASSISTANT Action: findCatByTag\nASSISTANT Action Input: {\"tag\": \"cute\", \"type\": \"random\", \"width\": \"800\", \"height\": \"600\"}"
+                        ],
+                        "Status Code: 200. Response: {\"_id\":\"24680\",\"tags\":[\"celebration\",\"happy\"],\"owner\":\"CatPartyPlanner\",\"createdAt\":\"2022-03-21T09:00:00\",\"updatedAt\":\"2022-03-21T09:00:00\"}"
+                    ]
+                ]
+            },
+            {
+                "input": "I want to surprise my friend with a cat picture that says 'Happy Birthday!' Can you find a random cat image with that text?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "findCatWithText",
+                            "{\"text\": \"Happy Birthday!\", \"type\": \"random\", \"width\": \"100\", \"height\": \"100\"}",
+                            " I need to find a random cat image with the text 'Happy Birthday!'\nASSISTANT Action: findCatWithText\nASSISTANT Action Input: {\"text\": \"Happy Birthday!\", \"type\": \"random\", \"width\": \"100\", \"height\": \"100\"}"
+                        ],
+                        "Status Code: 400. Response: {\"message\":\"Bad Request\",\"code\":400}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            {
+                "input": "I need a list of all the available cat tags. Can you retrieve them for me?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "tags",
+                            "{}",
+                            " I need to use the tags tool to retrieve the list of tags.\nASSISTANT Action: tags\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 200. Response: {\"tags\":[\"cute\",\"funny\",\"adorable\",\"sleepy\",\"playful\",\"fluffy\",\"celebration\",\"happy\",\"small\"]}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm curious about how many cats are available in the database. Can you count them for me?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "count",
+                            "{}",
+                            " I need to use the count tool to get the total number of cats in the database.\nASSISTANT Action: count\nASSISTANT Action Input: {}"
+                        ],
+                        "Status Code: 200. Response: {\"number\":1500}"
+                    ]
+                ]
+            },
+            {
+                "input": "I want to browse through a variety of cat pictures. Can you retrieve a list of 3 cats for me?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "api",
+                            "{\"limit\": 3}",
+                            " I need to use the api tool to retrieve a list of cats.\nASSISTANT Action: api\nASSISTANT Action Input: {\"limit\": 3}"
+                        ],
+                        "Status Code: 200. Response: [{\"_id\":\"111\",\"tags\":[\"fluffy\",\"cute\"],\"owner\":\"FluffyLover\",\"createdAt\":\"2022-03-23T10:00:00\",\"updatedAt\":\"2022-03-23T10:00:00\"},{\"_id\":\"222\",\"tags\":[\"playful\",\"adorable\"],\"owner\":\"PlaytimePaws\",\"createdAt\":\"2022-03-23T11:30:00\",\"updatedAt\":\"2022-03-23T11:30:00\"},{\"_id\":\"333\",\"tags\":[\"sleepy\",\"snuggly\"],\"owner\":\"CozyCuddles\",\"createdAt\":\"2022-03-23T13:45:00\",\"updatedAt\":\"2022-03-23T13:45:00\"}]"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm feeling a bit down and could use a pick-me-up. Could you find me a random picture of a cat? Make sure it's a cute one!",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "getRandomCat",
+                            "{\"type\": \"cute\", \"width\": \"100\", \"height\": \"100\"}",
+                            " I can use the getRandomCat tool to find a random cat image.\nASSISTANT Action: getRandomCat\nASSISTANT Action Input: {\"type\": \"cute\", \"width\": \"100\", \"height\": \"100\"}"
+                        ],
+                        "Status Code: 404. Response: {\"message\":\"Cat not found\",\"code\":404}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            {
+                "input": "I need a funny image for a birthday card. Can you find me a picture of a cat with the text 'Happy Birthday' on it?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "findCatWithText",
+                            "{\"text\": \"Happy Birthday\", \"type\": \"cat\", \"width\": \"100\", \"height\": \"100\"}",
+                            " I can use the findCatWithText tool to find a cat with the text 'Happy Birthday' on it.\nASSISTANT Action: findCatWithText\nASSISTANT Action Input: {\"text\": \"Happy Birthday\", \"type\": \"cat\", \"width\": \"100\", \"height\": \"100\"}"
+                        ],
+                        "Status Code: 404. Response: {\"message\":\"Cat not found\",\"code\":404}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            {
+                "input": "I'm starting a blog about my life as a cat owner. Could you provide me with a cat gif for my first post? I'd also like to add a caption saying \"Welcome to my cat-tastic journey!\".",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "findCatById",
+                            "{\"id\": \"cat_id\", \"type\": \"cat\", \"width\": \"100\", \"height\": \"100\", \"html\": \"Welcome to my cat-tastic journey!\", \"json\": \"true\"}",
+                            " I can use the findCatById tool to get a cat image, and then use the getRandomCat tool to get a caption.\nASSISTANT Action: findCatById\nASSISTANT Action Input: {\"id\": \"cat_id\", \"type\": \"cat\", \"width\": \"100\", \"height\": \"100\", \"html\": \"Welcome to my cat-tastic journey!\", \"json\": \"true\"}"
+                        ],
+                        "Status Code: 404. Response: {\"message\":\"Cat not found\",\"code\":404}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            {
+                "input": "I'm making a birthday card for my niece who loves kittens. Could you find a cute kitten picture for me? And could you add the text \"Happy Birthday!\" on it?",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "findCatById",
+                            "{\"id\": \"12345\", \"type\": \"cat\", \"width\": \"100\", \"height\": \"100\", \"html\": \"Happy Birthday!\", \"json\": \"{\\\"retrieved_info\\\": \"Happy Birthday!\"}}",
+                            " I need to find a cute kitten picture and add the text \"Happy Birthday!\" to it.\nASSISTANT Action: findCatById\nASSISTANT Action Input: {\"id\": \"12345\", \"type\": \"cat\", \"width\": \"100\", \"height\": \"100\", \"html\": \"Happy Birthday!\", \"json\": \"{\\\"retrieved_info\\\": \"Happy Birthday!\"}}"
+                        ],
+                        "Invalid JSON format. Please ensure 'Action Input' is a valid JSON object."
+                    ]
+                ]
+            }
         ]
     },
     {
@@ -1212,7 +2375,7 @@
         "Description": "Real-time and historical currency rates JSON API",
         "Category": "Currency Exchange",
         "Authentication": {
-            "api_key": "8BbG6gN9g3Y29h5EMMSEw6avX0c1LYkw"
+            "api_key": "***"
         },
         "external_tools": [
             "retrieval"
@@ -1290,7 +2453,7 @@
             [
                 {
                     "Action": "latest_get",
-                    "Action_Input": "{\"api_key\": \"8BbG6gN9g3Y29h5EMMSEw6avX0c1LYkw\", \"base\": \"USD\", \"symbols\": [\"EUR\", \"GBP\"]}"
+                    "Action_Input": "{\"api_key\": \"8BbG6gN9g3Y29h5EMMSEw6avX0c1LYkw\", \"base\": \"USD\", \"symbols\": \"symbols\": [\"EUR\", \"GBP\"]}"
                 }
             ],
             [
@@ -1314,13 +2477,13 @@
             [
                 {
                     "Action": "latest_get",
-                    "Action_Input": "{\"api_key\": \"8BbG6gN9g3Y29h5EMMSEw6avX0c1LYkw\", \"base\": \"USD\", \"symbols\": [\"EUR\", \"GBP\", \"JPY\"]}"
+                    "Action_Input": "{\"api_key\": \"8BbG6gN9g3Y29h5EMMSEw6avX0c1LYkw\", \"base\": \"USD\", \"symbols\": \"symbols\": [\"EUR\", \"GBP\", \"JPY\"]}"
                 }
             ],
             [
                 {
                     "Action": "latest_get",
-                    "Action_Input": "{\"api_key\": \"8BbG6gN9g3Y29h5EMMSEw6avX0c1LYkw\", \"base\": \"USD\", \"symbols\": \"JPY\"}"
+                    "Action_Input": "{\"api_key\": \"8BbG6gN9g3Y29h5EMMSEw6avX0c1LYkw\", \"base\": \"USD\", \"symbols\": \"symbols\": \"JPY\"}"
                 },
                 {
                     "Action": "timeseries_get",
@@ -1330,13 +2493,130 @@
             [
                 {
                     "Action": "latest_get",
-                    "Action_Input": "{\"api_key\": \"8BbG6gN9g3Y29h5EMMSEw6avX0c1LYkw\", \"base\": \"USD\", \"symbols\": \"EUR\"}"
+                    "Action_Input": "{\"api_key\": \"8BbG6gN9g3Y29h5EMMSEw6avX0c1LYkw\", \"base\": \"USD\", \"symbols\": \"symbols\": \"EUR\"}"
                 },
                 {
                     "Action": "timeseries_get",
                     "Action_Input": "{\"api_key\": \"8BbG6gN9g3Y29h5EMMSEw6avX0c1LYkw\", \"base\": \"USD\", \"start_date\": \"2023-07-01\", \"end_date\": \"2023-07-31\", \"symbols\": \"EUR\"}"
                 }
             ]
+        ],
+        "Instances": [
+            {
+                "input": "Hey, can you help me find out the current exchange rate for USD to EUR using the currency API? I need to know how many Euros I'll get for 100 US dollars.\nAuthentication information: api_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "latest_get",
+                            "{\"api_key\": \"***\", \"base\": \"USD\", \"symbols\": \"EUR\"}",
+                            " I need to use the latest_get tool to get the current exchange rate for USD to EUR.\nASSISTANT Action: latest_get\nASSISTANT Action Input: {\"api_key\": \"***\", \"base\": \"USD\", \"symbols\": \"EUR\"}"
+                        ],
+                        "Status Code: 200. Response: {\"base\":\"USD\",\"date\":\"2022-05-10\",\"rates\":{\"EUR\":0.8942}}"
+                    ]
+                ]
+            },
+            {
+                "input": "Could you please fetch the historical exchange rate data for GBP to CAD on January 1, 2022, using the currency API? I want to analyze the currency fluctuations for that day.\nAuthentication information: api_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "historical_get",
+                            "{\"api_key\": \"***\", \"base\": \"GBP\", \"date\": \"2022-01-01\", \"symbols\": \"CAD\"}",
+                            " I need to use the historical_get tool to get the historical exchange rate data for the specified date.\nASSISTANT Action: historical_get\nASSISTANT Action Input: {\"api_key\": \"***\", \"base\": \"GBP\", \"date\": \"2022-01-01\", \"symbols\": \"CAD\"}"
+                        ],
+                        "Status Code: 400. Response: {\"error\":\"Bad Request\",\"message\":\"The 'symbols' parameter cannot be used with the 'historical' endpoint.\",\"code\":400}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            {
+                "input": "I'm planning a trip to Japan next month. Can you retrieve the exchange rate data for USD to JPY from October 1, 2021, to November 30, 2021, using the currency API? I want to compare the rates and estimate my expenses.\nAuthentication information: api_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "historical_get",
+                            "{\"api_key\": \"***\", \"base\": \"USD\", \"date\": \"October 1, 2021\", \"symbols\": \"JPY\"}",
+                            " I need to use the historical_get tool to retrieve the exchange rate data for the specified date range.\nASSISTANT Action: historical_get\nASSISTANT Action Input: {\"api_key\": \"***\", \"base\": \"USD\", \"date\": \"October 1, 2021\", \"symbols\": \"JPY\"}"
+                        ],
+                        "Status Code: 400. Response: {\"error\":\"Bad Request\",\"message\":\"Invalid date format. Please provide the date in the format 'YYYY-MM-DD'.\"}. You should choose one of: (1) change the input and retry; (2) return the 'Final Answer' and explain what happened; (You must choose this one when the error occurs more than 3 times.) (3) call another function."
+                    ]
+                ]
+            },
+            {
+                "input": "I need to convert 500 Euros to US dollars. Can you use the currency API to convert the amount from EUR to USD for me?\nAuthentication information: api_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "convert_get",
+                            "{\"api_key\": \"***\", \"from\": \"EUR\", \"to\": \"USD\", \"amount\": \"500\"}",
+                            " I need to use the convert_get tool to convert the amount from EUR to USD.\nASSISTANT Action: convert_get\nASSISTANT Action Input: {\"api_key\": \"***\", \"from\": \"EUR\", \"to\": \"USD\", \"amount\": \"500\"}"
+                        ],
+                        "Status Code: 200. Response: {\"from\":\"EUR\",\"to\":\"USD\",\"amount\":500,\"converted_amount\":582.5}"
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            "This instance is not used.",
+            {
+                "input": "I'm planning a trip to Japan next month. Could you find out how much 1000 US dollars would be in Japanese yen using the current exchange rate?\nAuthentication information: api_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "convert_get",
+                            "{\"api_key\": \"***\", \"from\": \"USD\", \"to\": \"JPY\", \"amount\": \"1000\"}",
+                            " I need to use the convert_get tool to convert 1000 US dollars to Japanese yen.\nASSISTANT Action: convert_get\nASSISTANT Action Input: {\"api_key\": \"***\", \"from\": \"USD\", \"to\": \"JPY\", \"amount\": \"1000\"}"
+                        ],
+                        "Status Code: 200. Response: {\"from\":\"USD\",\"to\":\"JPY\",\"amount\":1000,\"converted_amount\":109820}"
+                    ]
+                ]
+            },
+            {
+                "input": "I need to send some money to my friend in France. Can you tell me how much 200 US dollars would convert to in Euros?\nAuthentication information: api_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "convert_get",
+                            "{\"api_key\": \"***\", \"from\": \"USD\", \"to\": \"EUR\", \"amount\": \"200\"}",
+                            " I need to use the convert_get tool to convert the amount from US dollars to Euros.\nASSISTANT Action: convert_get\nASSISTANT Action Input: {\"api_key\": \"***\", \"from\": \"USD\", \"to\": \"EUR\", \"amount\": \"200\"}"
+                        ],
+                        "Status Code: 200. Response: {\"from\":\"USD\",\"to\":\"EUR\",\"amount\":200,\"converted_amount\":176.2}"
+                    ]
+                ]
+            },
+            "This instance is not used.",
+            {
+                "input": "I'm planning a trip to Japan next month, and I want to start budgeting. Can you tell me the current exchange rate from US dollars to Japanese yen, and also provide the average exchange rate for July?\nAuthentication information: api_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "latest_get",
+                            "{\"api_key\": \"***\", \"base\": \"USD\", \"symbols\": \"JPY\"}",
+                            " I need to use the latest_get tool to get the current exchange rate, and then use the historical_get tool to get the average exchange rate for July.\nASSISTANT Action: latest_get\nASSISTANT Action Input: {\"api_key\": \"***\", \"base\": \"USD\", \"symbols\": \"JPY\"}"
+                        ],
+                        "Status Code: 200. Response: {\"base\":\"USD\",\"date\":\"2022-11-15\",\"rates\":{\"JPY\":115.75}}"
+                    ]
+                ]
+            },
+            {
+                "input": "I'm a business owner and I need to invoice a client in Europe. Can you provide me with the current exchange rate from US dollars to Euros, and also the average rate for the July so I can set a fair price?\nAuthentication information: api_key=***",
+                "output": "Agent stopped due to iteration limit or time limit.",
+                "intermediate_steps": [
+                    [
+                        [
+                            "latest_get",
+                            "{\"api_key\": \"***\", \"base\": \"USD\", \"symbols\": \"EUR\"}",
+                            " I need to get the current exchange rate from US dollars to Euros and the average rate for July.\nASSISTANT Action: latest_get\nASSISTANT Action Input: {\"api_key\": \"***\", \"base\": \"USD\", \"symbols\": \"EUR\"}"
+                        ],
+                        "Status Code: 200. Response: {\"base\":\"USD\",\"date\":\"2022-11-01\",\"rates\":{\"EUR\":0.8756}}"
+                    ]
+                ]
+            }
         ]
     }
 ]
