@@ -49,6 +49,7 @@ def get_description(FC_descs):
 parser = argparse.ArgumentParser()
 parser.add_argument("-inp", "--input_data_path", type=str, required=True)
 parser.add_argument("-out", "--output_dir", type=str, required=True)
+parser.add_argument("-sou", "--source", type=str, required=True)
 parser.add_argument("-llm", type=str, default=None)
 parser.add_argument("--server_url", type=str, default="http://127.0.0.1:5678")
 parser.add_argument("--agent_prompt", type=str, default="train_v2")
@@ -164,9 +165,7 @@ print(regenerte_count)
 import shutil
 import os
 
-source_file = f"./eval/v3/single-api-static/Llama-2-7b-chat-ms_real_epoch3.json"
-destination_file = f"./eval/v3/single-api-static/{args.input_data_path.split('/')[-1]}"
-
+source_file = args.source
 api_data = json.load(open(source_file , "r"))
 
 original_data = {}
@@ -202,7 +201,7 @@ for key, values in api_data.items():
                 original_data['statistics']['error_num'] -= 1
 
 
-with open(destination_file, 'w') as file:
+with open(args.output_dir, 'w') as file:
     json.dump(original_data, file, indent=4)
 
 

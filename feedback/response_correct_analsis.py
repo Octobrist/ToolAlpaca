@@ -60,7 +60,6 @@ if __name__ == "__main__":
             for cur_step in range(len(api['Golden_Answers'][ques_id])):
                 if exist_ids is not None and f'{ques_id}|{cur_step}' in exist_ids.get(api_name, []):
                     continue
-                original_data["statistics"]["num"] += 1
                 if "intermediate_steps" not in api["Instances"][ques_id][str(cur_step)] or len(api["Instances"][ques_id][str(cur_step)]["intermediate_steps"]) == 0 or \
                         'Could not parse LLM output:' in api["Instances"][ques_id][str(cur_step)]['output'] or 'error' in api["Instances"][ques_id][str(cur_step)].keys():
                     original_data["statistics"]["error_num"] += 1
@@ -72,7 +71,7 @@ if __name__ == "__main__":
                     original_data[api_name].append(tmp)
                     continue
 
-
+                original_data["statistics"]["num"] += 1
                 pre_step_idx = 0
                 prefix_answer = ""
                 for pre_step in golden_answer[api_idx]['Instances'][ques_id]['intermediate_steps'][:cur_step]:

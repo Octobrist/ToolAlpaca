@@ -150,36 +150,36 @@ for api_idx, api in tqdm(enumerate(api_data)):
                 else:
                     raise KeyError
                 assert prompt is not None
-                if category != 'no_api_call':
-                    continue
-                # regenerte_count += 1
-                # cur_step = get_cur_intermediate_steps(pre_steps, cur_action, cur_action_input, prompt)
-                # error_samples[api['Name']].append(f"{idx}|{cur_step_idx}")
-                # try:
-                #     output = agent(
-                #         {
-                #             'input': inst,
-                #             'intermediate_steps':pre_steps,
-                #             'cur_step': cur_step,
-                #             'last_feedbacks': None if 'last_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['last_feedbacks']
-                #         }
-                #     )
-                #     output['last_feedbacks'] = [] if 'last_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['last_feedbacks']
-                #     output['last_feedbacks'].append(output['cur_step'])
-                #     output.pop('cur_step')
-                #     json.dumps(output, ensure_ascii=4)
-                # except json.JSONDecodeError:
-                #     output = str(output)
-                # except Exception as e:
-                #     logger.error(e)
-                #     output = {"error": str(e)}
-                #
-                # if args.use_cache:
-                #     res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
-                #     print(res.text)
-                # api_data[api_idx]['Instances'][idx][str(cur_step_idx)] = output
-# with open(final_output_path , 'w') as file:
-#     json.dump(api_data, file, indent=4)
+                # if category != 'no_api_call':
+                #     continue
+                regenerte_count += 1
+                cur_step = get_cur_intermediate_steps(pre_steps, cur_action, cur_action_input, prompt)
+                error_samples[api['Name']].append(f"{idx}|{cur_step_idx}")
+                try:
+                    output = agent(
+                        {
+                            'input': inst,
+                            'intermediate_steps':pre_steps,
+                            'cur_step': cur_step,
+                            'last_feedbacks': None if 'last_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['last_feedbacks']
+                        }
+                    )
+                    output['last_feedbacks'] = [] if 'last_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['last_feedbacks']
+                    output['last_feedbacks'].append(output['cur_step'])
+                    output.pop('cur_step')
+                    json.dumps(output, ensure_ascii=4)
+                except json.JSONDecodeError:
+                    output = str(output)
+                except Exception as e:
+                    logger.error(e)
+                    output = {"error": str(e)}
+
+                if args.use_cache:
+                    res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
+                    print(res.text)
+                api_data[api_idx]['Instances'][idx][str(cur_step_idx)] = output
+with open(final_output_path , 'w') as file:
+    json.dump(api_data, file, indent=4)
 
 ERROR_DETAILS = get_error_details()
 for key, value in ERROR_DETAILS.items():
