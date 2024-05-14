@@ -59,27 +59,27 @@ import subprocess
 #     openai_chat_completion(model_engine="gpt-3.5-turbo-0125", in_context=False, temperature = 1)
 
 
-# import time
-# return_code = -1
-# while return_code != 0:
-#     # cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api-static/chatgpt-3.5-turbo_real_epoch1.json -out ./eval/v2/single-api-static --continue'
-#     # cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api/chatgpt-3.5-turbo_real.json -out ./eval/v2/ --continue'
-#     # cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api/Llama-2-7b-chat-ms_real.json -out ./eval/v3/single-api --continue'
-#     cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api-static/v3/chatgpt-3.5-turbo_real_epoch2.json -out ./eval/v3/single-api-static --continue '
-#     p = subprocess.Popen(cmd, shell=True)
-#     return_code = p.wait()
-#     time.sleep(100)
-
-cmds = [
-'python instance_generation/static_generation.py -inp ./generate/single-api-static/v3/Llama-2-7b-chat-ms_real_epoch1.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --epoch 2 --server_url http://127.0.0.1:1234',
-'python instance_generation/static_generation.py -inp ./generate/single-api-static/Llama-2-7b-chat-ms_real_epoch2.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --epoch 3 --server_url http://127.0.0.1:1234',
-'python instance_generation/static_generation.py -inp ./generate/single-api-static/Llama-2-7b-chat-ms_real_epoch3.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --epoch 4 --server_url http://127.0.0.1:1234',
-'python instance_generation/static_generation.py -inp ./generate/single-api-static/Llama-2-7b-chat-ms_real_epoch4.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --epoch 5 --server_url http://127.0.0.1:1234',
-    # 'python instance_generation/static_generation.py -inp ./generate/single-api-static/v3/ToolAlpaca-7B_real_epoch2.json -out ./generate -llm /home/huan/projects/llm/ToolAlpaca-7B --agent_prompt test_v1 --real --max_iterations 1 --epoch 3 --server_url http://127.0.0.1:1234'
-]
-for cmd in cmds:
+import time
+return_code = -1
+while return_code != 0:
+    # cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api-static/chatgpt-3.5-turbo_real_epoch1.json -out ./eval/v2/single-api-static --continue'
+    # cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api/chatgpt-3.5-turbo_real.json -out ./eval/v2/ --continue'
+    # cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api/Llama-2-7b-chat-ms_real.json -out ./eval/v3/single-api --continue'
+    cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api-static/v3/Llama-2-7b-chat-ms_real_epoch3.json -out ./eval/v3/single-api-static --continue '
     p = subprocess.Popen(cmd, shell=True)
     return_code = p.wait()
+    time.sleep(100)
+
+# cmds = [
+# 'python instance_generation/static_generation.py -inp ./generate/single-api-static/v3/Llama-2-7b-chat-ms_real_epoch1.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --epoch 2 --server_url http://127.0.0.1:1234',
+# 'python instance_generation/static_generation.py -inp ./generate/single-api-static/Llama-2-7b-chat-ms_real_epoch2.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --epoch 3 --server_url http://127.0.0.1:1234',
+# 'python instance_generation/static_generation.py -inp ./generate/single-api-static/Llama-2-7b-chat-ms_real_epoch3.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --epoch 4 --server_url http://127.0.0.1:1234',
+# 'python instance_generation/static_generation.py -inp ./generate/single-api-static/Llama-2-7b-chat-ms_real_epoch4.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --epoch 5 --server_url http://127.0.0.1:1234',
+#     # 'python instance_generation/static_generation.py -inp ./generate/single-api-static/v3/ToolAlpaca-7B_real_epoch2.json -out ./generate -llm /home/huan/projects/llm/ToolAlpaca-7B --agent_prompt test_v1 --real --max_iterations 1 --epoch 3 --server_url http://127.0.0.1:1234'
+# ]
+# for cmd in cmds:
+#     p = subprocess.Popen(cmd, shell=True)
+#     return_code = p.wait()
 
 
 # import json

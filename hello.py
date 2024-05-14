@@ -162,46 +162,46 @@ print(total_api)
 print(regenerte_count)
 
 
-import shutil
-import os
+# import shutil
+# import os
+#
+# source_file = args.source
+# api_data = json.load(open(source_file , "r"))
+#
+# original_data = {}
+# original_data["statistics"] = {
+#     "num": 0,
+#     "error_num": 0,
+#     "process": {
+#         "Yes": 0,
+#         "No": 0,
+#         "Uncertain": 0
+#     },
+#     "response": {
+#         "Yes": 0,
+#         "No": 0,
+#         "Uncertain": 0
+#     },
+#     "both": 0
+# }
 
-source_file = args.source
-api_data = json.load(open(source_file , "r"))
-
-original_data = {}
-original_data["statistics"] = {
-    "num": 0,
-    "error_num": 0,
-    "process": {
-        "Yes": 0,
-        "No": 0,
-        "Uncertain": 0
-    },
-    "response": {
-        "Yes": 0,
-        "No": 0,
-        "Uncertain": 0
-    },
-    "both": 0
-}
-
-for key, values in api_data.items():
-    if key == 'statistics':
-        original_data[key] = values
-        continue
-    original_data[key] = values
-    for value_idx, value in enumerate(values):
-        if value['id'] in error_samples[key]:
-            original_data[key].remove(value)
-            if 'process_correctness'in value.keys():
-                original_data['statistics']['num'] -= 1
-                original_data['statistics']['process'][value['process_correctness']] -= 1
-                original_data['statistics']['response'][value['response_correctness']] -= 1
-            else:
-                original_data['statistics']['error_num'] -= 1
-
-
-with open(args.output_dir, 'w') as file:
-    json.dump(original_data, file, indent=4)
+# for key, values in api_data.items():
+#     if key == 'statistics':
+#         original_data[key] = values
+#         continue
+#     original_data[key] = values
+#     for value_idx, value in enumerate(values):
+#         if value['id'] in error_samples[key]:
+#             original_data[key].remove(value)
+#             if 'process_correctness'in value.keys():
+#                 original_data['statistics']['num'] -= 1
+#                 original_data['statistics']['process'][value['process_correctness']] -= 1
+#                 original_data['statistics']['response'][value['response_correctness']] -= 1
+#             else:
+#                 original_data['statistics']['error_num'] -= 1
+#
+#
+# with open(args.output_dir, 'w') as file:
+#     json.dump(original_data, file, indent=4)
 
 

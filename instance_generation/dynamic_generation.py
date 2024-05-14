@@ -14,17 +14,44 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from agent.get_agent import get_agent
 from agent.agent_prompts import prompt_proj
 from utils import load_openapi_spec, analyze_openapi_spec
-from feedback.static_feedback import static_feedback, get_error_details
+from feedback.dynamic_feedback import get_incorrect_samples, dynamic_feedback, get_cur_details
 from feedback.prompt import *
 import torch
 import deepspeed
 
 logger = logging.getLogger(__name__)
 
+ober_list = []
+output_list = []
 
-def get_cur_intermediate_steps(pre_steps, action, action_input, prompt):
-    cur_step = [[action, str(action_input)], prompt]
+def get_cur_intermediate_steps(pre_steps, action, action_input, action_observation, action_output, feedback_type):
+    ober_list.append(action_observation)
+    output_list.append(action_output)
+    cur_oberservation = None
+    if 'NoneType' in action_output:
+        assert action_observation is None
+        cur_oberservation = f"ERROR. {action_output}"
+    elif 'Could not parse LLM output' in action_output:
+        assert action_observation is None and action is None and action_input is None
+        cur_oberservation = f"ERROR. {action_output}"
+    elif action_output == 'Agent stopped due to iteration limit or time limit.': # 正常
+        assert action is not None and action_input is not None
+        cur_oberservation = action_observation
+    elif 'ASSISTANT Response' in action_output: # 不需要反馈了？
+        return None
+    else:
+        raise KeyError
+    # elif action_output == 'Agent stopped due to iteration limit or time limit.':
+    #     action_observation = "This action does not collaborate with known API calls to facilitate the resolution of user's task instructions. " \
+    #                          "I would like to independently regenerate a new Action and a new Action Input. "
+    # else:
+    #     print(action_observation)
+    cur_step = [[action, str(action_input)], cur_oberservation]
     return cur_step
+
+def get_observation_and_output():
+    return set(ober_list), set(output_list)
+
 def get_instance_intermediate_steps(input_data, step):
     pre_steps = input_data[:step]
     return pre_steps
@@ -53,7 +80,7 @@ parser.add_argument("-llm", type=str, default=None)
 parser.add_argument("--server_url", type=str, default="http://127.0.0.1:5678")
 parser.add_argument("--agent_prompt", type=str, default="train_v2")
 parser.add_argument("--device", type=int, default=0)
-parser.add_argument("--dynamic_type", type=str, default='cot')
+parser.add_argument("--dynamic_type", type=str, default='normal')
 parser.add_argument("--max_iterations", type=int, default=1)
 parser.add_argument("--epoch", type=int, default=1)
 parser.add_argument("--use_cache", action="store_true", default=False)
@@ -70,13 +97,6 @@ elif "chatgpt" in args.llm.lower():
 else:
     tokenizer = AutoTokenizer.from_pretrained(args.llm, trust_remote_code=True)
     model = AutoModelForCausalLM.from_pretrained(args.llm, trust_remote_code=True).half()
-    # model = deepspeed.init_inference(
-    #     model=model,  # Transformers models
-    #     mp_size=1,  # Number of GPU
-    #     dtype=torch.float16,  # dtype of the weights (fp16)
-    #     replace_method="auto",  # Lets DS autmatically identify the layer to replace
-    #     replace_with_kernel_inject=True,  # replace the model with the kernel injector
-    # )
     generator = pipeline(
         "text-generation",
         model=model,
@@ -92,14 +112,14 @@ api_data = json.load(open(args.input_data_path, "r"))
 golden_data = json.load(open('/home/huan/projects/ToolAlpaca/golden-eval_real.json'))
 golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct.json'))
 
-final_output_path = os.path.join(args.output_dir, f"single-api-dynamic/{args.llm.split('/')[-1]}_real_{args.dynamic_type}_epoch{args.epoch}.json")
+final_output_path = os.path.join(args.output_dir, f"single-api-dynamic/{args.input_data_path.split('/')[-1].replace('.json', '')}_{args.dynamic_type}_epoch{args.epoch}.json")
 
 if args.use_cache:
     res = requests.get(f"{args.server_url}/__simulator_cache__/open")
 
 count = 0
-total_api = 0
 regenerte_count = 0
+cur_step_list = []
 for api_idx, api in tqdm(enumerate(api_data)):
     assert len(api["Instances"]) == len(api['Golden_Answers'])
     if "Instructions" not in api or len(api["Instructions"]) == 0:
@@ -121,65 +141,49 @@ for api_idx, api in tqdm(enumerate(api_data)):
                 count += 1
                 Answers.append('This instance is not used.')
                 continue
+            if 'epoch' not in args.input_data_path:
+                eval_info = json.load(open(args.input_data_path.replace('/generate/single-api/', '/eval/v3/single-api/'),'r'))
+            else:
+                eval_info = json.load(open(args.input_data_path.replace('/generate/single-api-static/v3/', '/eval/v3/single-api-static/'), 'r'))
+            incorrect_samples = get_incorrect_samples(eval_info)
             if len(api.get("Authentication", [])) > 0:
                 inst += "\nAuthentication information: " + \
                       " ".join([f"{k}={v}" for k, v in api["Authentication"].items()])
             api_docs = get_description(api['Function_Description'])
             outputs = {}
             for cur_step_idx in range(len(api['Golden_Answers'][idx])):
-                total_api += 1
-                prompt = None
-                pre_steps = get_instance_intermediate_steps(golden_data[api_idx]['Instances'][idx]['intermediate_steps'], cur_step_idx)
-                category, error_type, error_detail, cur_action, cur_action_input = static_feedback(api['Instances'][idx][str(cur_step_idx)], golden_data[api_idx]['Golden_Answers'][idx][cur_step_idx], api_docs)
-                if category is None:
+                if (api['Name'], f'{idx}|{cur_step_idx}') not in incorrect_samples:
                     continue
-                elif category == 'no_api_call':
-                    prompt = origin_regenerate_no_api_prompts
-                elif category == 'api_name_mismatch':
-                    prompt = get_regenerate_api_prompts(error_type, error_detail)
-                    prompt = prompt.replace('{api_name}', cur_action)
-                elif category == 'invalid_parameters':
-                    prompt = get_regenerate_key_prompts(error_type, error_detail[1])
-                    prompt = prompt.replace('{key_name}', error_detail[0])
-                elif category == 'input_mismatch':
-                    prompt = get_regenerate_value_prompts(error_type, error_detail[2])
-                    prompt = prompt.replace('{pred_key}', error_detail[0])
-                    prompt = prompt.replace('{pred_value}', str(error_detail[1]))
-                else:
-                    raise KeyError
-                assert prompt is not None
                 regenerte_count += 1
-                cur_step = get_cur_intermediate_steps(pre_steps, cur_action, cur_action_input, prompt)
-#                 try:
-#                     output = agent(
-#                         {
-#                             'input': inst,
-#                             'intermediate_steps':pre_steps,
-#                             'cur_step': cur_step,
-#                             'last_feedbacks': None if 'last_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['last_feedbacks']
-#                         }
-#                     )
-#                     output['last_feedbacks'] = [] if 'last_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['last_feedbacks']
-#                     output['last_feedbacks'].append(output['cur_step'])
-#                     output.pop('cur_step')
-#                     json.dumps(output, ensure_ascii=4)
-#                 except json.JSONDecodeError:
-#                     output = str(output)
-#                 except Exception as e:
-#                     logger.error(e)
-#                     output = {"error": str(e)}
-#
-#                 if args.use_cache:
-#                     res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
-#                     print(res.text)
-#                 api_data[api_idx]['Instances'][idx][str(cur_step_idx)] = output
+                pre_steps = get_instance_intermediate_steps(golden_data[api_idx]['Instances'][idx]['intermediate_steps'], cur_step_idx)
+                cur_action, cur_action_input, cur_oberservation, cur_action_output = get_cur_details(api['Instances'][idx][str(cur_step_idx)])
+                cur_step = get_cur_intermediate_steps(pre_steps, cur_action, cur_action_input, cur_oberservation, cur_action_output, args.dynamic_type)
+                cur_step_list.append(cur_step)
+                # try:
+                #     output = agent(
+                #         {
+                #             'input': inst,
+                #             'intermediate_steps':pre_steps,
+                #             'cur_step': cur_step,
+                #             'last_feedbacks': None if 'last_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['last_feedbacks']
+                #         }
+                #     )
+                #     output['last_feedbacks'] = [] if 'last_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['last_feedbacks']
+                #     output['last_feedbacks'].append(output['cur_step'])
+                #     output.pop('cur_step')
+                #     json.dumps(output, ensure_ascii=4)
+                # except json.JSONDecodeError:
+                #     output = str(output)
+                # except Exception as e:
+                #     logger.error(e)
+                #     output = {"error": str(e)}
+                #
+                # if args.use_cache:
+                #     res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
+                #     print(res.text)
+                # api_data[api_idx]['Instances'][idx][str(cur_step_idx)] = output
 # with open(final_output_path , 'w') as file:
 #     json.dump(api_data, file, indent=4)
-
-ERROR_DETAILS = get_error_details()
-for key, value in ERROR_DETAILS.items():
-    print(key, value)
-
+s1, s2 = get_observation_and_output()
 print(count)
-print(total_api)
 print(regenerte_count)

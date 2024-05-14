@@ -85,7 +85,6 @@ def get_regenerate_value_prompts(error, key_desc):
 # no api
 origin_regenerate_no_api_prompts = ("Could not parse my generation. "
                           "It seems that I did not generate an API Request or generated an API Request with an incorrect format. "
-                          # "Don't provide any informations, "
-                                    "I would like to independently regenerate a new Action and a new Action Input without user assistance: ")
+                          "Don't provide a valid Action and Action Input, I would like to independently regenerate a new Action and a new Action Input without user assistance: ")
 
 

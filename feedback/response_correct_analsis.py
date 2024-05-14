@@ -60,8 +60,10 @@ if __name__ == "__main__":
             for cur_step in range(len(api['Golden_Answers'][ques_id])):
                 if exist_ids is not None and f'{ques_id}|{cur_step}' in exist_ids.get(api_name, []):
                     continue
-                if "intermediate_steps" not in api["Instances"][ques_id][str(cur_step)] or len(api["Instances"][ques_id][str(cur_step)]["intermediate_steps"]) == 0 or \
-                        'Could not parse LLM output:' in api["Instances"][ques_id][str(cur_step)]['output'] or 'error' in api["Instances"][ques_id][str(cur_step)].keys():
+                if 'error' in api["Instances"][ques_id][str(cur_step)].keys() or \
+                        "intermediate_steps" not in api["Instances"][ques_id][str(cur_step)] or \
+                        len(api["Instances"][ques_id][str(cur_step)]["intermediate_steps"]) == 0 or \
+                        'Could not parse LLM output:' in api["Instances"][ques_id][str(cur_step)]['output']:
                     original_data["statistics"]["error_num"] += 1
                     tmp = {
                         "id": str(ques_id) + '|' + str(cur_step),
@@ -131,6 +133,12 @@ if __name__ == "__main__":
                     indent=4,
                     ensure_ascii=False
                 )
+    json.dump(
+        original_data,
+        open(os.path.join(args.output_path, args.api_data_path.split('/')[-1]), "w"),
+        indent=4,
+        ensure_ascii=False
+    )
     print(invalid_api_count)
     print(original_data["statistics"]["num"])
     print(original_data["statistics"]["error_num"])

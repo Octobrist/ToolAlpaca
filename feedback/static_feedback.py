@@ -96,14 +96,19 @@ def judge_input_mismatch(answer, answer_input, golden_answer, api_docs):
 def static_feedback(answer, golden_answer, api_docs):
     regex = r"ASSISTANT\s*Action\s*\d*\s*:(.*?)\nASSISTANT\s*Action\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
     if 'error' in answer.keys():
+        ERROR_DETAILS['NO_API_CALL'] += 1
         return 'no_api_call', None, None, None, None
     if 'Could not parse LLM output:' in answer['output']:
+        ERROR_DETAILS['NO_API_CALL'] += 1
+        return 'no_api_call', None, None, None, None
+    if 'intermediate_steps' not in answer.keys():
         ERROR_DETAILS['NO_API_CALL'] += 1
         return 'no_api_call', None, None, None, None
     if 'intermediate_steps' in answer.keys() and len(answer['intermediate_steps']) == 0:
         # match = re.search(regex, answer['output'], re.DOTALL)
         # if not match:
         #     ERROR_DETAILS['NO_API_CALL'] += 1
+        ERROR_DETAILS['NO_API_CALL'] += 1
         return 'no_api_call', None, None, None, None
         # action = match.group(1).strip()
         # action_input = match.group(2).strip(" ").strip('"')
@@ -116,7 +121,7 @@ def static_feedback(answer, golden_answer, api_docs):
         assert isinstance(action_input, dict)
     except:
         ERROR_DETAILS['NO_API_CALL'] += 1
-        return 'no_api_call', None, None, None, None
+        return 'no_api_call', None, None, action, action_input
 
     # print(action, action_input)
     error_type, detail = judge_api_name(action, golden_answer, api_docs)
