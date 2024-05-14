@@ -12,6 +12,17 @@ def get_incorrect_samples(eval_info):
     assert len(incorrect_samples) == eval_info['statistics']['response']['No'] + eval_info['statistics']['error_num'] + eval_info['statistics']['response']['Uncertain']
     return incorrect_samples
 
+def get_cur_details_from_last_feedbacks(last_feedbacks):
+    regex = r"ASSISTANT\s*Action\s*\d*\s*:(.*?)\nASSISTANT\s*Action\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
+    for idx, feedback in enumerate(last_feedbacks[::-1]):
+        action = feedback[0][0]
+        action_input = feedback[0][1]
+        if 'Could not parse my generation' in feedback[1] and action_input == "None": # 得到有意义的上次调用
+            continue
+        if action is not None and action_input != 'None':
+            break
+    return action, action_input, idx
+
 def get_cur_details(answer):
         regex = r"ASSISTANT\s*Action\s*\d*\s*:(.*?)\nASSISTANT\s*Action\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
         if 'error' in answer.keys():

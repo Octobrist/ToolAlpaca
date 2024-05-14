@@ -5,6 +5,7 @@ import argparse
 import re
 import openai
 import requests
+from langchain.schema import AgentAction, AgentFinish
 from tqdm import tqdm
 from langchain.llms import OpenAI
 from langchain import HuggingFacePipeline
@@ -14,7 +15,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from agent.get_agent import get_agent
 from agent.agent_prompts import prompt_proj
 from utils import load_openapi_spec, analyze_openapi_spec
-from feedback.dynamic_feedback import get_incorrect_samples, dynamic_feedback, get_cur_details
+from feedback.dynamic_feedback import get_incorrect_samples, dynamic_feedback, get_cur_details, get_cur_details_from_last_feedbacks
 from feedback.prompt import *
 import torch
 import deepspeed
@@ -37,6 +38,10 @@ def get_cur_intermediate_steps(pre_steps, action, action_input, action_observati
     elif action_output == 'Agent stopped due to iteration limit or time limit.': # 正常
         assert action is not None and action_input is not None
         cur_oberservation = action_observation
+        # if 'Invalid JSON format.' not in action_observation:
+        #     print(2)
+        # else:
+        #     print(3)
     elif 'ASSISTANT Response' in action_output: # 不需要反馈了？
         return None
     else:
@@ -152,38 +157,51 @@ for api_idx, api in tqdm(enumerate(api_data)):
             api_docs = get_description(api['Function_Description'])
             outputs = {}
             for cur_step_idx in range(len(api['Golden_Answers'][idx])):
+                reserve_feedback_idx = 0
                 if (api['Name'], f'{idx}|{cur_step_idx}') not in incorrect_samples:
                     continue
                 regenerte_count += 1
+
                 pre_steps = get_instance_intermediate_steps(golden_data[api_idx]['Instances'][idx]['intermediate_steps'], cur_step_idx)
                 cur_action, cur_action_input, cur_oberservation, cur_action_output = get_cur_details(api['Instances'][idx][str(cur_step_idx)])
                 cur_step = get_cur_intermediate_steps(pre_steps, cur_action, cur_action_input, cur_oberservation, cur_action_output, args.dynamic_type)
-                cur_step_list.append(cur_step)
-                # try:
-                #     output = agent(
-                #         {
-                #             'input': inst,
-                #             'intermediate_steps':pre_steps,
-                #             'cur_step': cur_step,
-                #             'last_feedbacks': None if 'last_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['last_feedbacks']
-                #         }
-                #     )
-                #     output['last_feedbacks'] = [] if 'last_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['last_feedbacks']
-                #     output['last_feedbacks'].append(output['cur_step'])
-                #     output.pop('cur_step')
-                #     json.dumps(output, ensure_ascii=4)
-                # except json.JSONDecodeError:
-                #     output = str(output)
-                # except Exception as e:
-                #     logger.error(e)
-                #     output = {"error": str(e)}
-                #
-                # if args.use_cache:
-                #     res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
-                #     print(res.text)
-                # api_data[api_idx]['Instances'][idx][str(cur_step_idx)] = output
-# with open(final_output_path , 'w') as file:
-#     json.dump(api_data, file, indent=4)
-s1, s2 = get_observation_and_output()
+                if cur_step is None:
+                    cur_action, cur_action_input, cur_oberservation = None, None, None
+                    if 'last_feedbacks' in api['Instances'][idx][str(cur_step_idx)].keys():
+                        cur_action, cur_action_input, reserve_feedback_idx = get_cur_details_from_last_feedbacks(api['Instances'][idx][str(cur_step_idx)]['last_feedbacks'])
+                        action = AgentAction(cur_action, cur_action_input, f'\nASSISTANT Action: {cur_action}\nASSISTANT Action Input: {cur_action_input}')
+                        cur_oberservation = agent.take_action(action)
+                    cur_step = [[cur_action, cur_action_input], cur_oberservation]
+                assert cur_step is not None
+                try:
+                    output = agent(
+                        {
+                            'dynamic': True,
+                            'input': inst,
+                            'intermediate_steps':pre_steps,
+                            'cur_step': cur_step,
+                            'last_feedbacks': None if 'last_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['last_feedbacks'][:len(api['Instances'][idx][str(cur_step_idx)]['last_feedbacks']) - reserve_feedback_idx],
+                            'dynamic_feedbacks': None if 'dynamic_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['dynamic_feedbacks']
+                        }
+                    )
+                    output['last_feedbacks'] = [] if 'last_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['last_feedbacks'][:len(api['Instances'][idx][str(cur_step_idx)]['last_feedbacks']) - reserve_feedback_idx]
+                    output['dynamic_feedbacks'] = [] if 'dynamic_feedbacks' not in api['Instances'][idx][str(cur_step_idx)].keys() else api['Instances'][idx][str(cur_step_idx)]['dynamic_feedbacks']
+                    output['dynamic_feedbacks'].append(cur_step)
+                    output.pop('cur_step')
+                    output.pop('dynamic')
+                    json.dumps(output, ensure_ascii=4)
+                except json.JSONDecodeError:
+                    output = str(output)
+                except Exception as e:
+                    logger.error(e)
+                    output = {"error": str(e)}
+
+                if args.use_cache:
+                    res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
+                    print(res.text)
+                api_data[api_idx]['Instances'][idx][str(cur_step_idx)] = output
+with open(final_output_path , 'w') as file:
+    json.dump(api_data, file, indent=4)
+# s1, s2 = get_observation_and_output()
 print(count)
 print(regenerte_count)

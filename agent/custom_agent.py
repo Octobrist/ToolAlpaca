@@ -22,9 +22,19 @@ class CustomZeroShotAgent(ZeroShotAgent):
         if 'last_feedbacks' in kwargs.keys() and kwargs['last_feedbacks'] is not None:
             for feedback in kwargs['last_feedbacks']:
                 thoughts += f'\nASSISTANT Action: {feedback[0][0]}\nASSISTANT Action Input: {feedback[0][1]}\nASSISTANT Observation:\nASSISTANT Thought: {feedback[1]}'
+        if 'dynamic_feedbacks' in kwargs.keys() and kwargs['dynamic_feedbacks'] is not None :
+            for feedback in kwargs['dynamic_feedbacks']:
+                thoughts += f'\nASSISTANT Action: {feedback[0][0]}\nASSISTANT Action Input: {feedback[0][1]}\nASSISTANT Observation: {feedback[1]}\n' \
+                            f'ASSISTANT Thought: I think I have completed the user\'s question\n' \
+                            f'USER: No, I think your actions and action inputs do not meet my expectations. Please regenerate them.'
         if 'cur_step' in kwargs.keys():
             cur_step = kwargs['cur_step']
-            thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\nASSISTANT Observation:\nASSISTANT Thought: {cur_step[1]}'
+            if 'dynamic' in kwargs.keys():
+                thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\n' \
+                            f'ASSISTANT Observation: {cur_step[1]}\nASSISTANT Thought: I think I have completed the user\'s question\n' \
+                            f'USER: No, I think your actions and action inputs do not meet my expectations. Please regenerate them.'
+            else:
+                thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\nASSISTANT Observation:\nASSISTANT Thought: {cur_step[1]}'
         new_inputs = {"agent_scratchpad": thoughts, "stop": self._stop}
         full_inputs = {**kwargs, **new_inputs}
         return full_inputs
