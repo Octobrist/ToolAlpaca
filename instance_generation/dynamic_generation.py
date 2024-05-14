@@ -149,7 +149,10 @@ for api_idx, api in tqdm(enumerate(api_data)):
             if 'epoch' not in args.input_data_path:
                 eval_info = json.load(open(args.input_data_path.replace('/generate/single-api/', '/eval/v3/single-api/'),'r'))
             else:
-                eval_info = json.load(open(args.input_data_path.replace('/generate/single-api-static/v3/', '/eval/v3/single-api-static/'), 'r'))
+                if 'dynamic' in args.input_data_path:
+                    eval_info = json.load(open(args.input_data_path.replace('/generate/single-api-dynamic/', '/eval/v3/single-api-dynamic/'), 'r'))
+                else:
+                    eval_info = json.load(open(args.input_data_path.replace('/generate/single-api-static/v3/',  '/eval/v3/single-api-static/'), 'r'))
             incorrect_samples = get_incorrect_samples(eval_info)
             if len(api.get("Authentication", [])) > 0:
                 inst += "\nAuthentication information: " + \

@@ -65,7 +65,7 @@ while return_code != 0:
     # cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api-static/chatgpt-3.5-turbo_real_epoch1.json -out ./eval/v2/single-api-static --continue'
     # cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api/chatgpt-3.5-turbo_real.json -out ./eval/v2/ --continue'
     # cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api/Llama-2-7b-chat-ms_real.json -out ./eval/v3/single-api --continue'
-    cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api-static/v3/ToolAlpaca-7B_real_epoch2.json -out ./eval/v3/single-api-static --continue '
+    cmd = 'python feedback/response_correct_analsis.py -api ./generate/single-api/ToolAlpaca-7B_real.json -out ./eval/v3/single-api --continue'
     p = subprocess.Popen(cmd, shell=True)
     return_code = p.wait()
     time.sleep(10)
