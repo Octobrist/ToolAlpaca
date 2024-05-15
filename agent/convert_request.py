@@ -94,8 +94,9 @@ def call_api_function(input_params, openapi_spec, path, method, base_url=None):
     
     if required_params or required_body_params:
         missing_params = ", ".join([f'"{param[1]}"' for param in required_params])
-        missing_params += [f'"{param}"' for param in required_body_params]
-        raise ValueError(f"Missing required parameters: {', '.join(required_body_params)}. You need to change the input and try again.")
+        if required_body_params is not None:
+            missing_params += [f'"{param}"' for param in required_body_params]
+        raise ValueError(f"Missing required parameters: {missing_params}. You need to change the input and try again.")
 
     base_url = openapi_spec['servers'][0]['url'] if base_url is None else base_url
     url = f"{base_url.rstrip('/')}{path.format(**params['path'])}"

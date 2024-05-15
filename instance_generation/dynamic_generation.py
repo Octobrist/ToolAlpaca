@@ -25,6 +25,14 @@ logger = logging.getLogger(__name__)
 ober_list = []
 output_list = []
 
+def get_nonnone_feedbacks(last_feedbacks):
+    new_feedbacks = []
+    for feedback in last_feedbacks:
+        if feedback[0][0] is None and feedback[0][1] == 'None':
+            continue
+        new_feedbacks.append(feedback)
+    return new_feedbacks
+
 def get_cur_intermediate_steps(pre_steps, action, action_input, action_observation, action_output, feedback_type):
     ober_list.append(action_observation)
     output_list.append(action_output)
@@ -164,7 +172,8 @@ for api_idx, api in tqdm(enumerate(api_data)):
                 if (api['Name'], f'{idx}|{cur_step_idx}') not in incorrect_samples:
                     continue
                 regenerte_count += 1
-
+                if 'last_feedbacks' in api['Instances'][idx][str(cur_step_idx)].keys():
+                    api['Instances'][idx][str(cur_step_idx)]['last_feedbacks'] = get_nonnone_feedbacks(api['Instances'][idx][str(cur_step_idx)]['last_feedbacks'])
                 pre_steps = get_instance_intermediate_steps(golden_data[api_idx]['Instances'][idx]['intermediate_steps'], cur_step_idx)
                 cur_action, cur_action_input, cur_oberservation, cur_action_output = get_cur_details(api['Instances'][idx][str(cur_step_idx)])
                 cur_step = get_cur_intermediate_steps(pre_steps, cur_action, cur_action_input, cur_oberservation, cur_action_output, args.dynamic_type)

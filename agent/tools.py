@@ -64,7 +64,7 @@ class Tool(BaseTool):
                 break
             if not 200 <= response.status_code < 300:
                 # message += ". You can try to change the input or call another function. "
-                message += ". You should choose one of: (1) change the input and retry; (2) call another function."
+                message += " You should choose one of: (1) change the input and retry; (2) call another function."
 
             if len(message) > self.max_output_len:
                 if retrieval_available:

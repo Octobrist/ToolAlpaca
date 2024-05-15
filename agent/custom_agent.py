@@ -32,7 +32,9 @@ class CustomZeroShotAgent(ZeroShotAgent):
             if 'dynamic' in kwargs.keys():
                 thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\n' \
                             f'ASSISTANT Observation: {cur_step[1]}\nASSISTANT Thought: I think I have completed the user\'s question\n' \
-                            f'USER: No, I think your actions and action inputs do not meet my expectations. Please regenerate them.'
+                            f'USER: No, I think your actions and action inputs do not meet my expectations. ' \
+                            f'The question is: {kwargs["input"]} I won\'t give any more information, you should choose one of: (1) change the input and retry; (2) call another function, and regenerate it right now.'
+
             else:
                 thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\nASSISTANT Observation:\nASSISTANT Thought: {cur_step[1]}'
         new_inputs = {"agent_scratchpad": thoughts, "stop": self._stop}
