@@ -45,7 +45,7 @@ if __name__ == "__main__":
     if args.continue_run:
         original_data = json.load(open(os.path.join(args.output_path, args.api_data_path.split('/')[-1]), "r"))
         exist_ids = {i: [j["id"] for j in original_data[i]] for i in original_data if i != "statistics"}
-
+    error_samples = []
 
     index = 0
     for api_idx, api in enumerate(api_data):
@@ -70,6 +70,8 @@ if __name__ == "__main__":
                         "input": "",
                         "output": ""
                     }
+                    error_samples.append((api_name, tmp['id']))
+                    print(api_name, tmp['id'])
                     original_data[api_name].append(tmp)
                     continue
 
@@ -142,3 +144,7 @@ if __name__ == "__main__":
     print(invalid_api_count)
     print(original_data["statistics"]["num"])
     print(original_data["statistics"]["error_num"])
+
+    # import pickle
+    # with open("./error_samples.pkl", 'wb') as file:
+    #     pickle.dump(error_samples, file)

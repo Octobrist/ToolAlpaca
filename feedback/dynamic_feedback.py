@@ -14,6 +14,7 @@ def get_incorrect_samples(eval_info):
 
 def get_cur_details_from_last_feedbacks(last_feedbacks):
     regex = r"ASSISTANT\s*Action\s*\d*\s*:(.*?)\nASSISTANT\s*Action\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
+    action, action_input, idx = None, None, 0
     for idx, feedback in enumerate(last_feedbacks[::-1]):
         action = feedback[0][0]
         action_input = feedback[0][1]

@@ -124,7 +124,7 @@ for key, values in api_data.items():
                 original_data['statistics']['error_num'] -= 1
 
 print(args.output_dir)
-with open(args.output_dir, 'w') as file:
-    json.dump(original_data, file, indent=4)
+# with open(args.output_dir, 'w') as file:
+#     json.dump(original_data, file, indent=4)
 
 

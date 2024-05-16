@@ -50,7 +50,7 @@ def get_cur_intermediate_steps(pre_steps, action, action_input, action_observati
         #     print(2)
         # else:
         #     print(3)
-    elif 'ASSISTANT Response' in action_output: # 不需要反馈了？
+    elif 'ASSISTANT Response:' in action_output:
         return None
     else:
         raise KeyError
@@ -120,6 +120,9 @@ else:
     )
     llm = HuggingFacePipeline(pipeline=generator)
 
+# import pickle
+# with open("./error_samples.pkl", 'rb') as file:
+#     error_samples = pickle.load(file)
 
 api_data = json.load(open(args.input_data_path, "r"))
 golden_data = json.load(open('/home/huan/projects/ToolAlpaca/golden-eval_real.json'))
@@ -168,6 +171,8 @@ for api_idx, api in tqdm(enumerate(api_data)):
             api_docs = get_description(api['Function_Description'])
             outputs = {}
             for cur_step_idx in range(len(api['Golden_Answers'][idx])):
+                # if (api['Name'], f"{idx}|{cur_step_idx}") not in error_samples:
+                #     continue
                 reserve_feedback_idx = 0
                 if (api['Name'], f'{idx}|{cur_step_idx}') not in incorrect_samples:
                     continue
@@ -211,9 +216,18 @@ for api_idx, api in tqdm(enumerate(api_data)):
                 if args.use_cache:
                     res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
                     print(res.text)
-                api_data[api_idx]['Instances'][idx][str(cur_step_idx)] = output
+                if len(output['intermediate_steps']) == len(pre_steps) + 1:
+                    print('?')
+                    api_data[api_idx]['Instances'][idx][str(cur_step_idx)] = output
+                elif len(output['intermediate_steps']) == len(pre_steps):
+                    print('???')
+                    output['intermediate_steps'].append(output['dynamic_feedbacks'][-1])
+                    api_data[api_idx]['Instances'][idx][str(cur_step_idx)] = output
+                else:
+                    raise KeyError
 with open(final_output_path , 'w') as file:
     json.dump(api_data, file, indent=4)
+
 # s1, s2 = get_observation_and_output()
 print(count)
 print(regenerte_count)
