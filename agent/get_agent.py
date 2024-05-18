@@ -10,11 +10,11 @@ from langchain.agents import ZeroShotAgent
 from langchain.schema import AgentAction, AgentFinish
 
 from .tools import Tool, GetDetailsTool, tool_projection
-from .custom_parser import CustomMRKLOutputParser, CustomGPTOutputParser, CustomStaticOutputParser, CustomGPTStaticOutputParser
+from .custom_parser import CustomMRKLOutputParser, CustomGPTOutputParser, CustomGPTMRKLOutputParser
 from .custom_agent_executor import CustomAgentExecutor
 from utils import load_openapi_spec, escape
-from .agent_prompts import train_prompt_v2, test_prompt_v1
-from .custom_agent import CustomZeroShotAgent
+from .agent_prompts import train_prompt_v2, test_prompt_v1, test_prompt_v3
+from .custom_agent import CustomZeroShotAgent, CustomZeroShotAgent2
 
 
 logger = logging.getLogger(__name__)
@@ -51,8 +51,12 @@ def get_agent(
             description=description,
             retrieval_available="retrieval" in api_data.get("external_tools", [])
         ))
-
-    AgentType = CustomZeroShotAgent if agent_prompt == test_prompt_v1 else ZeroShotAgent
+    if agent_prompt == test_prompt_v1:
+        AgentType = CustomZeroShotAgent
+    elif agent_prompt == test_prompt_v3:
+        AgentType = CustomZeroShotAgent2
+    else:
+        AgentType = ZeroShotAgent
 
     prompt = AgentType.create_prompt(
         tools, 
@@ -80,7 +84,10 @@ def get_agent(
     #         agent.output_parser = CustomStaticOutputParser(get_description(api_data['Function_Description']), api_data['Golden_Answers'])
     # else:
     if hasattr(llm, 'model_name') and llm.model_name == 'gpt-3.5-turbo':
-        agent.output_parser = CustomGPTOutputParser()
+        if agent_prompt != test_prompt_v1:
+            agent.output_parser = CustomGPTMRKLOutputParser()
+        else:
+            agent.output_parser = CustomGPTOutputParser()
 
     agent_executor = CustomAgentExecutor.from_agent_and_tools(
         agent=agent,

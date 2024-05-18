@@ -62,7 +62,7 @@ if __name__ == "__main__":
                     continue
                 if 'error' in api["Instances"][ques_id][str(cur_step)].keys() or \
                         "intermediate_steps" not in api["Instances"][ques_id][str(cur_step)] or \
-                        len(api["Instances"][ques_id][str(cur_step)]["intermediate_steps"]) == 0 or \
+                        len(api["Instances"][ques_id][str(cur_step)]["intermediate_steps"]) <= cur_step or \
                         'Could not parse LLM output:' in api["Instances"][ques_id][str(cur_step)]['output']:
                     original_data["statistics"]["error_num"] += 1
                     tmp = {
@@ -87,7 +87,7 @@ if __name__ == "__main__":
                 standard_answer = f"{pre_step_idx + 1}. Function: {ans[0][0]}\nParameters: {ans[0][1]}\nResponses: {ans[1]}\n"
 
                 solution = ""
-                sol = api["Instances"][ques_id][str(cur_step)]["intermediate_steps"][-1]
+                sol = api["Instances"][ques_id][str(cur_step)]["intermediate_steps"][cur_step]
                 solution += f"{pre_step_idx + 1}. Function: {sol[0][0]}\nParameters: {sol[0][1]}\nResponses: {sol[1]}\n"
 
                 prompt = template.substitute(

@@ -89,9 +89,31 @@ test_prompt_v2 = {
     "format_instructions": format_instructions_test_v2
 }
 
+
+suffix_test2 = """Begin!
+
+USER: {input}
+{agent_scratchpad}"""
+
+format_instructions2 = """
+The chat follows this format:
+USER: the user's questions
+ASSISTANT Action: the action to take, must be one of [{tool_names}].
+ASSISTANT Action Input: the input for the action, in JSON format.
+...(this USER/Action/Action Input can repeat N times)
+"""
+
+test_prompt_v3 = {
+    "prefix": prefix_test,
+    "suffix": suffix_test2,
+    "format_instructions": format_instructions2
+}
+
 prompt_proj = {
     "train_v1": train_prompt_v1,
     "train_v2": train_prompt_v2,
     "test_v1": test_prompt_v1,
-    "test_v2": test_prompt_v2
+    "test_v2": test_prompt_v2,
+    "test_v3": test_prompt_v3
 }
+
