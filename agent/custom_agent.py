@@ -90,7 +90,11 @@ class CustomZeroShotAgent2(ZeroShotAgent): # for sample
         if 'cur_step' in kwargs.keys() and kwargs['cur_step'] is not None:
             cur_step = kwargs['cur_step']
             thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\n' \
-                        f'USER: {cur_step[1]} I think your actions and action inputs do not meet my expectations. Please regenerate them.' \
+                        f'USER: {cur_step[1]} I think your actions and action inputs do not meet my expectations. ' \
+                        f'Don\'t ask me for any infomation, and I won\'t provide the correct action and action inputs. '\
+                        f'Please regenerate ' \
+                        f'a new action and a new action inputs independently right now.\n' \
+                        # f'ASSISTANT Action: ' \
 
         new_inputs = {"agent_scratchpad": thoughts, "stop": self._stop}
         full_inputs = {**kwargs, **new_inputs}

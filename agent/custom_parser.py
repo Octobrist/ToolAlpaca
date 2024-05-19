@@ -12,7 +12,7 @@ class AgentStop(NamedTuple):
 
 class CustomMRKLOutputParser(AgentOutputParser): # for sample
     def parse(self, text: str) -> Union[AgentAction, AgentFinish]:
-        # \s matches against tab/newline/whitespace
+        # text = 'ASSISTANT Action: ' + text # for llama
         regex = r"ASSISTANT Action\s*\d*\s*:(.*?)\nASSISTANT Action\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
         match = re.search(regex, text, re.DOTALL)
         if not match:

@@ -62,6 +62,8 @@ def get_cur_intermediate_steps(pre_steps, action, action_input, action_observati
     cur_step = [[action, str(action_input)], cur_oberservation]
     return cur_step
 
+
+
 def get_observation_and_output():
     return set(ober_list), set(output_list)
 
@@ -145,6 +147,7 @@ if args.use_cache:
 count = 0
 regenerte_count = 0
 cur_step_list = []
+
 for api_idx, api in tqdm(enumerate(api_data)):
     assert len(api["Instances"]) == len(api['Golden_Answers'])
     if "Instructions" not in api or len(api["Instructions"]) == 0:

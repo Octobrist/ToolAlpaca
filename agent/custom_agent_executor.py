@@ -23,9 +23,6 @@ class CustomAgentExecutor(AgentExecutor):
             for intermedia_step in inputs['intermediate_steps']:
                 intermediate_steps.append((AgentAction(intermedia_step[0][0], intermedia_step[0][1], f'\nASSISTANT Action: {intermedia_step[0][0]}\nASSISTANT Action Input: {intermedia_step[0][1]}'), intermedia_step[1]))
             inputs.pop('intermediate_steps')
-        # if 'cur_step' in inputs.keys():
-        #     cur_step = inputs['cur_step']
-        #     intermediate_steps.append((AgentAction(cur_step[0][0], cur_step[0][1], f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\n ASSISTANT Observation:\n ASSISTANT Thought: {cur_step[1]}'), ''))
         # Let's start tracking the number of iterations and time elapsed
         iterations = 0
         time_elapsed = 0.0

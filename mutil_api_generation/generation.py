@@ -22,15 +22,19 @@ logger = logging.getLogger(__name__)
 def get_instance_intermediate_steps(input_data, step):
     pre_steps = input_data[:step]
     return pre_steps
-    # for inp in input_data:
-    #     if inp['Name'] == api_name:
-    #         instance = inp['Instances'][idx]
-    #         if 'intermediate_steps' in instance.keys():
-    #             return instance['intermediate_steps']
-    #         else:
-    #             return None
-    # raise KeyError
 
+def judge_all_finish(api_data):
+    for api in api_data:
+        if 'Instances' not in api.keys():
+            return False
+        for idx, instance in enumerate(api['Instances']):
+            if instance == 'This instance is not used.':
+                continue
+            if 'times' not in instance.keys():
+                return False
+            if instance['times'] < len(api['Golden_Answers'][idx]):
+                return False
+    return True
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-api", "--api_data_path", type=str, required=True)
@@ -86,63 +90,59 @@ final_output_path = os.path.join(args.output_dir, f"mutil-api/{args.llm.split('/
 if args.use_cache:
     res = requests.get(f"{args.server_url}/__simulator_cache__/open")
 
-count = 0
-total_api = 0
-for api_idx, api in tqdm(enumerate(api_data)):
-    api["Instances"] = []
-    if "Instructions" not in api or len(api["Instructions"]) == 0:
-        continue
-    openapi_spec = load_openapi_spec(api["Documentation"])
-    input_valid, output_valid = analyze_openapi_spec(openapi_spec)
-    if input_valid and output_valid:
-        agent = get_agent(
-            llm=llm,
-            api_data=api,
-            server_url=args.server_url,
-            agent_prompt=prompt_proj[args.agent_prompt],
-            enable_getDetails=not args.without_getDetails,
-            max_iterations=args.max_iterations
-        )
-        Answers = []
-        for idx, inst in enumerate(api["Instructions"]):
-            if {'api': api['Name'], 'idx': idx, 'steps':len(api['Golden_Answers'][idx])} not in golden_data_info:
-                count += 1
-                Answers.append('This instance is not used.')
-                continue
-            if len(api.get("Authentication", [])) > 0:
-                inst += "\nAuthentication information: " + \
-                      " ".join([f"{k}={v}" for k, v in api["Authentication"].items()])
-            # for cur_step in range(len(api['Golden_Answers'][idx])):
-            total_api += 1
-            try:
-                output = agent(
-                    {
-                        'input': inst,
-                    }
-                )
-                if 'intermediate_steps' in output.keys() and len(output['intermediate_steps']) == len(api['Golden_Answers'][idx]):
-                    output['finish'] = True
+while judge_all_finish(api_data) is False:
+    generate_count = 0
+    for api_idx, api in tqdm(enumerate(api_data)):
+        if "Instructions" not in api or len(api["Instructions"]) == 0:
+            continue
+        openapi_spec = load_openapi_spec(api["Documentation"])
+        input_valid, output_valid = analyze_openapi_spec(openapi_spec)
+        if input_valid and output_valid:
+            agent = get_agent(
+                llm=llm,
+                api_data=api,
+                server_url=args.server_url,
+                agent_prompt=prompt_proj[args.agent_prompt],
+                enable_getDetails=not args.without_getDetails,
+                max_iterations=args.max_iterations
+            )
+            Answers = []
+            for idx, inst in enumerate(api["Instructions"]):
+                if {'api': api['Name'], 'idx': idx, 'steps':len(api['Golden_Answers'][idx])} not in golden_data_info:
+                    Answers.append('This instance is not used.')
+                    continue
+                if len(api.get("Authentication", [])) > 0:
+                    inst += "\nAuthentication information: " + \
+                          " ".join([f"{k}={v}" for k, v in api["Authentication"].items()])
+                pred_steps = []
+                if 'Instances' in api_data[api_idx].keys():
+                    if 'times' in api_data[api_idx]['Instances'][idx].keys():
+                        last_times = api_data[api_idx]['Instances'][idx]['times']
+                        if api_data[api_idx]['Instances'][idx]['times'] == len(api['Golden_Answers'][idx]):
+                            Answers.append(api_data[api_idx]['Instances'][idx])
+                            continue
+                    else:
+                        last_times = 0
+                    if 'intermediate_steps' in api_data[api_idx]['Instances'][idx].keys():
+                        pred_steps = api_data[api_idx]['Instances'][idx]['intermediate_steps']
                 else:
-                    output['finish'] = False
-                json.dumps(output, ensure_ascii=4)
-            except json.JSONDecodeError:
-                output = str(output)
-            except Exception as e:
-                logger.error(e)
-                output = {"error": str(e)}
+                    last_times = 0
 
-            if args.use_cache:
-                res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
-                print(res.text)
 
-            Answers.append(output)
+                # output = {}
+                output['times'] = last_times
+                output['times'] = output['times'] + 1
+                if args.use_cache:
+                    res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
+                    print(res.text)
+                Answers.append(output)
+            api_data[api_idx]['Instances'] = Answers
+            assert len(api_data[api_idx]['Instances']) == len(api_data[api_idx]['Golden_Answers'])
+    print('genertate_count: ', generate_count)
 
-        api["Instances"] = Answers
-        json.dump(
-            api_data,
-            open(final_output_path, "w", encoding="utf-8"),
-            indent=4,
-            ensure_ascii=False
-        )
-print(count)
-print(total_api)
+json.dump(
+    api_data,
+    open(final_output_path, "w", encoding="utf-8"),
+    indent=4,
+    ensure_ascii=False
+)
