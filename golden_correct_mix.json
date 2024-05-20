@@ -478,5 +478,265 @@
         "api": "CurrencyBeacon",
         "idx": 10,
         "steps": 2
+    },
+    {
+        "api": "Axolotl",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "Axolotl",
+        "idx": 1,
+        "steps": 1
+    },
+    {
+        "api": "Axolotl",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "Axolotl",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "Axolotl",
+        "idx": 4,
+        "steps": 1
+    },
+    {
+        "api": "Axolotl",
+        "idx": 5,
+        "steps": 1
+    },
+    {
+        "api": "Axolotl",
+        "idx": 6,
+        "steps": 3
+    },
+    {
+        "api": "Axolotl",
+        "idx": 8,
+        "steps": 1
+    },
+    {
+        "api": "Axolotl",
+        "idx": 9,
+        "steps": 2
+    },
+    {
+        "api": "AniAPI",
+        "idx": 0,
+        "steps": 2
+    },
+    {
+        "api": "AniAPI",
+        "idx": 2,
+        "steps": 2
+    },
+    {
+        "api": "AniAPI",
+        "idx": 3,
+        "steps": 2
+    },
+    {
+        "api": "AniAPI",
+        "idx": 5,
+        "steps": 2
+    },
+    {
+        "api": "AniAPI",
+        "idx": 6,
+        "steps": 1
+    },
+    {
+        "api": "AniAPI",
+        "idx": 8,
+        "steps": 2
+    },
+    {
+        "api": "AbuseIPDB",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "AbuseIPDB",
+        "idx": 4,
+        "steps": 1
+    },
+    {
+        "api": "AbuseIPDB",
+        "idx": 5,
+        "steps": 1
+    },
+    {
+        "api": "AbuseIPDB",
+        "idx": 6,
+        "steps": 2
+    },
+    {
+        "api": "AbuseIPDB",
+        "idx": 7,
+        "steps": 1
+    },
+    {
+        "api": "AbuseIPDB",
+        "idx": 9,
+        "steps": 1
+    },
+    {
+        "api": "Améthyste",
+        "idx": 5,
+        "steps": 1
+    },
+    {
+        "api": "Améthyste",
+        "idx": 6,
+        "steps": 1
+    },
+    {
+        "api": "Améthyste",
+        "idx": 9,
+        "steps": 1
+    },
+    {
+        "api": "Auth0",
+        "idx": 1,
+        "steps": 1
+    },
+    {
+        "api": "Auth0",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "Auth0",
+        "idx": 4,
+        "steps": 1
+    },
+    {
+        "api": "Auth0",
+        "idx": 6,
+        "steps": 1
+    },
+    {
+        "api": "Abstract Public Holidays",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "Abstract Public Holidays",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "Abstract Public Holidays",
+        "idx": 3,
+        "steps": 1
+    },
+    {
+        "api": "Abstract Public Holidays",
+        "idx": 4,
+        "steps": 1
+    },
+    {
+        "api": "Abstract Public Holidays",
+        "idx": 5,
+        "steps": 1
+    },
+    {
+        "api": "Abstract Public Holidays",
+        "idx": 6,
+        "steps": 1
+    },
+    {
+        "api": "Abstract Public Holidays",
+        "idx": 7,
+        "steps": 1
+    },
+    {
+        "api": "Abstract Public Holidays",
+        "idx": 8,
+        "steps": 1
+    },
+    {
+        "api": "Abstract Public Holidays",
+        "idx": 9,
+        "steps": 1
+    },
+    {
+        "api": "1Forge",
+        "idx": 0,
+        "steps": 2
+    },
+    {
+        "api": "1Forge",
+        "idx": 2,
+        "steps": 2
+    },
+    {
+        "api": "1Forge",
+        "idx": 4,
+        "steps": 2
+    },
+    {
+        "api": "1Forge",
+        "idx": 6,
+        "steps": 2
+    },
+    {
+        "api": "1Forge",
+        "idx": 9,
+        "steps": 2
+    },
+    {
+        "api": "A Bíblia Digital",
+        "idx": 0,
+        "steps": 1
+    },
+    {
+        "api": "A Bíblia Digital",
+        "idx": 1,
+        "steps": 1
+    },
+    {
+        "api": "A Bíblia Digital",
+        "idx": 2,
+        "steps": 1
+    },
+    {
+        "api": "A Bíblia Digital",
+        "idx": 3,
+        "steps": 5
+    },
+    {
+        "api": "A Bíblia Digital",
+        "idx": 4,
+        "steps": 1
+    },
+    {
+        "api": "A Bíblia Digital",
+        "idx": 5,
+        "steps": 2
+    },
+    {
+        "api": "A Bíblia Digital",
+        "idx": 6,
+        "steps": 4
+    },
+    {
+        "api": "A Bíblia Digital",
+        "idx": 7,
+        "steps": 1
+    },
+    {
+        "api": "A Bíblia Digital",
+        "idx": 8,
+        "steps": 1
+    },
+    {
+        "api": "Apache Superset",
+        "idx": 1,
+        "steps": 1
     }
 ]

@@ -19,22 +19,22 @@ class CustomZeroShotAgent(ZeroShotAgent):
     ) -> Dict[str, Any]:
         """Create the full inputs for the LLMChain from intermediate steps."""
         thoughts = self._construct_scratchpad(intermediate_steps)
-        if 'dynamic_feedbacks' in kwargs.keys() and kwargs['dynamic_feedbacks'] is not None :
-            for feedback in kwargs['dynamic_feedbacks']:
-                thoughts += f'\nASSISTANT Action: {feedback[0][0]}\nASSISTANT Action Input: {feedback[0][1]}\nASSISTANT Observation: {feedback[1]}\n' \
-                            f'ASSISTANT Thought: I think I have completed the user\'s question\n' \
-                            f'USER: No, I think your actions and action inputs do not meet my expectations. Please regenerate them.'
+        # if 'dynamic_feedbacks' in kwargs.keys() and kwargs['dynamic_feedbacks'] is not None :
+        #     for feedback in kwargs['dynamic_feedbacks']:
+        #         thoughts += f'\nASSISTANT Action: {feedback[0][0]}\nASSISTANT Action Input: {feedback[0][1]}\nASSISTANT Observation: {feedback[1]}\n' \
+        #                     f'ASSISTANT Thought: I think I have completed the user\'s question\n' \
+        #                     f'USER: No, I think your actions and action inputs do not meet my expectations. Please regenerate them.'
         if 'cur_step' in kwargs.keys():
             cur_step = kwargs['cur_step']
-            if 'dynamic' in kwargs.keys():
-                thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\n' \
-                            f'ASSISTANT Observation: {cur_step[1]}\nASSISTANT Thought: I think I have completed the user\'s question\n' \
-                            f'USER: No, I think your actions and action inputs do not meet my expectations. ' \
-                            f'The question is: {kwargs["input"]} I won\'t give any more information. You should change the input and retry or call another function, don\'t ask me any questions, and regenerate it right now.\n' \
-                            # f'ASSISTANT Thought: I will regenerate a new action and a new action input.\n ASSISTANT Action: '
+            # if 'dynamic' in kwargs.keys():
+            #     thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\n' \
+            #                 f'ASSISTANT Observation: {cur_step[1]}\nASSISTANT Thought: I think I have completed the user\'s question\n' \
+            #                 f'USER: No, I think your actions and action inputs do not meet my expectations. ' \
+            #                 f'The question is: {kwargs["input"]} I won\'t give any more information. You should change the input and retry or call another function, don\'t ask me any questions, and regenerate it right now.\n' \
+            #                 # f'ASSISTANT Thought: I will regenerate a new action and a new action input.\n ASSISTANT Action: '
 
-            else:
-                thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\nASSISTANT Observation:\nASSISTANT Thought: {cur_step[1]}'
+            # else:
+            thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\nASSISTANT Observation:{cur_step[1]}\nASSISTANT Thought: '
         new_inputs = {"agent_scratchpad": thoughts, "stop": self._stop}
         full_inputs = {**kwargs, **new_inputs}
         return full_inputs

@@ -18,7 +18,7 @@ from tenacity import (
     retry_if_exception_type,
     stop_after_attempt,
     wait_exponential,
-    retry_base,
+    retry_base, wait_random_exponential,
 )
 
 openai.api_base = "https://api.huiyan-ai.cn/v1"
@@ -50,6 +50,12 @@ def create_retry_decorator(
     )
 
 
+@retry(
+    retry=retry_if_exception_type((openai.error.APIError, openai.error.APIConnectionError, openai.error.RateLimitError,
+                                   openai.error.ServiceUnavailableError, openai.error.Timeout)),
+    wait=wait_random_exponential(multiplier=1, max=60),
+    stop=stop_after_attempt(10)
+)
 def openai_chat_completions(
     messages: Union[List[Dict], List[List[Dict]]],
     model=None,

@@ -2333,7 +2333,7 @@
                             [
                                 "result_get",
                                 "{\"appid\": \"LQGE4R-VPE825U26W\", \"i\": \"population of Tokyo\", \"units\": \"metric\"}",
-                                "ASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"LQGE4R-VPE825U26W\", \"i\": \"population of Tokyo\", \"units\": \"metric\"}"
+                                "ASSISTANT Action: result_get\nASSISTANT Action Input: {\"appid\": \"LQGE4R-VPE825U26W\", \"i\": \"population of Tokyo\"}"
                             ],
                             "Status Code: 400. Response: {\"error\":\"Bad Request\",\"message\":\"The API did not find the 'units' parameter while parsing the request.\"} You should choose one of: (1) change the input and retry; (2) call another function."
                         ]

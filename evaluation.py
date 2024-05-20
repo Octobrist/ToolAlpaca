@@ -46,6 +46,9 @@ if __name__ == "__main__":
         original_data = json.load(open(os.path.join(args.output_path, args.api_data_path.split('/')[-1]), "r"))
         exist_ids = {i: [j["id"] for j in original_data[i]] for i in original_data if i != "statistics"}
 
+
+    golden_answer = json.load(open('./golden-eval_real.json', "r"))
+
     index = 0
     invalid_api_count = 0
     for api_idx, api in enumerate(api_data):
@@ -73,14 +76,14 @@ if __name__ == "__main__":
                 original_data[api_name].append(tmp)
                 continue
             original_data["statistics"]["num"] += 1
-            golden_answer = api["Golden_Answers"][ques_id]
+
             standard_answer = ""
-            for ans_id, ans in enumerate(golden_answer):
-                standard_answer += f"{ans_id + 1}. Function: {ans['Action']}\nParameters: {ans['Action_Input']}\n"
+            for ans_id, ans in enumerate(golden_answer[api_idx]['Instances'][ques_id]['intermediate_steps']):
+                standard_answer += f"{ans_id + 1}. Function: {ans[0][0]}\nParameters: {ans[0][1]}\nResponses: {ans[1]}\n"
 
             solution = ""
             for sol_id, sol in enumerate(api["Instances"][ques_id]["intermediate_steps"]):
-                solution += f"{sol_id + 1}. Function: {sol[0][0]}\nParameters: {sol[0][1]}\nRetruns: {sol[1]}\n"
+                solution += f"{sol_id + 1}. Function: {sol[0][0]}\nParameters: {sol[0][1]}\nResponses: {sol[1]}\n"
             # solution += f"{sol_id + 2}. Final Response: {api_info['Instances'][ques_id]['output']}"
 
             prompt = template.substitute(

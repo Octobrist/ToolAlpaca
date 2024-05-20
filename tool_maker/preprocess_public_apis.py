@@ -2,7 +2,8 @@ import os
 import json
 import requests
 import argparse
-
+# os.environ["http_proxy"] = "http://localhost:7890"
+# os.environ["https_proxy"] = "http://localhost:7890"
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -13,7 +14,13 @@ if __name__ == "__main__":
     if os.path.exists(args.api_data_path):
         api_data = json.load(open(args.api_data_path))
     else:
-        public_apis = requests.get("https://api.publicapis.org/entries").json()["entries"]
+        session = requests.Session()
+        session.max_redirects = 100
+        # todo 有问题 重定向次数太多
+        # response = session.get('https://api.publicapis.org/entries', allow_redirects=False)
+        response = session.get('https://publicapis.dev/entries', allow_redirects=False)
+        public_apis = response.json()["entries"]
+        # location = public_apis.headers['location']
         api_data = []
         for api in public_apis:
             tmp = {

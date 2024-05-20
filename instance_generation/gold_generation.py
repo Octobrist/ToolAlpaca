@@ -116,3 +116,10 @@ for api_idx, api in tqdm(enumerate(api_data)):
             indent=4,
             ensure_ascii=False
         )
+
+json.dump(
+    api_data,
+    open(final_output_path, "w", encoding="utf-8"),
+    indent=4,
+    ensure_ascii=False
+)
