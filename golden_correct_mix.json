@@ -1,742 +1,538 @@
 [
     {
         "api": "Nager.Date",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "Nager.Date",
-        "idx": 1,
-        "steps": 1
+        "idx": 1
     },
     {
         "api": "Nager.Date",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "Nager.Date",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "Nager.Date",
-        "idx": 4,
-        "steps": 1
+        "idx": 4
     },
     {
         "api": "Nager.Date",
-        "idx": 5,
-        "steps": 1
+        "idx": 5
     },
     {
         "api": "Nager.Date",
-        "idx": 6,
-        "steps": 1
+        "idx": 6
     },
     {
         "api": "Nager.Date",
-        "idx": 7,
-        "steps": 1
+        "idx": 7
     },
     {
         "api": "Nager.Date",
-        "idx": 8,
-        "steps": 1
+        "idx": 8
     },
     {
         "api": "Nager.Date",
-        "idx": 9,
-        "steps": 1
+        "idx": 9
     },
     {
         "api": "Nager.Date",
-        "idx": 10,
-        "steps": 1
+        "idx": 10
     },
     {
         "api": "Nager.Date",
-        "idx": 11,
-        "steps": 1
+        "idx": 11
     },
     {
         "api": "Nager.Date",
-        "idx": 12,
-        "steps": 1
+        "idx": 12
     },
     {
         "api": "Nager.Date",
-        "idx": 13,
-        "steps": 1
+        "idx": 13
     },
     {
         "api": "Nager.Date",
-        "idx": 14,
-        "steps": 2
+        "idx": 14
     },
     {
         "api": "Nager.Date",
-        "idx": 15,
-        "steps": 2
+        "idx": 15
     },
     {
         "api": "Nager.Date",
-        "idx": 16,
-        "steps": 1
+        "idx": 16
     },
     {
         "api": "airportsapi",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "airportsapi",
-        "idx": 1,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "airportsapi",
-        "idx": 2,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "airportsapi",
-        "idx": 3,
-        "steps": 1
+        "idx": 5
     },
     {
         "api": "airportsapi",
-        "idx": 4,
-        "steps": 1
-    },
-    {
-        "api": "airportsapi",
-        "idx": 6,
-        "steps": 1
-    },
-    {
-        "api": "airportsapi",
-        "idx": 7,
-        "steps": 1
+        "idx": 6
     },
     {
         "api": "AviationAPI",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "AviationAPI",
-        "idx": 1,
-        "steps": 1
+        "idx": 1
     },
     {
         "api": "AviationAPI",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "AviationAPI",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "AviationAPI",
-        "idx": 4,
-        "steps": 1
+        "idx": 4
     },
     {
         "api": "AviationAPI",
-        "idx": 11,
-        "steps": 2
+        "idx": 11
     },
     {
         "api": "AviationAPI",
-        "idx": 12,
-        "steps": 2
+        "idx": 12
     },
     {
         "api": "chucknorris.io",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "chucknorris.io",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "chucknorris.io",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "chucknorris.io",
-        "idx": 4,
-        "steps": 1
+        "idx": 4
     },
     {
         "api": "chucknorris.io",
-        "idx": 5,
-        "steps": 3
+        "idx": 5
     },
     {
         "api": "Random Useless Facts",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "Random Useless Facts",
-        "idx": 1,
-        "steps": 1
+        "idx": 1
     },
     {
         "api": "Random Useless Facts",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "Random Useless Facts",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "Random Useless Facts",
-        "idx": 4,
-        "steps": 1
+        "idx": 4
     },
     {
         "api": "Random Useless Facts",
-        "idx": 5,
-        "steps": 5
+        "idx": 5
     },
     {
         "api": "apilayer weatherstack",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "apilayer weatherstack",
-        "idx": 1,
-        "steps": 3
+        "idx": 1
     },
     {
         "api": "apilayer weatherstack",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "apilayer weatherstack",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "apilayer weatherstack",
-        "idx": 4,
-        "steps": 3
+        "idx": 4
     },
     {
         "api": "apilayer weatherstack",
-        "idx": 5,
-        "steps": 1
+        "idx": 5
     },
     {
         "api": "apilayer weatherstack",
-        "idx": 6,
-        "steps": 1
+        "idx": 6
     },
     {
         "api": "apilayer weatherstack",
-        "idx": 7,
-        "steps": 1
+        "idx": 7
     },
     {
         "api": "apilayer weatherstack",
-        "idx": 8,
-        "steps": 3
+        "idx": 8
     },
     {
         "api": "apilayer weatherstack",
-        "idx": 9,
-        "steps": 1
+        "idx": 9
     },
     {
         "api": "Free Dictionary",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "Free Dictionary",
-        "idx": 1,
-        "steps": 1
+        "idx": 1
     },
     {
         "api": "Free Dictionary",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "Free Dictionary",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "Free Dictionary",
-        "idx": 4,
-        "steps": 2
+        "idx": 4
     },
     {
         "api": "Free Dictionary",
-        "idx": 5,
-        "steps": 1
+        "idx": 5
     },
     {
         "api": "Free Dictionary",
-        "idx": 6,
-        "steps": 1
+        "idx": 6
     },
     {
         "api": "WolframAlpha",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "WolframAlpha",
-        "idx": 1,
-        "steps": 1
+        "idx": 1
     },
     {
         "api": "WolframAlpha",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "WolframAlpha",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "WolframAlpha",
-        "idx": 4,
-        "steps": 1
+        "idx": 4
     },
     {
         "api": "WolframAlpha",
-        "idx": 5,
-        "steps": 1
+        "idx": 5
     },
     {
         "api": "WolframAlpha",
-        "idx": 6,
-        "steps": 1
+        "idx": 6
     },
     {
         "api": "WolframAlpha",
-        "idx": 7,
-        "steps": 1
+        "idx": 7
     },
     {
         "api": "WolframAlpha",
-        "idx": 8,
-        "steps": 1
+        "idx": 8
     },
     {
         "api": "WolframAlpha",
-        "idx": 9,
-        "steps": 1
+        "idx": 9
     },
     {
         "api": "WolframAlpha",
-        "idx": 10,
-        "steps": 2
+        "idx": 10
     },
     {
         "api": "WolframAlpha",
-        "idx": 11,
-        "steps": 2
+        "idx": 11
     },
     {
         "api": "WolframAlpha",
-        "idx": 12,
-        "steps": 2
+        "idx": 12
     },
     {
         "api": "Fruityvice",
-        "idx": 1,
-        "steps": 1
+        "idx": 1
     },
     {
         "api": "Fruityvice",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "Fruityvice",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "Fruityvice",
-        "idx": 5,
-        "steps": 1
+        "idx": 4
     },
     {
         "api": "Fruityvice",
-        "idx": 6,
-        "steps": 1
+        "idx": 6
     },
     {
         "api": "Cataas",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "Cataas",
-        "idx": 1,
-        "steps": 1
+        "idx": 1
     },
     {
         "api": "Cataas",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "Cataas",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "Cataas",
-        "idx": 4,
-        "steps": 1
+        "idx": 4
     },
     {
         "api": "Cataas",
-        "idx": 6,
-        "steps": 1
+        "idx": 6
     },
     {
         "api": "Cataas",
-        "idx": 7,
-        "steps": 1
+        "idx": 8
     },
     {
         "api": "Cataas",
-        "idx": 8,
-        "steps": 1
+        "idx": 9
     },
     {
         "api": "Cataas",
-        "idx": 9,
-        "steps": 1
+        "idx": 10
     },
     {
         "api": "Cataas",
-        "idx": 10,
-        "steps": 1
-    },
-    {
-        "api": "Cataas",
-        "idx": 11,
-        "steps": 1
+        "idx": 11
     },
     {
         "api": "CurrencyBeacon",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "CurrencyBeacon",
-        "idx": 1,
-        "steps": 1
+        "idx": 1
     },
     {
         "api": "CurrencyBeacon",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "CurrencyBeacon",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "CurrencyBeacon",
-        "idx": 6,
-        "steps": 1
+        "idx": 6
     },
     {
         "api": "CurrencyBeacon",
-        "idx": 7,
-        "steps": 1
+        "idx": 7
     },
     {
         "api": "CurrencyBeacon",
-        "idx": 9,
-        "steps": 2
+        "idx": 9
     },
     {
         "api": "CurrencyBeacon",
-        "idx": 10,
-        "steps": 2
+        "idx": 10
     },
     {
         "api": "Axolotl",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "Axolotl",
-        "idx": 1,
-        "steps": 1
+        "idx": 1
     },
     {
         "api": "Axolotl",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "Axolotl",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "Axolotl",
-        "idx": 4,
-        "steps": 1
+        "idx": 5
     },
     {
         "api": "Axolotl",
-        "idx": 5,
-        "steps": 1
+        "idx": 6
     },
     {
         "api": "Axolotl",
-        "idx": 6,
-        "steps": 3
-    },
-    {
-        "api": "Axolotl",
-        "idx": 8,
-        "steps": 1
-    },
-    {
-        "api": "Axolotl",
-        "idx": 9,
-        "steps": 2
+        "idx": 8
     },
     {
         "api": "AniAPI",
-        "idx": 0,
-        "steps": 2
+        "idx": 0
     },
     {
         "api": "AniAPI",
-        "idx": 2,
-        "steps": 2
+        "idx": 2
     },
     {
         "api": "AniAPI",
-        "idx": 3,
-        "steps": 2
+        "idx": 3
     },
     {
         "api": "AniAPI",
-        "idx": 5,
-        "steps": 2
+        "idx": 5
     },
     {
         "api": "AniAPI",
-        "idx": 6,
-        "steps": 1
-    },
-    {
-        "api": "AniAPI",
-        "idx": 8,
-        "steps": 2
+        "idx": 8
     },
     {
         "api": "AbuseIPDB",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "AbuseIPDB",
-        "idx": 4,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "AbuseIPDB",
-        "idx": 5,
-        "steps": 1
+        "idx": 5
     },
     {
         "api": "AbuseIPDB",
-        "idx": 6,
-        "steps": 2
+        "idx": 7
     },
     {
         "api": "AbuseIPDB",
-        "idx": 7,
-        "steps": 1
-    },
-    {
-        "api": "AbuseIPDB",
-        "idx": 9,
-        "steps": 1
+        "idx": 9
     },
     {
         "api": "Améthyste",
-        "idx": 5,
-        "steps": 1
+        "idx": 5
     },
     {
         "api": "Améthyste",
-        "idx": 6,
-        "steps": 1
-    },
-    {
-        "api": "Améthyste",
-        "idx": 9,
-        "steps": 1
+        "idx": 6
     },
     {
         "api": "Auth0",
-        "idx": 1,
-        "steps": 1
+        "idx": 1
     },
     {
         "api": "Auth0",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "Auth0",
-        "idx": 4,
-        "steps": 1
+        "idx": 4
     },
     {
         "api": "Auth0",
-        "idx": 6,
-        "steps": 1
+        "idx": 6
     },
     {
         "api": "Abstract Public Holidays",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "Abstract Public Holidays",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "Abstract Public Holidays",
-        "idx": 3,
-        "steps": 1
+        "idx": 3
     },
     {
         "api": "Abstract Public Holidays",
-        "idx": 4,
-        "steps": 1
+        "idx": 4
     },
     {
         "api": "Abstract Public Holidays",
-        "idx": 5,
-        "steps": 1
+        "idx": 6
     },
     {
         "api": "Abstract Public Holidays",
-        "idx": 6,
-        "steps": 1
+        "idx": 8
     },
     {
         "api": "Abstract Public Holidays",
-        "idx": 7,
-        "steps": 1
-    },
-    {
-        "api": "Abstract Public Holidays",
-        "idx": 8,
-        "steps": 1
-    },
-    {
-        "api": "Abstract Public Holidays",
-        "idx": 9,
-        "steps": 1
+        "idx": 9
     },
     {
         "api": "1Forge",
-        "idx": 0,
-        "steps": 2
+        "idx": 0
     },
     {
         "api": "1Forge",
-        "idx": 2,
-        "steps": 2
+        "idx": 4
     },
     {
         "api": "1Forge",
-        "idx": 4,
-        "steps": 2
-    },
-    {
-        "api": "1Forge",
-        "idx": 6,
-        "steps": 2
-    },
-    {
-        "api": "1Forge",
-        "idx": 9,
-        "steps": 2
+        "idx": 9
     },
     {
         "api": "A Bíblia Digital",
-        "idx": 0,
-        "steps": 1
+        "idx": 0
     },
     {
         "api": "A Bíblia Digital",
-        "idx": 1,
-        "steps": 1
+        "idx": 1
     },
     {
         "api": "A Bíblia Digital",
-        "idx": 2,
-        "steps": 1
+        "idx": 2
     },
     {
         "api": "A Bíblia Digital",
-        "idx": 3,
-        "steps": 5
+        "idx": 4
     },
     {
         "api": "A Bíblia Digital",
-        "idx": 4,
-        "steps": 1
+        "idx": 5
     },
     {
         "api": "A Bíblia Digital",
-        "idx": 5,
-        "steps": 2
+        "idx": 7
     },
     {
         "api": "A Bíblia Digital",
-        "idx": 6,
-        "steps": 4
-    },
-    {
-        "api": "A Bíblia Digital",
-        "idx": 7,
-        "steps": 1
-    },
-    {
-        "api": "A Bíblia Digital",
-        "idx": 8,
-        "steps": 1
+        "idx": 8
     },
     {
         "api": "Apache Superset",
-        "idx": 1,
-        "steps": 1
+        "idx": 1
     }
 ]

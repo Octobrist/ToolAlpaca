@@ -28,12 +28,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-ori", "--origin_file", type=str, required=True)
 args = parser.parse_args()
 
-golden_data = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct.json'))
+golden_data = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct_mix.json'))
 api_data = load_json_from_file(args.origin_file)
 
 error_detail = {
     '2': [],
-    'error code': [],
+    '4': [],
+    '5': [],
     'error parser': [], # NO_API_CALL
     'other error': []
 }
@@ -48,37 +49,40 @@ for api_idx, api in tqdm(enumerate(api_data)):
     if input_valid and output_valid:
         Answers = []
         for idx, inst in enumerate(api["Instructions"]):
-            # if {'api': api['Name'], 'idx': api_idx} not in golden_data:
-            #     continue
-            if len(api.get("Authentication", [])) > 0:
-                inst += "\nAuthentication information: " + \
-                        " ".join([f"{k}={v}" for k, v in api["Authentication"].items()])
             ga = api['Golden_Answers'][idx]
-            instance = api['Instances'][idx]
-            if 'error' in instance.keys():
-                if 'Could not parse LLM output' in instance['error']:
-                    error_detail['error parser'].append({'api': api['Name'], 'idx': idx})
-                else:
-                    error_detail['other error'].append({'api': api['Name'], 'idx': idx, })
-            else:
-                input = instance['input'] + '\n'
-                if len(instance['intermediate_steps']) > max_steps:
-                    max_steps = len(instance['intermediate_steps'])
-                for intermediate in instance['intermediate_steps']:
-                    input = input + 'ASSISTANT Action: ' + intermediate[0][0] + '\n'
-                    input = input + 'ASSISTANT Action Input: ' + intermediate[0][1] + '\n'
-                    input = input + 'ASSISTANT Observation: ' + intermediate[1] + '\n'
-                if 'golden' not in args.origin_file:
-                    input = input + 'ASSISTANT Response: ' + instance['output']
-                if "Status Code: 2" in input:
-                    error_detail['2'].append({'api': api['Name'], 'idx':idx, 'steps':len(instance['intermediate_steps'])})
-                else:
-                    error_detail['error code'].append({'api': api['Name'], 'idx':idx, 'steps':len(instance['intermediate_steps'])})
+            ins = api['Instances'][idx]
+            if "intermediate_steps" not in ins.keys():
+                error_detail['other error'].append({'api': api['Name'], 'idx': idx})
+                continue
+            if 'error' in ins.keys():
+                error_detail['other error'].append({'api': api['Name'], 'idx': idx, })
+                continue
+            flag = True
+            input = ins['input'] + '\n'
+            for intermediate in ins['intermediate_steps']:
+                input = input + 'ASSISTANT Action: ' + intermediate[0][0] + '\n'
+                input = input + 'ASSISTANT Action Input: ' + intermediate[0][1] + '\n'
+                input = input + 'ASSISTANT Observation: ' + intermediate[1] + '\n'
+                if "Status Code: 2" not in intermediate[1]:
+                    flag = False
+            if 'Could not parse LLM output' in input:
+                error_detail['error parser'].append({'api': api['Name'], 'idx': idx, })
+                continue
+            if "Status Code: 5" in input:
+                error_detail['5'].append({'api': api['Name'], 'idx':idx})
+                continue
+            if "Status Code: 4" in input:
+                error_detail['4'].append({'api': api['Name'], 'idx': idx})
+                continue
+            if flag:
+                error_detail['2'].append({'api': api['Name'], 'idx': idx})
+                continue
+            error_detail['other error'].append({'api': api['Name'], 'idx': idx, })
 print(max_steps)
 print(len(error_detail['2']))
 json.dump(
     error_detail['2'],
-    open('./golden_correct.json', "w", encoding="utf-8"),
+    open('./golden_correct_mix.json', "w", encoding="utf-8"),
     indent=4,
     ensure_ascii=False
 )
