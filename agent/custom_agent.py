@@ -35,6 +35,15 @@ class CustomZeroShotAgent(ZeroShotAgent):
 
             # else:
             thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\nASSISTANT Observation:{cur_step[1]}\nASSISTANT Thought: '
+        if 'mutil_dynamic_steps' in kwargs.keys():
+            for step in kwargs['mutil_dynamic_steps']:
+                thoughts += step[0][2]
+                thoughts += f"\n{self.observation_prefix}{step[1]}\n{self.llm_prefix}"
+            thoughts += ' I think I have completed the user\'s question.\n'
+            thoughts += f'USER: No, I think your actions and action inputs do not meet my expectations.' \
+                        f' You should change the input and retry or call another function,' \
+                        f' and regenerate it right now.\n' \
+                        # f'ASSISTANT Thought: I will regenerate a new action and a new action input.\n ASSISTANT Action: '
         new_inputs = {"agent_scratchpad": thoughts, "stop": self._stop}
         full_inputs = {**kwargs, **new_inputs}
         return full_inputs
@@ -82,20 +91,27 @@ class CustomZeroShotAgent2(ZeroShotAgent): # for sample
     ) -> Dict[str, Any]:
         """Create the full inputs for the LLMChain from intermediate steps."""
         thoughts = self._construct_scratchpad(intermediate_steps)
-        if 'dynamic_feedbacks' in kwargs.keys() and kwargs['dynamic_feedbacks'] is not None :
-            for feedback in kwargs['dynamic_feedbacks']:
-                thoughts += f'\nASSISTANT Action: {feedback[0][0]}\nASSISTANT Action Input: {feedback[0][1]}\n' \
-                            f'USER: {feedback[1]} I think your actions and action inputs do not meet my expectations. Please regenerate them.'
-
-        if 'cur_step' in kwargs.keys() and kwargs['cur_step'] is not None:
-            cur_step = kwargs['cur_step']
-            thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\n' \
-                        f'USER: {cur_step[1]} I think your actions and action inputs do not meet my expectations. ' \
-                        f'Don\'t ask me for any infomation, and I won\'t provide the correct action and action inputs. '\
-                        f'Please regenerate ' \
-                        f'a new action and a new action inputs independently right now.\n' \
-                        # f'ASSISTANT Action: ' \
-
+        # if 'dynamic_feedbacks' in kwargs.keys() and kwargs['dynamic_feedbacks'] is not None :
+        #     for feedback in kwargs['dynamic_feedbacks']:
+        #         thoughts += f'\nASSISTANT Action: {feedback[0][0]}\nASSISTANT Action Input: {feedback[0][1]}\n' \
+        #                     f'USER: {feedback[1]} I think your actions and action inputs do not meet my expectations. Please regenerate them.'
+        #
+        # if 'cur_step' in kwargs.keys() and kwargs['cur_step'] is not None:
+        #     cur_step = kwargs['cur_step']
+        #     thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\n' \
+        #                 f'USER: {cur_step[1]} I think your actions and action inputs do not meet my expectations. ' \
+        #                 f'Don\'t ask me for any infomation, and I won\'t provide the correct action and action inputs. '\
+        #                 f'Please regenerate ' \
+        #                 f'a new action and a new action inputs independently right now.\n' \
+        #                 # f'ASSISTANT Action: ' \
+        if 'mutil_dynamic_steps' in kwargs.keys():
+            for step in kwargs['mutil_dynamic_steps']:
+                thoughts += f'ASSISTANT Action: {step[0][0]}\nASSISTANT Action Input:{step[0][1]}\n'
+                thoughts += f"USER: The response is {step[1]}"
+            thoughts += ' I think your actions and action inputs do not meet my expectations.' \
+                        f' You should change the input and retry or call another function,' \
+                        f' and regenerate it right now.\n'
+        thoughts = thoughts.replace('ASSISTANT Thought:', '').replace('ASSISTANT Observation:', 'USER: The response is')
         new_inputs = {"agent_scratchpad": thoughts, "stop": self._stop}
         full_inputs = {**kwargs, **new_inputs}
         return full_inputs

@@ -73,7 +73,7 @@ def judge_input_mismatch(answer, answer_input, golden_answer, api_docs):
         value_desc = api_docs[key]
         value_type = None
         for pre_type in TYPE_DICT.keys():
-            if f'{pre_type}.' in value_desc.lower():
+            if f'{pre_type}.' in value_desc.lower() or f'{pre_type}[string].' in value_desc.lower():
                 value_type = TYPE_DICT[pre_type]
                 break
         assert value_type is not None
@@ -115,6 +115,48 @@ def static_feedback(answer, golden_answer, api_docs):
     else:
         action = answer['intermediate_steps'][-1][0][0]
         action_input = answer['intermediate_steps'][-1][0][1]
+
+    try:
+        action_input = parse_json_string(action_input)
+        assert isinstance(action_input, dict)
+    except:
+        ERROR_DETAILS['NO_API_CALL'] += 1
+        return 'no_api_call', None, None, action, action_input
+
+    # print(action, action_input)
+    error_type, detail = judge_api_name(action, golden_answer, api_docs)
+    ERROR_DETAILS['API_NAME_MISMATCH'][str(error_type)] += 1
+    if error_type != 0:
+        return 'api_name_mismatch', error_type, detail, action, action_input
+    assert action == golden_answer['Action']
+    error_type, detail = judge_invalid_key(list(action_input.keys()), golden_answer, api_docs)
+    ERROR_DETAILS['INVALID_PARAMETERS'][str(error_type)] += 1
+    if error_type != 0:
+        return 'invalid_parameters', error_type, detail, action, action_input
+    error_type, detail = judge_input_mismatch(action_input, action_input, golden_answer, api_docs[action])
+    ERROR_DETAILS['INPUT_MISMATCH'][str(error_type)] += 1
+    if error_type != 0:
+        return 'input_mismatch', error_type, detail, action, action_input
+    return None, None, None, action, action_input
+
+
+def mutil_static_feedback(answer, golden_answer, cur_time, api_docs):
+    regex = r"ASSISTANT\s*Action\s*\d*\s*:(.*?)\nASSISTANT\s*Action\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
+    if 'error' in answer.keys():
+        ERROR_DETAILS['NO_API_CALL'] += 1
+        return 'no_api_call', None, None, None, None
+    if 'Could not parse LLM output:' in answer['output']:
+        ERROR_DETAILS['NO_API_CALL'] += 1
+        return 'no_api_call', None, None, None, None
+    if 'intermediate_steps' not in answer.keys():
+        ERROR_DETAILS['NO_API_CALL'] += 1
+        return 'no_api_call', None, None, None, None
+    if 'intermediate_steps' in answer.keys() and len(answer['intermediate_steps']) == 0:
+        ERROR_DETAILS['NO_API_CALL'] += 1
+        return 'no_api_call', None, None, None, None
+    else:
+        action = answer['intermediate_steps'][cur_time][0][0]
+        action_input = answer['intermediate_steps'][cur_time][0][1]
 
     try:
         action_input = parse_json_string(action_input)

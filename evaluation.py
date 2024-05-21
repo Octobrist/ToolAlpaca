@@ -17,7 +17,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     template = Template(open(args.template_path, "r").read())
-    golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct.json'))
+    golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct_mix.json'))
     api_data = json.load(open(args.api_data_path, "r"))
     if os.path.exists(args.golden_answer_path):
         golden_answer = json.load(open(args.golden_answer_path, "r"))
@@ -47,7 +47,7 @@ if __name__ == "__main__":
         exist_ids = {i: [j["id"] for j in original_data[i]] for i in original_data if i != "statistics"}
 
 
-    golden_answer = json.load(open('./golden-eval_real.json', "r"))
+    golden_answer = json.load(open('./golden-eval_mix.json', "r"))
 
     index = 0
     invalid_api_count = 0
@@ -56,7 +56,7 @@ if __name__ == "__main__":
         if exist_ids is None or api_name not in exist_ids:
             original_data[api_name] = []
         for ques_id, ques in enumerate(api["Instructions"]):
-            if {'api': api['Name'], 'idx': ques_id, 'steps': len(api['Golden_Answers'][ques_id])} not in golden_data_info:
+            if {'api': api['Name'], 'idx': ques_id} not in golden_data_info:
                 invalid_api_count += 1
                 continue
             if exist_ids is not None and ques_id in exist_ids.get(api_name, []):
@@ -79,7 +79,8 @@ if __name__ == "__main__":
 
             standard_answer = ""
             for ans_id, ans in enumerate(golden_answer[api_idx]['Instances'][ques_id]['intermediate_steps']):
-                standard_answer += f"{ans_id + 1}. Function: {ans[0][0]}\nParameters: {ans[0][1]}\nResponses: {ans[1]}\n"
+                standard_answer += f"{ans_id + 1}. Function: {ans[0][0]}\nParameters: {ans[0][1]}\n" \
+                                   # f"Responses: {ans[1]}\n"
 
             solution = ""
             for sol_id, sol in enumerate(api["Instances"][ques_id]["intermediate_steps"]):

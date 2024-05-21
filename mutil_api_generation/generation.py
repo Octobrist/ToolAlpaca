@@ -1,7 +1,9 @@
 import os
+import re
 import json
 import logging
 import argparse
+from copy import deepcopy
 
 import openai
 import requests
@@ -18,6 +20,19 @@ import torch
 import deepspeed
 
 logger = logging.getLogger(__name__)
+
+def match_response(text):
+    status_code_match = re.search(r'Status Code: (\d+)', text)
+    response_match = re.search(r'Response: (\{.*\})', text)
+    if status_code_match and response_match:
+        if status_code_match.group(1) == '200' or status_code_match.group(1) == '201' \
+                or status_code_match.group(1) == '202' or status_code_match.group(1) == '203' \
+            or status_code_match.group(1) == '204' or status_code_match.group(1) == '205':
+            return f"Status Code: {status_code_match.group(1)}. Response:{response_match.group(1)}"
+        else:
+            return f"Status Code: {status_code_match.group(1)}."
+    else:
+        return ""
 
 def get_instance_intermediate_steps(input_data, step):
     pre_steps = input_data[:step]
@@ -71,7 +86,7 @@ else:
 api_data = json.load(open(args.api_data_path, "r"))
 golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct_mix.json'))
 
-final_output_path = os.path.join(args.output_dir, f"mutil-api/{args.llm.split('/')[-1]}_mix.json")
+final_output_path = os.path.join(args.output_dir, f"mutil-api/{args.llm.split('/')[-1]}_mix_epoch3_regenerate.json")
 
 if args.use_cache:
     res = requests.get(f"{args.server_url}/__simulator_cache__/open")
@@ -95,7 +110,7 @@ while judge_all_finish(api_data) is False:
             )
             Answers = []
             for idx, inst in enumerate(api["Instructions"]):
-                if {'api': api['Name'], 'idx': idx, 'steps':len(api['Golden_Answers'][idx])} not in golden_data_info:
+                if {'api': api['Name'], 'idx': idx} not in golden_data_info:
                     Answers.append('This instance is not used.')
                     continue
                 if len(api.get("Authentication", [])) > 0:
@@ -114,6 +129,9 @@ while judge_all_finish(api_data) is False:
                         pred_steps = api_data[api_idx]['Instances'][idx]['intermediate_steps']
                 else:
                     last_times = 0
+                # copy_pred_step = deepcopy(pred_steps) # for sample
+                # for step_idx, step in enumerate(copy_pred_step):
+                #     pred_steps[step_idx] = (step[0], match_response(step[1]))
                 try:
                     generate_count += 1
                     output = agent(
@@ -128,6 +146,10 @@ while judge_all_finish(api_data) is False:
                 except Exception as e:
                     logger.error(e)
                     output = {"error": str(e)}
+                # if 'error' not in output.keys()  and output['output'] == "Agent stopped due to iteration limit or time limit.":
+                #     if 'step_map' not in output.keys():
+                #         output['step_map'] = {}
+                #     output['step_map'][str(last_times)] = len(output['intermediate_steps']) - 1
                 # output = {}
                 output['times'] = last_times
                 output['times'] = output['times'] + 1
@@ -138,7 +160,7 @@ while judge_all_finish(api_data) is False:
             api_data[api_idx]['Instances'] = Answers
             assert len(api_data[api_idx]['Instances']) == len(api_data[api_idx]['Golden_Answers'])
     print('genertate_count: ', generate_count)
-
+print(final_output_path)
 json.dump(
     api_data,
     open(final_output_path, "w", encoding="utf-8"),

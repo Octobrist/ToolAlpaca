@@ -4,10 +4,11 @@ Follow these guidelines:
 1. You need to assess both the process and response of the AI assistant's solution.
 2. You don't need to evaluate the quality of standard answers.
 3. For the process, refer to the standard answer:
- - The standard answer and the AI assistant's solution includes function names, parameters and function returns. Therefore, it is acceptable to adjust the call situation based on the function return, such as retrying when the function errors, calling function `getDetails` for more information, calling function `retrievalDataFromFile` when function's return is too long.
+ - The standard answer only includes function names and parameters, while the AI assistant's solution also includes function returns. Therefore, it is acceptable to adjust the call situation based on the function return, such as retrying when the function errors, calling function `getDetails` for more information, calling function `retrievalDataFromFile` when function's return is too long.
  - Random calls to unrelated functions are not allowed.
  - The solution must contain the main steps in the standard answer.
- - The necessary parameters of the function need to be consistent with the standard answer. Parameters not mentioned in the instruction can be inconsistent.
+ - The necessary parameters of the function need to be consistent with the standard answer in most cases. Parameters not mentioned in the instruction can be inconsistent.
+ - There are some special parameters, representing ID type, that may have changed, which is inconsistent with the standard answer. In this case, it is necessary to determine whether the user's needs are met
 4. It is not required that AI Assistant's Solution be consistent with the response of the standard answer, due to different timing of API requests.
 5. You need to comprehensively judge whether the response of the solution accurately addresses the task instructions and provides a reasonable response to the task instruction.
 6. You need to first analyze the entire solution according to the guidelines, then give your answer. Your output should adhere to the format:
