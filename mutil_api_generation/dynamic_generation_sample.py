@@ -105,7 +105,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-inp", "--input_data_path", type=str, required=True)
 parser.add_argument("-out", "--output_dir", type=str, required=True)
 parser.add_argument("-llm", type=str, default=None)
-parser.add_argument("--server_url", type=str, default="http://127.0.0.1:1234")
+parser.add_argument("--server_url", type=str, default="http://127.0.0.1:5678")
 parser.add_argument("--agent_prompt", type=str, default="train_v2")
 parser.add_argument("--device", type=int, default=0)
 parser.add_argument("--dynamic_type", type=str, default='sample')
@@ -149,7 +149,7 @@ else:
             open(args.input_data_path.replace('/generate/mutil-api-static/', '/eval/v3/mutil-api-static/'), 'r'))
 incorrect_samples = get_incorrect_samples(eval_info)
 final_output_path = os.path.join(args.output_dir, f"mutil-api-dynamic/{args.input_data_path.split('/')[-1].replace('.json', '')}_{args.dynamic_type}_epoch{args.epoch}.json")
-
+print(final_output_path)
 if args.use_cache:
     res = requests.get(f"{args.server_url}/__simulator_cache__/open")
 
@@ -184,12 +184,13 @@ for api_idx, api in tqdm(enumerate(api_data)):
             if (api['Name'], idx) not in incorrect_samples:
                 Answers.append(api['Instances'][idx])
                 continue
+            mutil_dynamic_steps = api['Instances'][idx]['intermediate_steps']
             try:
                 regenerte_count += 1
                 output = agent(
                     {
                         'input': inst,
-                        'mutil_dynamic_steps': api['Instances'][idx]['intermediate_steps'],
+                        'mutil_dynamic_steps': mutil_dynamic_steps,
                     }
                 )
                 json.dumps(output, ensure_ascii=4)

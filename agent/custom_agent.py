@@ -41,8 +41,8 @@ class CustomZeroShotAgent(ZeroShotAgent):
                 thoughts += f"\n{self.observation_prefix}{step[1]}\n{self.llm_prefix}"
             thoughts += ' I think I have completed the user\'s question.\n'
             thoughts += f'USER: No, I think your actions and action inputs do not meet my expectations.' \
-                        f' You should change the input and retry or call another function,' \
-                        f' and regenerate it right now.\n' \
+                        f' You should change one of your actions\' input and retry or call another function,' \
+                        f' and regenerate a new action and a new action input right now.\n' \
                         # f'ASSISTANT Thought: I will regenerate a new action and a new action input.\n ASSISTANT Action: '
         new_inputs = {"agent_scratchpad": thoughts, "stop": self._stop}
         full_inputs = {**kwargs, **new_inputs}
@@ -107,7 +107,10 @@ class CustomZeroShotAgent2(ZeroShotAgent): # for sample
         if 'mutil_dynamic_steps' in kwargs.keys():
             for step in kwargs['mutil_dynamic_steps']:
                 thoughts += f'ASSISTANT Action: {step[0][0]}\nASSISTANT Action Input:{step[0][1]}\n'
-                thoughts += f"USER: The response is {step[1]}"
+                if step[1] == '':
+                    thoughts += f"USER: No response due to call error.\n"
+                else:
+                    thoughts += f"USER: The response is {step[1]}\n"
             thoughts += ' I think your actions and action inputs do not meet my expectations.' \
                         f' You should change the input and retry or call another function,' \
                         f' and regenerate it right now.\n'

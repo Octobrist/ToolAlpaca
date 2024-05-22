@@ -86,8 +86,8 @@ else:
 api_data = json.load(open(args.api_data_path, "r"))
 golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct_mix.json'))
 
-final_output_path = os.path.join(args.output_dir, f"mutil-api/{args.llm.split('/')[-1]}_mix_epoch3_regenerate.json")
-
+final_output_path = os.path.join(args.output_dir, f"mutil-api/{args.llm.split('/')[-1]}_mix_sample.json")
+print(final_output_path)
 if args.use_cache:
     res = requests.get(f"{args.server_url}/__simulator_cache__/open")
 
@@ -129,9 +129,9 @@ while judge_all_finish(api_data) is False:
                         pred_steps = api_data[api_idx]['Instances'][idx]['intermediate_steps']
                 else:
                     last_times = 0
-                # copy_pred_step = deepcopy(pred_steps) # for sample
-                # for step_idx, step in enumerate(copy_pred_step):
-                #     pred_steps[step_idx] = (step[0], match_response(step[1]))
+                copy_pred_step = deepcopy(pred_steps) # for sample
+                for step_idx, step in enumerate(copy_pred_step):
+                    pred_steps[step_idx] = (step[0], match_response(step[1]))
                 try:
                     generate_count += 1
                     output = agent(

@@ -97,7 +97,8 @@ else:
 api_data = json.load(open(args.input_data_path, "r"))
 golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct_mix.json'))
 golden_data = json.load(open('/home/huan/projects/ToolAlpaca/golden-eval_mix.json'))
-final_output_path = os.path.join(args.output_dir, f"mutil-api-dynamic/{args.input_data_path.split('/')[-1].replace('regenerate.json', args.dynamic_type)}_epoch{args.epoch}.json")
+final_output_path = os.path.join(args.output_dir, f"mutil-api-dynamic/{args.input_data_path.split('/')[-1].replace('.json', args.dynamic_type)}_epoch{args.epoch}.json")
+print(final_output_path)
 if 'epoch' not in args.input_data_path:
     eval_info = json.load(open(args.input_data_path.replace('/generate/mutil-api/', '/eval/v3/mutil-api/'), 'r'))
 else:
@@ -140,12 +141,13 @@ for api_idx, api in tqdm(enumerate(api_data)):
             if (api['Name'], idx) not in incorrect_samples:
                 Answers.append(api['Instances'][idx])
                 continue
+            mutil_dynamic_steps = api['Instances'][idx]['intermediate_steps']
             try:
                 generate_count += 1
                 output = agent(
                     {
                         'input': inst,
-                        'mutil_dynamic_steps': api['Instances'][idx]['intermediate_steps'],
+                        'mutil_dynamic_steps': mutil_dynamic_steps,
                     }
                 )
                 json.dumps(output, ensure_ascii=4)
