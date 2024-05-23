@@ -97,7 +97,7 @@ api_data = json.load(open(args.api_data_path, "r"))
 golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct_mix.json'))
 golden_data = json.load(open('/home/huan/projects/ToolAlpaca/golden-eval_mix.json'))
 final_output_path = os.path.join(args.output_dir, f"mutil-api-static/{args.llm.split('/')[-1]}_mix_epoch{args.epoch}.json")
-
+print(final_output_path)
 if args.use_cache:
     res = requests.get(f"{args.server_url}/__simulator_cache__/open")
 
@@ -155,40 +155,40 @@ for api_idx, api in tqdm(enumerate(api_data)):
                 continue
             pre_steps = get_instance_intermediate_steps(api['Instances'][idx]['intermediate_steps'], cur_time)
             cur_step = get_cur_intermediate_steps(cur_action, cur_action_input, prompt)
-        #     try:
-        #         generate_count += 1
-        #         output = agent(
-        #             {
-        #                 'input': inst,
-        #                 'intermediate_steps': pre_steps,
-        #                 'cur_step': cur_step
-        #             }
-        #         )
-        #         json.dumps(output, ensure_ascii=4)
-        #     except json.JSONDecodeError:
-        #         output = {'error': str(output)}
-        #     except Exception as e:
-        #         logger.error(e)
-        #         output = {"error": str(e)}
-        #     if args.use_cache:
-        #         res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
-        #         print(res.text)
-        #     output['times'] = len(pre_steps) + 1
-        #     if 'feedback' not in api['Instances'][idx].keys():
-        #         output['feedback'] = 1
-        #     else:
-        #         output['feedback'] = api['Instances'][idx]['feedback'] + 1
-        #     Answers.append(output)
-        # api_data[api_idx]['Instances'] = Answers
-        # assert len(api_data[api_idx]['Instances']) == len(api_data[api_idx]['Golden_Answers'])
+            try:
+                generate_count += 1
+                output = agent(
+                    {
+                        'input': inst,
+                        'intermediate_steps': pre_steps,
+                        'cur_step': cur_step
+                    }
+                )
+                json.dumps(output, ensure_ascii=4)
+            except json.JSONDecodeError:
+                output = {'error': str(output)}
+            except Exception as e:
+                logger.error(e)
+                output = {"error": str(e)}
+            if args.use_cache:
+                res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
+                print(res.text)
+            output['times'] = len(pre_steps) + 1
+            if 'feedback' not in api['Instances'][idx].keys():
+                output['feedback'] = 1
+            else:
+                output['feedback'] = api['Instances'][idx]['feedback'] + 1
+            Answers.append(output)
+        api_data[api_idx]['Instances'] = Answers
+        assert len(api_data[api_idx]['Instances']) == len(api_data[api_idx]['Golden_Answers'])
 print('genertate_count: ', generate_count)
 ERROR_DETAILS = get_error_details()
 for key, value in ERROR_DETAILS.items():
     print(key, value)
 print(final_output_path)
-# json.dump(
-#     api_data,
-#     open(final_output_path, "w", encoding="utf-8"),
-#     indent=4,
-#     ensure_ascii=False
-# )
+json.dump(
+    api_data,
+    open(final_output_path, "w", encoding="utf-8"),
+    indent=4,
+    ensure_ascii=False
+)
