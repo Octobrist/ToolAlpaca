@@ -86,11 +86,12 @@ else:
 api_data = json.load(open(args.api_data_path, "r"))
 golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct_mix.json'))
 
-final_output_path = os.path.join(args.output_dir, f"mutil-api/{args.llm.split('/')[-1]}_mix_sample.json")
+final_output_path = os.path.join(args.output_dir, f"mutil-api-static/{args.llm.split('/')[-1]}_mix_epoch3_regenerate_fix.json")
 print(final_output_path)
 if args.use_cache:
     res = requests.get(f"{args.server_url}/__simulator_cache__/open")
 
+first = True
 count = 0
 while judge_all_finish(api_data) is False:
     generate_count = 0
@@ -129,15 +130,22 @@ while judge_all_finish(api_data) is False:
                         pred_steps = api_data[api_idx]['Instances'][idx]['intermediate_steps']
                 else:
                     last_times = 0
-                copy_pred_step = deepcopy(pred_steps) # for sample
-                for step_idx, step in enumerate(copy_pred_step):
-                    pred_steps[step_idx] = (step[0], match_response(step[1]))
+                if first:
+                    copy_pred_step = deepcopy(pred_steps) # for sample
+                    for step_idx, step in enumerate(copy_pred_step):
+                        json_start = min([idx for idx in (step[0][1].find('{'), step[0][1].find('['))
+                                          if idx != -1])
+                        json_end = max([idx for idx in (step[0][1].rfind('}'), step[0][1].rfind(']'))
+                                        if idx != -1]) + 1
+                        valid_json_string = step[0][1][json_start:json_end]
+                        pred_steps[step_idx][0][1] = valid_json_string
                 try:
                     generate_count += 1
                     output = agent(
                         {
                             'input': inst,
-                            'intermediate_steps': pred_steps
+                            'intermediate_steps': pred_steps,
+                            'cur_step': api_data[api_idx]['Instances'][idx]['cur_step'] if 'cur_step' in api_data[api_idx]['Instances'][idx].keys() else None
                         }
                     )
                     json.dumps(output, ensure_ascii=4)
@@ -159,6 +167,7 @@ while judge_all_finish(api_data) is False:
                 Answers.append(output)
             api_data[api_idx]['Instances'] = Answers
             assert len(api_data[api_idx]['Instances']) == len(api_data[api_idx]['Golden_Answers'])
+    first = False
     print('genertate_count: ', generate_count)
 print(final_output_path)
 json.dump(

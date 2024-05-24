@@ -1,17 +1,24 @@
-import time
-import subprocess
-return_code = -1
-import time
-# 休眠5小时
-time.sleep(3 * 3600)
-print('wake up')
+# import time
+# import subprocess
+# return_code = -1
+# import time
+# # 休眠5小时
+# time.sleep(3 * 3600)
+# print('wake up')
+# cmd = 'python mutil_api_generation/generation.py -api ./generate/mutil-api-static/Llama-2-7b-chat-ms_mix_epoch1.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --server_url http://127.0.0.1:5678'
+# p = subprocess.Popen(cmd, shell=True)
+# return_code = p.wait()
+#
+# cmd = 'python mutil_api_generation/static_generation.py -api ./generate/mutil-api-static/Llama-2-7b-chat-ms_mix_epoch1_regenerate.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --epoch 2'
+# p = subprocess.Popen(cmd, shell=True)
+# return_code = p.wait()
 
 
-while return_code != 0:
-    cmd = 'python evaluation.py -api ./generate/mutil-api-dynamic/ToolAlpaca-7B_mix_sample_sample_epoch1.json -out ./eval/v3/mutil-api-dynamic/ --continue'
-    p = subprocess.Popen(cmd, shell=True)
-    return_code = p.wait()
-    time.sleep(10)
+# while return_code != 0:
+#     cmd = 'python mutil_api_generation/generation.py -api ./generate/mutil-api-static/Llama-2-7b-chat-ms_mix_epoch1.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --server_url http://127.0.0.1:5678'
+#     p = subprocess.Popen(cmd, shell=True)
+#     return_code = p.wait()
+#     time.sleep(10)
 
 
 # cmds = [
@@ -26,17 +33,17 @@ while return_code != 0:
 #     return_code = p.wait()
 
 
-# import json
-# import time
-# from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
-#
-# from langchain.input import get_color_mapping
-# from langchain.tools.base import BaseTool
-# from langchain.agents import AgentExecutor
-# from langchain.schema import AgentAction, AgentFinish
-# from agent.get_agent import get_agent
-# from agent.agent_prompts import test_prompt_v1
-# from langchain.chat_models import ChatOpenAI
+import json
+import time
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
+
+from langchain.input import get_color_mapping
+from langchain.tools.base import BaseTool
+from langchain.agents import AgentExecutor
+from langchain.schema import AgentAction, AgentFinish
+from agent.get_agent import get_agent
+from agent.agent_prompts import test_prompt_v1
+from langchain.chat_models import ChatOpenAI
 # eval_mix = json.load(open('./data/eval_mix.json', "r"))
 # # api_data_path = 'eval/golden-eval_real.json'
 # api_data_path = 'eval/golden-eval_simulated.json'
@@ -99,34 +106,34 @@ while return_code != 0:
 #     indent=4,
 #     ensure_ascii=False
 # )
+api_data_path = './generate/mutil-api-static/Llama-2-7b-chat-ms_mix_epoch3_regenerate_fix.json'
+api_data = json.load(open(api_data_path, "r"))
+for api_idx, api in enumerate(api_data):
+    agent = get_agent(
+        llm= ChatOpenAI(temperature=0.0),
+        api_data=api,
+        server_url="http://127.0.0.1:5678",
+        agent_prompt=test_prompt_v1,
+        enable_getDetails=not False,
+        max_iterations=1
+    )
+    api_name = api['Name']
+    instances = api['Instances']
+    for idx, ins in enumerate(instances):
+        if isinstance(ins, dict):
+            if "intermediate_steps" not in ins.keys():
+                continue
+            steps = ins["intermediate_steps"]
+            for step_idx, step in enumerate(steps):
+                if 'Invalid JSON format.' in step[1]:
+                    action = AgentAction(step[0][0], step[0][1],
+                                         f'\nASSISTANT Action: {step[0][0]}\nASSISTANT Action Input: {step[0][1]}')
+                    cur_oberservation = agent.take_action(action)
+                    api_data[api_idx]['Instances'][idx]["intermediate_steps"][step_idx][1] = cur_oberservation
 
-# for api_idx, api in enumerate(api_data):
-#     agent = get_agent(
-#         llm= ChatOpenAI(temperature=0.0),
-#         api_data=api,
-#         server_url="http://127.0.0.1:5678",
-#         agent_prompt=test_prompt_v1,
-#         enable_getDetails=not False,
-#         max_iterations=1
-#     )
-#     api_name = api['Name']
-#     instances = api['Instances']
-#     for idx, ins in enumerate(instances):
-#         if isinstance(ins, dict):
-#             if "intermediate_steps" not in ins.keys():
-#                 continue
-#             if {'api': api_name, 'idx':idx} not in error_detail['4']:
-#                 continue
-#             steps = ins["intermediate_steps"]
-#             for step_idx, step in enumerate(steps):
-#                 action = AgentAction(step[0][0], step[0][1],
-#                                      f'\nASSISTANT Action: {step[0][0]}\nASSISTANT Action Input: {step[0][1]}')
-#                 cur_oberservation = agent.take_action(action)
-#                 api_data[api_idx]['Instances'][idx]["intermediate_steps"][step_idx][1] = cur_oberservation
-#
-# json.dump(
-#     api_data,
-#     open('eval/golden-eval_simulated3.json', "w", encoding="utf-8"),
-#     indent=4,
-#     ensure_ascii=False
-# )
+json.dump(
+    api_data,
+    open('./generate/mutil-api-static/Llama-2-7b-chat-ms_mix_epoch3_regenerate_fix_fix.json', "w", encoding="utf-8"),
+    indent=4,
+    ensure_ascii=False
+)

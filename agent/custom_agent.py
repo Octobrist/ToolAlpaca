@@ -24,7 +24,8 @@ class CustomZeroShotAgent(ZeroShotAgent):
         #         thoughts += f'\nASSISTANT Action: {feedback[0][0]}\nASSISTANT Action Input: {feedback[0][1]}\nASSISTANT Observation: {feedback[1]}\n' \
         #                     f'ASSISTANT Thought: I think I have completed the user\'s question\n' \
         #                     f'USER: No, I think your actions and action inputs do not meet my expectations. Please regenerate them.'
-        if 'cur_step' in kwargs.keys():
+
+        if 'cur_step' in kwargs.keys() and kwargs['cur_step'] is not None:
             cur_step = kwargs['cur_step']
             # if 'dynamic' in kwargs.keys():
             #     thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\n' \
@@ -34,7 +35,8 @@ class CustomZeroShotAgent(ZeroShotAgent):
             #                 # f'ASSISTANT Thought: I will regenerate a new action and a new action input.\n ASSISTANT Action: '
 
             # else:
-            thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\nASSISTANT Observation:{cur_step[1]}\nASSISTANT Thought: '
+            thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\nASSISTANT Observation:{cur_step[1]}\nASSISTANT Thought:' \
+
         if 'mutil_dynamic_steps' in kwargs.keys():
             for step in kwargs['mutil_dynamic_steps']:
                 thoughts += step[0][2]
@@ -44,6 +46,7 @@ class CustomZeroShotAgent(ZeroShotAgent):
                         f' You should change one of your actions\' input and retry or call another function,' \
                         f' and regenerate a new action and a new action input right now.\n' \
                         # f'ASSISTANT Thought: I will regenerate a new action and a new action input.\n ASSISTANT Action: '
+        thoughts += f' I will regenerate a new action and a new action input.\n ASSISTANT Action:'
         new_inputs = {"agent_scratchpad": thoughts, "stop": self._stop}
         full_inputs = {**kwargs, **new_inputs}
         return full_inputs

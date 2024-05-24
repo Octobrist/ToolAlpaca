@@ -148,12 +148,15 @@ for api_idx, api in tqdm(enumerate(api_data)):
                     prompt = prompt.replace('{pred_value}', str(error_detail[1]))
                 else:
                     raise KeyError
-                if cur_time >= len(api['Instances'][idx]['intermediate_steps']):
+                if 'error' in api['Instances'][idx].keys() or cur_time >= len(api['Instances'][idx]['intermediate_steps']):
                     break
             if prompt is None: # 无需反馈
                 Answers.append(api['Instances'][idx])
                 continue
-            pre_steps = get_instance_intermediate_steps(api['Instances'][idx]['intermediate_steps'], cur_time)
+            if 'error' not in api['Instances'][idx].keys():
+                pre_steps = get_instance_intermediate_steps(api['Instances'][idx]['intermediate_steps'], cur_time)
+            else:
+                pre_steps = []
             cur_step = get_cur_intermediate_steps(cur_action, cur_action_input, prompt)
             try:
                 generate_count += 1
@@ -161,7 +164,7 @@ for api_idx, api in tqdm(enumerate(api_data)):
                     {
                         'input': inst,
                         'intermediate_steps': pre_steps,
-                        'cur_step': cur_step
+                        'cur_step': cur_step,
                     }
                 )
                 json.dumps(output, ensure_ascii=4)

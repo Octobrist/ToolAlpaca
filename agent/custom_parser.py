@@ -12,7 +12,7 @@ class AgentStop(NamedTuple):
 
 class CustomMRKLOutputParser(AgentOutputParser): # for sample
     def parse(self, text: str) -> Union[AgentAction, AgentFinish]:
-        # text = 'ASSISTANT Action: ' + text # for llama
+        text = 'ASSISTANT Action: ' + text # for llama
         regex = r"ASSISTANT Action\s*\d*\s*:(.*?)\nASSISTANT Action\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
         match = re.search(regex, text, re.DOTALL)
         if not match:
@@ -54,16 +54,9 @@ class CustomGPTMRKLOutputParser(AgentOutputParser): # for sample
 
 class CustomMRKLOutputParser2(AgentOutputParser):
     def parse(self, text: str) -> Union[AgentAction, AgentFinish]:
-        final_answer_action = "ASSISTANT Response:"
-        if final_answer_action in text:
-            return AgentFinish(
-                {
-                    "output": text,
-                    # "Final Thought": text.rsplit(final_answer_action, 1)[0].strip(),
-                 }, text
-            )
+        text = 'ASSISTANT Action:' + text.rstrip() # for llama
         # \s matches against tab/newline/whitespace
-        regex = r"ASSISTANT\s*Action\s*\d*\s*:(.*?)\nASSISTANT\s*Action\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
+        regex = r"ASSISTANT\s*Action\s*\d*\s*:(.*?)\n\s*ASSISTANT\s*Action\s*\d*\s*Input\s*\d*\s*:[\s]*(.*)"
         match = re.search(regex, text, re.DOTALL)
         if not match:
             return AgentFinish(
