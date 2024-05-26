@@ -1,25 +1,20 @@
-# import time
-# import subprocess
-# return_code = -1
-# import time
-# # 休眠5小时
-# time.sleep(3 * 3600)
-# print('wake up')
-# cmd = 'python mutil_api_generation/generation.py -api ./generate/mutil-api-static/Llama-2-7b-chat-ms_mix_epoch1.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --server_url http://127.0.0.1:5678'
+import time
+import subprocess
+return_code = -1
+import time
+# 休眠5小时
+time.sleep(2 * 3600)
+print('wake up')
+
+while return_code != 0:
+    cmd = 'python evaluation.py  -api ./generate/mutil-api-dynamic/Llama-2-7b-chat-ms_mix_epoch2_normal_epoch1.json_epoch2.json -out ./eval/v3/mutil-api-dynamic/ --continue'
+    p = subprocess.Popen(cmd, shell=True)
+    return_code = p.wait()
+    time.sleep(10)
+
+# cmd = 'python mutil_api_generation/dynamic_generation_sample.py -inp ./generate/mutil-api-dynamic/Llama-2-7b-chat-ms_mix_sample_epoch1.json -out ./generate --dynamic_type sample -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v3 --real --max_iterations 1 --epoch 2'
 # p = subprocess.Popen(cmd, shell=True)
 # return_code = p.wait()
-#
-# cmd = 'python mutil_api_generation/static_generation.py -api ./generate/mutil-api-static/Llama-2-7b-chat-ms_mix_epoch1_regenerate.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --epoch 2'
-# p = subprocess.Popen(cmd, shell=True)
-# return_code = p.wait()
-
-
-# while return_code != 0:
-#     cmd = 'python mutil_api_generation/generation.py -api ./generate/mutil-api-static/Llama-2-7b-chat-ms_mix_epoch1.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --server_url http://127.0.0.1:5678'
-#     p = subprocess.Popen(cmd, shell=True)
-#     return_code = p.wait()
-#     time.sleep(10)
-
 
 # cmds = [
 # 'python instance_generation/static_generation.py -inp ./generate/single-api-static/v3/Llama-2-7b-chat-ms_real_epoch1.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --epoch 2 --server_url http://127.0.0.1:1234',
@@ -106,34 +101,35 @@ from langchain.chat_models import ChatOpenAI
 #     indent=4,
 #     ensure_ascii=False
 # )
-api_data_path = './generate/mutil-api-static/Llama-2-7b-chat-ms_mix_epoch3_regenerate_fix.json'
-api_data = json.load(open(api_data_path, "r"))
-for api_idx, api in enumerate(api_data):
-    agent = get_agent(
-        llm= ChatOpenAI(temperature=0.0),
-        api_data=api,
-        server_url="http://127.0.0.1:5678",
-        agent_prompt=test_prompt_v1,
-        enable_getDetails=not False,
-        max_iterations=1
-    )
-    api_name = api['Name']
-    instances = api['Instances']
-    for idx, ins in enumerate(instances):
-        if isinstance(ins, dict):
-            if "intermediate_steps" not in ins.keys():
-                continue
-            steps = ins["intermediate_steps"]
-            for step_idx, step in enumerate(steps):
-                if 'Invalid JSON format.' in step[1]:
-                    action = AgentAction(step[0][0], step[0][1],
-                                         f'\nASSISTANT Action: {step[0][0]}\nASSISTANT Action Input: {step[0][1]}')
-                    cur_oberservation = agent.take_action(action)
-                    api_data[api_idx]['Instances'][idx]["intermediate_steps"][step_idx][1] = cur_oberservation
-
-json.dump(
-    api_data,
-    open('./generate/mutil-api-static/Llama-2-7b-chat-ms_mix_epoch3_regenerate_fix_fix.json', "w", encoding="utf-8"),
-    indent=4,
-    ensure_ascii=False
-)
+#
+# api_data_path = './generate/mutil-api-dynamic/Llama-2-7b-chat-ms_mix_epoch2_regenerate_fix.json'
+# api_data = json.load(open(api_data_path, "r"))
+# for api_idx, api in enumerate(api_data):
+#     agent = get_agent(
+#         llm= ChatOpenAI(temperature=0.0),
+#         api_data=api,
+#         server_url="http://127.0.0.1:5678",
+#         agent_prompt=test_prompt_v1,
+#         enable_getDetails=not False,
+#         max_iterations=1
+#     )
+#     api_name = api['Name']
+#     instances = api['Instances']
+#     for idx, ins in enumerate(instances):
+#         if isinstance(ins, dict):
+#             if "intermediate_steps" not in ins.keys():
+#                 continue
+#             steps = ins["intermediate_steps"]
+#             for step_idx, step in enumerate(steps):
+#                 if 'Invalid JSON format.' in step[1]:
+#                     action = AgentAction(step[0][0], step[0][1],
+#                                          f'\nASSISTANT Action: {step[0][0]}\nASSISTANT Action Input: {step[0][1]}')
+#                     cur_oberservation = agent.take_action(action)
+#                     api_data[api_idx]['Instances'][idx]["intermediate_steps"][step_idx][1] = cur_oberservation
+#
+# json.dump(
+#     api_data,
+#     open('./generate/mutil-api-static/Llama-2-7b-chat-ms_mix_epoch3_regenerate_fix_fix.json', "w", encoding="utf-8"),
+#     indent=4,
+#     ensure_ascii=False
+# )

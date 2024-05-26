@@ -97,7 +97,7 @@ else:
 api_data = json.load(open(args.input_data_path, "r"))
 golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct_mix.json'))
 golden_data = json.load(open('/home/huan/projects/ToolAlpaca/golden-eval_mix.json'))
-final_output_path = os.path.join(args.output_dir, f"mutil-api-dynamic/{args.input_data_path.split('/')[-1].replace('.json', args.dynamic_type)}_epoch{args.epoch}.json")
+final_output_path = os.path.join(args.output_dir, f"mutil-api-dynamic/{args.input_data_path.split('/')[-1].replace('regenerate.json', args.dynamic_type)}_epoch{args.epoch}.json")
 print(final_output_path)
 if 'epoch' not in args.input_data_path:
     eval_info = json.load(open(args.input_data_path.replace('/generate/mutil-api/', '/eval/v3/mutil-api/'), 'r'))
@@ -141,7 +141,10 @@ for api_idx, api in tqdm(enumerate(api_data)):
             if (api['Name'], idx) not in incorrect_samples:
                 Answers.append(api['Instances'][idx])
                 continue
-            mutil_dynamic_steps = api['Instances'][idx]['intermediate_steps']
+            if 'intermediate_steps' in api['Instances'][idx].keys():
+                mutil_dynamic_steps = api['Instances'][idx]['intermediate_steps']
+            else:
+                mutil_dynamic_steps = None
             try:
                 generate_count += 1
                 output = agent(
@@ -163,9 +166,10 @@ for api_idx, api in tqdm(enumerate(api_data)):
                 output['dynamic_feedback'] = 1
             else:
                 output['dynamic_feedback'] = api['Instances'][idx]['dynamic_feedback'] + 1
-            output['mutil_dynamic_steps'].extend(output["intermediate_steps"])
-            output["intermediate_steps"] = output['mutil_dynamic_steps']
-            output.pop('mutil_dynamic_steps')
+            if 'mutil_dynamic_steps' in output and output['mutil_dynamic_steps'] is not None:
+                output['mutil_dynamic_steps'].extend(output["intermediate_steps"])
+                output["intermediate_steps"] = output['mutil_dynamic_steps']
+                output.pop('mutil_dynamic_steps')
             Answers.append(output)
         api_data[api_idx]['Instances'] = Answers
         assert len(api_data[api_idx]['Instances']) == len(api_data[api_idx]['Golden_Answers'])
