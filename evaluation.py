@@ -85,8 +85,8 @@ if __name__ == "__main__":
             solution = ""
             sol_id_real = 0
             for sol_id, sol in enumerate(api["Instances"][ques_id]["intermediate_steps"]):
-                # if 'Invalid JSON format.' in sol[1]:
-                #     continue
+                if 'Invalid JSON format.' in sol[1]:
+                    continue
                 solution += f"{sol_id_real + 1}. Function: {sol[0][0]}\nParameters: {sol[0][1]}\nResponses: {sol[1]}\n"
                 sol_id_real += 1
             # solution += f"{sol_id + 2}. Final Response: {api_info['Instances'][ques_id]['output']}"

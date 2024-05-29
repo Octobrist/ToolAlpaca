@@ -111,8 +111,9 @@ class CustomZeroShotAgent2(ZeroShotAgent): # for sample
                 thoughts += f"\n{self.observation_prefix}{step[1]}\n{self.llm_prefix}"
             thoughts += f'USER: I think your actions and action inputs do not meet my expectations.' \
                         f' You should change one of your actions\' input and retry or call another function,' \
-                        f' and regenerate a new action and a new action input right now.\n' \
-                f'ASSISTANT Thought: I will regenerate a new action and a new action input.\n ASSISTANT Action: '
+                        f' and regenerate a new action and a new action input right now.\n'
+
+            # thoughts += f'ASSISTANT Thought: I will regenerate a new action and a new action input.\n ASSISTANT Action: '
         thoughts = thoughts.replace('ASSISTANT Thought:', '').replace('ASSISTANT Observation:', 'USER: The response is')
         new_inputs = {"agent_scratchpad": thoughts, "stop": self._stop}
         full_inputs = {**kwargs, **new_inputs}

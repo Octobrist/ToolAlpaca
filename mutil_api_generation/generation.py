@@ -86,7 +86,7 @@ else:
 api_data = json.load(open(args.api_data_path, "r"))
 golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct_mix.json'))
 
-final_output_path = os.path.join(args.output_dir, f"mutil-api-static/{args.llm.split('/')[-1]}_mix_epoch3_regenerate_fix.json")
+final_output_path = os.path.join(args.output_dir, f"mutil-api-dynamic/{args.llm.split('/')[-1]}_mix_wo_cot.json")
 print(final_output_path)
 if args.use_cache:
     res = requests.get(f"{args.server_url}/__simulator_cache__/open")
@@ -145,7 +145,7 @@ while judge_all_finish(api_data) is False:
                         {
                             'input': inst,
                             'intermediate_steps': pred_steps,
-                            'cur_step': api_data[api_idx]['Instances'][idx]['cur_step'] if 'cur_step' in api_data[api_idx]['Instances'][idx].keys() else None
+                            'cur_step': api_data[api_idx]['Instances'][idx]['cur_step'] if 'Instances' in api_data[api_idx] and 'cur_step' in api_data[api_idx]['Instances'][idx].keys() else None
                         }
                     )
                     json.dumps(output, ensure_ascii=4)
@@ -154,11 +154,6 @@ while judge_all_finish(api_data) is False:
                 except Exception as e:
                     logger.error(e)
                     output = {"error": str(e)}
-                # if 'error' not in output.keys()  and output['output'] == "Agent stopped due to iteration limit or time limit.":
-                #     if 'step_map' not in output.keys():
-                #         output['step_map'] = {}
-                #     output['step_map'][str(last_times)] = len(output['intermediate_steps']) - 1
-                # output = {}
                 output['times'] = last_times
                 output['times'] = output['times'] + 1
                 if args.use_cache:
