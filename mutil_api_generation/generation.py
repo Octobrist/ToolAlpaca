@@ -130,15 +130,15 @@ while judge_all_finish(api_data) is False:
                         pred_steps = api_data[api_idx]['Instances'][idx]['intermediate_steps']
                 else:
                     last_times = 0
-                if first:
-                    copy_pred_step = deepcopy(pred_steps) # for sample
-                    for step_idx, step in enumerate(copy_pred_step):
-                        json_start = min([idx for idx in (step[0][1].find('{'), step[0][1].find('['))
-                                          if idx != -1])
-                        json_end = max([idx for idx in (step[0][1].rfind('}'), step[0][1].rfind(']'))
-                                        if idx != -1]) + 1
-                        valid_json_string = step[0][1][json_start:json_end]
-                        pred_steps[step_idx][0][1] = valid_json_string
+                # if first:
+                #     copy_pred_step = deepcopy(pred_steps) # for sample
+                #     for step_idx, step in enumerate(copy_pred_step):
+                #         json_start = min([idx for idx in (step[0][1].find('{'), step[0][1].find('['))
+                #                           if idx != -1])
+                #         json_end = max([idx for idx in (step[0][1].rfind('}'), step[0][1].rfind(']'))
+                #                         if idx != -1]) + 1
+                #         valid_json_string = step[0][1][json_start:json_end]
+                #         pred_steps[step_idx][0][1] = valid_json_string
                 try:
                     generate_count += 1
                     output = agent(

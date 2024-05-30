@@ -97,7 +97,7 @@ else:
 api_data = json.load(open(args.input_data_path, "r"))
 golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct_mix.json'))
 golden_data = json.load(open('/home/huan/projects/ToolAlpaca/golden-eval_mix.json'))
-final_output_path = os.path.join(args.output_dir, f"mutil-api-dynamic/{args.input_data_path.split('/')[-1].replace('regenerate.json', args.dynamic_type)}_epoch{args.epoch}.json")
+final_output_path = os.path.join(args.output_dir, f"mutil-api-dynamic/{args.input_data_path.split('/')[-1].replace('.json', args.dynamic_type)}_epoch{args.epoch}.json")
 print(final_output_path)
 if 'epoch' not in args.input_data_path and 'cot' not in args.input_data_path:
     eval_info = json.load(open(args.input_data_path.replace('/generate/mutil-api/', '/eval/v3/mutil-api/'), 'r'))

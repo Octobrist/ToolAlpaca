@@ -2,19 +2,29 @@ import time
 import subprocess
 return_code = -1
 import time
-# 休眠5小时
-time.sleep(2 * 3600)
-print('wake up')
 
+# while return_code != 0:
+#     cmd = 'python evaluation.py  -api ./generate/mutil-api-dynamic/Llama-2-7b-chat-ms_mix_wo_cot.json -out ./eval/v3/mutil-api-dynamic/ --continue'
+#     p = subprocess.Popen(cmd, shell=True)
+#     return_code = p.wait()
+#     time.sleep(10)
+
+print('wake up')
+cmd = 'python hello.py -sou ./eval/v3/mutil-api-dynamic/Llama-2-7b-chat-ms_mix_wo_cot_epoch1.json -out ./eval/v3/mutil-api-dynamic/Llama-2-7b-chat-ms_mix_wo_cot_epoch1normal_epoch2.json'
+p = subprocess.Popen(cmd, shell=True)
+return_code = p.wait()
+
+cmd = 'python mutil_api_generation/dynamic_generation.py -inp ./generate/mutil-api-dynamic/Llama-2-7b-chat-ms_mix_wo_cot_epoch1.json -out ./generate --dynamic_type normal -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v3 --real --max_iterations 1 --epoch 2'
+p = subprocess.Popen(cmd, shell=True)
+return_code = p.wait()
+
+return_code = 1
 while return_code != 0:
-    cmd = 'python evaluation.py  -api ./generate/mutil-api-dynamic/Llama-2-7b-chat-ms_mix_epoch2_normal_epoch1.json_epoch2.json -out ./eval/v3/mutil-api-dynamic/ --continue'
+    cmd = 'python evaluation.py  -api ./generate/mutil-api-dynamic/Llama-2-7b-chat-ms_mix_wo_cot_epoch1normal_epoch2.json -out ./eval/v3/mutil-api-dynamic/ --continue'
     p = subprocess.Popen(cmd, shell=True)
     return_code = p.wait()
     time.sleep(10)
 
-# cmd = 'python mutil_api_generation/dynamic_generation_sample.py -inp ./generate/mutil-api-dynamic/Llama-2-7b-chat-ms_mix_sample_epoch1.json -out ./generate --dynamic_type sample -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v3 --real --max_iterations 1 --epoch 2'
-# p = subprocess.Popen(cmd, shell=True)
-# return_code = p.wait()
 
 # cmds = [
 # 'python instance_generation/static_generation.py -inp ./generate/single-api-static/v3/Llama-2-7b-chat-ms_real_epoch1.json -out ./generate -llm /home/huan/projects/llm/Llama-2-7b-chat-ms --agent_prompt test_v1 --real --max_iterations 1 --epoch 2 --server_url http://127.0.0.1:1234',
