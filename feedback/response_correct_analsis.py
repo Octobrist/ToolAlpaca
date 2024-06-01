@@ -60,6 +60,8 @@ if __name__ == "__main__":
             for cur_step in range(len(api['Golden_Answers'][ques_id])):
                 if exist_ids is not None and f'{ques_id}|{cur_step}' in exist_ids.get(api_name, []):
                     continue
+                if api["Instances"][ques_id] == 'This instance is not used.':
+                    continue
                 if 'error' in api["Instances"][ques_id][str(cur_step)].keys() or \
                         "intermediate_steps" not in api["Instances"][ques_id][str(cur_step)] or \
                         len(api["Instances"][ques_id][str(cur_step)]["intermediate_steps"]) <= cur_step or \

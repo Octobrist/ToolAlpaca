@@ -120,15 +120,12 @@ else:
     )
     llm = HuggingFacePipeline(pipeline=generator)
 
-# import pickle
-# with open("./error_samples.pkl", 'rb') as file:
-#     error_samples = pickle.load(file)
 
 api_data = json.load(open(args.input_data_path, "r"))
 golden_data = json.load(open('/home/huan/projects/ToolAlpaca/golden-eval_real.json'))
 golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct.json'))
 
-final_output_path = os.path.join(args.output_dir, f"single-api-dynamic/{args.input_data_path.split('/')[-1].replace('.json', '')}_{args.dynamic_type}_epoch{args.epoch}.json")
+final_output_path = os.path.join(args.output_dir, f"single-api-dynamic/{args.input_data_path.split('/')[-1].replace('.json', '')}_{args.dynamic_type}_epoch{args.epoch}_wo_cot.json")
 
 if args.use_cache:
     res = requests.get(f"{args.server_url}/__simulator_cache__/open")
@@ -171,8 +168,6 @@ for api_idx, api in tqdm(enumerate(api_data)):
             api_docs = get_description(api['Function_Description'])
             outputs = {}
             for cur_step_idx in range(len(api['Golden_Answers'][idx])):
-                # if (api['Name'], f"{idx}|{cur_step_idx}") not in error_samples:
-                #     continue
                 reserve_feedback_idx = 0
                 if (api['Name'], f'{idx}|{cur_step_idx}') not in incorrect_samples:
                     continue
@@ -216,12 +211,13 @@ for api_idx, api in tqdm(enumerate(api_data)):
                 if args.use_cache:
                     res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
                     print(res.text)
-                if len(output['intermediate_steps']) == len(pre_steps) + 1:
-                    print('?')
-                    api_data[api_idx]['Instances'][idx][str(cur_step_idx)] = output
-                elif len(output['intermediate_steps']) == len(pre_steps):
+
+                if 'intermediate_steps' not in output.keys() or len(output['intermediate_steps']) == len(pre_steps):
                     print('???')
                     output['intermediate_steps'].append(output['dynamic_feedbacks'][-1])
+                    api_data[api_idx]['Instances'][idx][str(cur_step_idx)] = output
+                elif len(output['intermediate_steps']) == len(pre_steps) + 1:
+                    print('?')
                     api_data[api_idx]['Instances'][idx][str(cur_step_idx)] = output
                 else:
                     raise KeyError
