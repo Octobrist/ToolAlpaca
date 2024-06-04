@@ -88,8 +88,8 @@ else:
 
 
 api_data = json.load(open(args.input_data_path, "r"))
-golden_data = json.load(open('/home/huan/projects/ToolAlpaca/golden-eval_real.json'))
-golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/golden_correct.json'))
+golden_data = json.load(open('/home/huan/projects/ToolAlpaca/single/golden_eval_real.json'))
+golden_data_info = json.load(open('/home/huan/projects/ToolAlpaca/single/golden_correct.json'))
 
 final_output_path = os.path.join(args.output_dir, f"single-api-static/{args.llm.split('/')[-1]}_real_epoch{args.epoch}.json")
 

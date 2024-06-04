@@ -19,11 +19,11 @@ class CustomZeroShotAgent(ZeroShotAgent):
     ) -> Dict[str, Any]:
         """Create the full inputs for the LLMChain from intermediate steps."""
         thoughts = self._construct_scratchpad(intermediate_steps)
-        # if 'dynamic_feedbacks' in kwargs.keys() and kwargs['dynamic_feedbacks'] is not None :
-        #     for feedback in kwargs['dynamic_feedbacks']:
-        #         thoughts += f'\nASSISTANT Action: {feedback[0][0]}\nASSISTANT Action Input: {feedback[0][1]}\nASSISTANT Observation: {feedback[1]}\n' \
-        #                     f'ASSISTANT Thought: I think I have completed the user\'s question\n' \
-        #                     f'USER: No, I think your actions and action inputs do not meet my expectations. Please regenerate them.'
+        if 'dynamic_feedbacks' in kwargs.keys() and kwargs['dynamic_feedbacks'] is not None :
+            for feedback in kwargs['dynamic_feedbacks']:
+                thoughts += f'\nASSISTANT Action: {feedback[0][0]}\nASSISTANT Action Input: {feedback[0][1]}\nASSISTANT Observation: {feedback[1]}\n' \
+                            f'ASSISTANT Thought: I think I have completed the user\'s question\n' \
+                            f'USER: No, I think your actions and action inputs do not meet my expectations. Please regenerate them.'
 
         if 'cur_step' in kwargs.keys() and kwargs['cur_step'] is not None:
             cur_step = kwargs['cur_step']
@@ -35,16 +35,18 @@ class CustomZeroShotAgent(ZeroShotAgent):
             #                 # f'ASSISTANT Thought: I will regenerate a new action and a new action input.\n ASSISTANT Action: '
             thoughts += f'\nASSISTANT Action: {cur_step[0][0]}\nASSISTANT Action Input: {cur_step[0][1]}\nASSISTANT Observation:{cur_step[1]}\nASSISTANT Thought:' \
 
-        if 'mutil_dynamic_steps' in kwargs.keys() and kwargs['mutil_dynamic_steps'] is not None:
-            for step in kwargs['mutil_dynamic_steps']:
-                thoughts += step[0][2]
-                thoughts += f"\n{self.observation_prefix}{step[1]}\n{self.llm_prefix}\n"
-            thoughts = thoughts[:-1]
-            thoughts += ' I think I have completed the user\'s question.\n'
-            thoughts += f'USER: No, I think your actions and action inputs do not meet my expectations.' \
-                        f' You should change one of your actions\' input and retry or call another function,' \
-                        f' and regenerate a new action and a new action input right now.\n'
-        thoughts += f'{self.llm_prefix} I will regenerate a new action and a new action input.\nASSISTANT Action:'
+
+        # if 'mutil_dynamic_steps' in kwargs.keys() and kwargs['mutil_dynamic_steps'] is not None:
+        #     for step in kwargs['mutil_dynamic_steps']:
+        #         thoughts += step[0][2]
+        #         thoughts += f"\n{self.observation_prefix}{step[1]}\n{self.llm_prefix}\n"
+        #     thoughts = thoughts[:-1]
+        #     thoughts += ' I think I have completed the user\'s question.\n'
+        #     thoughts += f'USER: No, I think your actions and action inputs do not meet my expectations.' \
+        #                 f' You should change one of your actions\' input and retry or call another function,' \
+        #                 f' and regenerate a new action and a new action input right now.\n'
+        # thoughts += f'{self.llm_prefix} I will regenerate a new action and a new action input.\nASSISTANT Action:'
+
         new_inputs = {"agent_scratchpad": thoughts, "stop": self._stop}
         full_inputs = {**kwargs, **new_inputs}
         return full_inputs

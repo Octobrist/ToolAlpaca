@@ -126,10 +126,12 @@ for api_idx, api in tqdm(enumerate(api_data)):
             if len(api.get("Authentication", [])) > 0:
                 inst += "\nAuthentication information: " + \
                       " ".join([f"{k}={v}" for k, v in api["Authentication"].items()])
+
             api_docs = get_description(api['Function_Description'])
             cur_time = 0
             prompt = None
             while prompt is None:
+                count += 1
                 category, error_type, error_detail, cur_action, cur_action_input = mutil_static_feedback(api['Instances'][idx], golden_data[api_idx]['Golden_Answers'][idx][cur_time], cur_time, api_docs)
                 if category is None:
                     cur_time += 1
@@ -150,48 +152,49 @@ for api_idx, api in tqdm(enumerate(api_data)):
                     raise KeyError
                 if 'error' in api['Instances'][idx].keys() or cur_time >= len(api['Instances'][idx]['intermediate_steps']):
                     break
-            if prompt is None: # 无需反馈
-                Answers.append(api['Instances'][idx])
-                continue
-            if 'error' not in api['Instances'][idx].keys():
-                pre_steps = get_instance_intermediate_steps(api['Instances'][idx]['intermediate_steps'], cur_time)
-            else:
-                pre_steps = []
-            cur_step = get_cur_intermediate_steps(cur_action, cur_action_input, prompt)
-            try:
-                generate_count += 1
-                output = agent(
-                    {
-                        'input': inst,
-                        'intermediate_steps': pre_steps,
-                        'cur_step': cur_step,
-                    }
-                )
-                json.dumps(output, ensure_ascii=4)
-            except json.JSONDecodeError:
-                output = {'error': str(output)}
-            except Exception as e:
-                logger.error(e)
-                output = {"error": str(e)}
-            if args.use_cache:
-                res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
-                print(res.text)
-            output['times'] = len(pre_steps) + 1
-            if 'feedback' not in api['Instances'][idx].keys():
-                output['feedback'] = 1
-            else:
-                output['feedback'] = api['Instances'][idx]['feedback'] + 1
-            Answers.append(output)
-        api_data[api_idx]['Instances'] = Answers
-        assert len(api_data[api_idx]['Instances']) == len(api_data[api_idx]['Golden_Answers'])
+        #     if prompt is None: # 无需反馈
+        #         Answers.append(api['Instances'][idx])
+        #         continue
+        #     if 'error' not in api['Instances'][idx].keys():
+        #         pre_steps = get_instance_intermediate_steps(api['Instances'][idx]['intermediate_steps'], cur_time)
+        #     else:
+        #         pre_steps = []
+        #     cur_step = get_cur_intermediate_steps(cur_action, cur_action_input, prompt)
+        #     try:
+        #         generate_count += 1
+        #         output = agent(
+        #             {
+        #                 'input': inst,
+        #                 'intermediate_steps': pre_steps,
+        #                 'cur_step': cur_step,
+        #             }
+        #         )
+        #         json.dumps(output, ensure_ascii=4)
+        #     except json.JSONDecodeError:
+        #         output = {'error': str(output)}
+        #     except Exception as e:
+        #         logger.error(e)
+        #         output = {"error": str(e)}
+        #     if args.use_cache:
+        #         res = requests.get(f"{args.server_url}/__simulator_cache__/clear/{api['Name']}")
+        #         print(res.text)
+        #     output['times'] = len(pre_steps) + 1
+        #     if 'feedback' not in api['Instances'][idx].keys():
+        #         output['feedback'] = 1
+        #     else:
+        #         output['feedback'] = api['Instances'][idx]['feedback'] + 1
+        #     Answers.append(output)
+        # api_data[api_idx]['Instances'] = Answers
+        # assert len(api_data[api_idx]['Instances']) == len(api_data[api_idx]['Golden_Answers'])
 print('genertate_count: ', generate_count)
 ERROR_DETAILS = get_error_details()
 for key, value in ERROR_DETAILS.items():
     print(key, value)
-print(final_output_path)
-json.dump(
-    api_data,
-    open(final_output_path, "w", encoding="utf-8"),
-    indent=4,
-    ensure_ascii=False
-)
+print(count)
+# print(final_output_path)
+# json.dump(
+#     api_data,
+#     open(final_output_path, "w", encoding="utf-8"),
+#     indent=4,
+#     ensure_ascii=False
+# )
